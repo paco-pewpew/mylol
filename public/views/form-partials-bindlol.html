@@ -1,0 +1,40 @@
+<div class="row">
+	<div class="form-group col-xs-7 col-xs-offset-1" ng-class="{'has-error':errorBind}">
+	    <label for="lolacc">LoL account</label>
+	    <input type="text" class="form-control" name="lolacc" ng-model="signupForm.lolacc" ng-minlength="1" required>
+	    <span class="help-block">{{errorBind}}</span>
+	</div>
+
+	<div class="form-group col-xs-3" ng-class="{'has-error':errorBind}">
+	    <label for="region">region</label>
+	    <select class="form-control" name="region" ng-model="signupForm.region">
+	    	<option>euw</option>
+	    	<option>eune</option>
+	    </select>
+	</div>
+</div>
+
+
+<div class="row">
+
+	<div class="col-xs-2 col-xs-offset-5" ng-show="(signupForm.lolacc|uppercase)!=(lolacc.name|uppercase)">
+		<button type="button" class="btn btn-danger" 
+		ng-click="checkBind()">check</button>
+	</div>
+	
+	<div ng-show="lolacc.hasOwnProperty('name')" id="riot-snippet" class="well well-sm col-xs-6 col-xs-offset-3">
+		<img ng-src="http://ddragon.leagueoflegends.com/cdn/4.20.1/img/profileicon/{{lolacc.profileIconId}}.png">
+		name: {{lolacc.name}}
+		level: {{lolacc.summonerLevel}}
+	</div>
+</div>
+
+
+
+<div class="form-group row">
+<div class="col-xs-6 col-xs-offset-3">
+    <a ui-sref="account.form.finish" class="btn btn-block btn-info">
+    Next Section <span class="glyphicon glyphicon-circle-arrow-right"></span>
+    </a>
+</div>
+</div>

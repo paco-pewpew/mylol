@@ -1,0 +1,435 @@
+		
+        html                    { overflow-y:scroll; }
+        body                    { padding-top:5px; }
+        #champ-list              { margin-bottom:30px; }
+        .jumbotron	{margin-bottom: 0px;}
+        h1{background-color:rgba(192,192,192,0.3);border-radius: 10px;}
+/*NAVBAR*/
+.navbar-brand{
+    padding-top: 0px;
+}
+.navbar-brand img{
+    height:100%;
+}
+
+
+/*SIDEBAR*/
+#sidebarHud{
+    height:400px;
+    background: url(../img/psGod/sidebarBG.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    font: 15px arial, sans-serif;
+    color:rgb(62, 253, 255);
+
+
+}
+
+#sidebarHud>h2{
+   
+   /* 
+    height: 10%;
+    width: 70%;*/
+    width: 60%;
+    margin-left: 30px;
+    background-color:rgba(0,10,42,0.8);
+    border:3px groove #717171;
+   
+    border-top-right-radius:50%;
+    border-top-left-radius:20%;
+    border-bottom-right-radius:20%;
+    border-bottom-left-radius:5%;
+}
+#sidebarHud>div:nth-of-type(1){
+    margin-top: 150px;
+    
+    height: 10%;
+    width: 70%;
+    background-color:rgba(0,10,42,0.8);
+    border:3px groove #717171;
+    border-radius: 3px;
+}
+#sidebarHud>div:nth-of-type(2){
+    margin-top: 10px;
+    
+    height: 10%;
+    width: 70%;
+    background-color:rgba(0,10,42,0.8);
+    border:3px ridge #717171;
+    border-radius: 3px;
+    border-bottom-right-radius:50%; 
+}
+#sidebarHud img {
+    height: 100%;
+}
+
+
+
+
+
+
+        /* form styling */
+#form-container                { background:#2f2f2f; margin-bottom:20px;border-radius:5px;color:white; }
+#form-container .page-header   { background:#151515; margin:0; padding:30px; 
+    border-top-left-radius:5px; border-top-right-radius:5px; }
+
+/* numbered buttons */
+#status-buttons                 {  }
+#status-buttons a               { color:#FFF; display:inline-block; font-size:12px; margin-right:10px; text-align:center; text-transform:uppercase; }
+#status-buttons a:hover         { text-decoration:none; }
+
+/* we will style the span as the circled number */
+#status-buttons span            { background:#080808; display:block; height:30px; margin:0 auto 10px; padding-top:5px; width:30px; 
+    border-radius:50%; }
+
+/* active buttons turn light green-blue*/
+#status-buttons a.active span   { background:#00BC8C; }
+
+#status-buttons                 {  }
+#status-buttons a               { color:#FFF; display:inline-block; font-size:12px; margin-right:10px; text-align:center; text-transform:uppercase; }
+#status-buttons a:hover         { text-decoration:none; }
+
+/*SNIPPET FOR RIOT ACC*/
+#riot-snippet{
+    color:black;
+}
+#riot-snippet img{
+    height: 50px;
+    width: 50px;
+}
+
+
+
+/*HOME page*/
+
+#champ-list > awesome-slider {
+    padding: 20px;
+    padding-left: 50px;
+    font: 12px arial, sans-serif;
+}
+
+#champ-list > awesome-slider > i:nth-of-type(1) {
+    position: absolute;
+    top:80px;
+    left: 10px;
+}
+#champ-list > awesome-slider > i:nth-of-type(2) {
+    position: absolute;
+    top:80px;
+    right: 10px;
+}
+
+.awesome-template{
+    width: 100px;
+    display: inline-block;
+    padding: 10px;
+    z-index: -1;
+    background-color:rgba(42,42,42,0.8);
+    border:3px ridge #c3c3c3;
+    border-radius: 3px;
+    transform: perspective(500px) rotateY(50deg) translate(50px,0px);
+    margin-left: -50px;
+}
+
+.templateOnFocus{
+    transform: none;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+.awesome-template>a {
+    font: 15px arial, sans-serif;
+    color:rgb(62, 253, 255);
+}
+.awesome-template>p {
+   background-color:rgba(42,42,42,0.5);
+   border:3px ridge #1c1c1c;
+   border-radius: 3px;
+   margin: 0px;
+   text-align: center;
+    color:rgb(62, 253, 255);
+    width: 80%;
+    margin-left: 10%;
+    font-size: 12px;
+}
+.awesome-template>img{
+    width: 80%;
+    margin-left: 10%;
+
+}
+.awesome-template>i{
+    color:white;
+}
+
+
+/*TEMPLATE page*/
+#viewAwesomeTemplate{
+    display: inline-block;
+    transform: perspective(200px) rotateY(20deg) translate(50px,0px);
+}
+#templateBuild{
+    display: inline-block;
+    margin-left: 50px;
+    height:40px;
+    width: 240px;
+}
+#templateBuild>item-pic{
+    margin: 0px;
+    background-size:contain;
+    background-repeat: no-repeat;
+    float:left;
+    height: 100%;
+    width: 16%;
+
+}
+#editTemplate{
+    background-color:rgba(42,42,42,0.5);
+}
+#watchedPro{
+    display: inline-block;
+}
+#watchedPro > input{
+    float:left;
+    width: 40%;
+}
+#watchedPro > select{
+    float: left;
+    width: 20%;
+}
+#watchedPro > button{
+    border:3px ridge #3c3c3c;
+   border-radius: 3px;
+}
+
+
+#watchedBuildsWrapper{
+    height: 200px;
+    overflow: auto;
+}
+.itemBuild{
+    height:50px;
+    width: 400px;
+}
+.itemBuild>item-pic{
+    margin: 0px;
+    background-size:contain;
+    background-repeat: no-repeat;
+    float:left;
+    height: 100%;
+    width: 12.5%;
+
+}
+#itemsPool{
+    background: orange;
+    overflow: auto;
+    width: 600px;
+    height: 100px;
+}
+#itemsPool>item-pic{
+    margin: 0px;
+    background-size:contain;
+    background-repeat: no-repeat;
+    float:left;
+    height: 70%;
+    width: 12.5%;
+
+}
+
+
+#myItemBuild{
+    background: white;
+    height: 50px;
+    width: 300px;
+    overflow: auto;
+}
+#myItemBuild>item-pic{
+    margin: 0px;
+    background-size:contain;
+    background-repeat: no-repeat;
+    float:left;
+    height: 100%;
+    width: 16.6%;
+
+}
+
+item-pic{
+     border:3px ridge #717171;
+    border-radius: 3px;
+}
+
+
+/*GAMER page*/
+div[back-img]{
+    width: 700px;
+   /* height: 1400px;*/
+    color: #fff;
+    background-size:contain;
+    background-repeat:no-repeat;
+    background-color: black;
+    padding-top:0px;
+}
+.username{
+    background:rgba(0,0,0,0.7);
+    width: 120%;
+    height: 50px;
+    margin-left: -10%;
+    border-radius: 10px;
+}
+/*RECENT GAMES*/
+.has-win{
+    background: green;
+}
+.has-loss{
+    background: red;
+}
+#recent-games{
+    padding: 0px;
+    background-color:rgba(0,123,123,0.3);
+    border-radius:10px;
+    margin-top: 100px;     
+}
+#recent-games>div{
+    float:left;
+    width:10%;
+    border:3px ridge #212121;
+}
+#recent-games img{
+    width: 90%;
+}
+/*MOST PLAYED*/
+#mostPlayedChampions{
+    background-color:rgba(192,192,192,0.3);
+    border-radius:10px;
+}
+#mostPlayedChampions>h2,#recent-games>h2{
+    margin:0px;
+    background-color:rgba(42,42,42,0.5);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+.most-champion-bar{
+    padding:0px;
+}
+.most-champion-picture{
+    padding:0px;
+    margin: 0px;
+    background: black;
+}
+#mostPlayedChampions>div{
+    margin: 0 auto;
+}
+#mostPlayedChampions>div>div>div>p:nth-of-type(1){
+    font: 13px Helvetica, Arial;
+    text-align: center;
+}
+#mostPlayedChampions>div>div>div>p:nth-of-type(2){
+    font: 13px Helvetica, Arial;
+    padding: 0px;
+    margin:0px;
+    margin-left: 25%;
+    position: absolute;
+    bottom: 0;  
+}
+#mostPlayedChampions img{
+    height:100px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#awesomeFunctionality img{
+    height: 100px;
+}
+#awesomeFunctionality>button{
+    background: #222222;
+    border:3px ridge #c3c3c3;
+    border-radius: 20%;
+    height: 50px;
+    width:120px;
+  
+}
+
+#yoloMine{
+    margin: 0px;
+    padding: 0px;
+    padding-top: 40px;
+    height: 200px;
+    width: 200px;
+    margin-left: 33%;
+    position: relative;
+    overflow: hidden;
+    background: url(../img/psGod/INNER.png),url(../img/psGod/OUTER.png);
+    background-size: contain;
+}
+/*#yoloMine:before
+{
+    content: "";
+    position: absolute;
+    z-index: -1;
+    margin: 0px;
+    padding: 0px;
+    height: 200px;
+    width: 200px;
+    background: url(../img/psGod/INNER.png),url(../img/psGod/OUTER.png);
+    background-size: contain;
+    -webkit-animation:load 1.7s infinite ease;
+}
+
+@-webkit-keyframes load {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}*/
+
+
+#yoloMine>button{
+    background: #222222;
+    border:3px ridge #c3c3c3;
+    border-radius: 50%;
+    height: 120px;
+    width:120px;
+  
+}
+#yoloMine>p{
+
+    background: #222222;
+    border:3px ridge #c3c3c3;
+    border-radius: 50%;
+    height: 120px;
+    width:120px;
+    padding-top: 20px;
+    margin-left: 40px;
+}
+
+
+/* ANIMATIONS
+============================================================================= */
+/* slide out to the left */
+@keyframes slideOutLeft {
+    to      { transform: translateX(-200%); }
+}
+@-moz-keyframes slideOutLeft {  
+    to      { -moz-transform: translateX(-200%); }
+}
+@-webkit-keyframes slideOutLeft {
+    to      { -webkit-transform: translateX(-200%); }
+}
+
+/* slide in from the right */
+@keyframes slideInRight {
+    from    { transform:translateX(200%); }
+    to      { transform: translateX(0); }
+}
+@-moz-keyframes slideInRight {
+    from    { -moz-transform:translateX(200%); }
+    to      { -moz-transform: translateX(0); }
+}
+@-webkit-keyframes slideInRight {
+    from    { -webkit-transform:translateX(200%); }
+    to      { -webkit-transform: translateX(0); }
+}
+ 
