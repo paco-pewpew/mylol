@@ -1,0 +1,103 @@
+<div class="jumbotron text-center" back-img="{{champ.champion}}">
+    <div class="username">Template: {{champ.name}}
+        <br>
+        Champion: {{champ.champion}}
+    </div>
+
+    <div id="viewAwesomeTemplate" class="awesome-template">
+        <a>{{champ.name|limitFont:6}}</a>
+        <p>{{champ.champion}}</p>
+        <img ng-src="http://ddragon.leagueoflegends.com/cdn/img/champion/loading/{{champ.champion}}_0.jpg">
+        <i class="fa fa-times" ng-click="deleteChamp(champ._id)">delete</i>
+    </div>
+
+    <div id="templateBuild">
+        <item-pic id="{{item}}" ng-repeat="item in champ.itemBuild track by $index"></item-pic>
+    </div>
+
+
+    <div id="editTemplate">
+    	<h2>Edit template</h2>
+    	<form id="championTemplate-edit-form" ng-submit="processChampionTemplate()">
+            <div class="row">
+                <div class="form-group col-lg-6">
+                    <label for="templateName">Template Name</label>
+                    <input type="text" class="form-control" placeholder="template name" ng-model="championTemplate.name">
+                </div>
+
+                <div class="form-group col-lg-6">
+                    <label for="championName">Champion Name</label>
+                    <input type="text" class="form-control" placeholder="champion for template" ng-model="championTemplate.champion">
+                </div>
+            </div>
+			
+
+	    	<button type="submit" class="btn btn-success">Edit template</button>
+
+    	</form>
+    	
+    	
+
+    </div>
+
+     <accordion close-others="'false'">
+
+        <accordion-group heading="Template caption">
+          <div class="form-group col-lg-6">
+            <label for="templateName">Template Name</label>
+            <input type="text" class="form-control" placeholder="name of template" name="templateName" ng-model="championTemplate.name">
+          </div>
+
+          <div class="form-group col-lg-6">
+            <label for="championName">Champion Name</label>
+            <input type="text" class="form-control" placeholder="champion template" name="championName" ng-model="championTemplate.champion">
+          </div>
+        </accordion-group>
+
+        <accordion-group heading="watched players">
+            <!--Shows the watched-->
+            <riot-derp summoner="{{summoner}}" ng-repeat="summoner in championTemplate.watchedPros"
+                    accept="wtf(result)" remove="omg($index)">
+            </riot-derp>
+            <!--One free to add more(if there are less than 3 watched)-->
+            <riot-derp ng-show="championTemplate.watchedPros.length<3" accept="wtf(result)" remove="omg($index)"></riot-derp>
+        </accordion-group>
+
+    </accordion>
+
+
+
+    <div>
+       
+        <div id="watchedBuildsWrapper">
+            <div class="itemBuild" ng-repeat="build in watchedBuilds" 
+            ng-class="{'build-won':build.winner,'build-lost':!build.winner}">
+                <item-pic ng-repeat="slot in [0,1,2,3,4,5]" id="{{build['item'+slot]}}">
+                    {{build['item'+slot]}}
+                </item-pic>
+                <profile-pic id="{{build.player.profileIcon}}"></profile-pic>
+                {{build.player.summonerName}}
+                <br>
+                {{build.kills}}-{{build.deaths}}-{{build.assists}}
+                {{build.win}}
+            </div>
+        </div>
+
+        <p>Items pool</p>
+        <div id="itemsPool">
+            <item-pic id="{{item}}" ng-repeat="item in itemsWatchedBuilds" ng-click="addToBuild(item,$index)">
+                {{item}}
+            </item-pic>
+        </div>
+
+        <p>Make your build</p>
+        <div id="myItemBuild">
+            <item-pic id="{{item}}" ng-repeat="item in myBuild track by $index" ng-click="removeFromBuild(item,$index)">
+                {{item}}
+            </item-pic>
+        </div>
+
+    </div>
+
+     championTemplate: {{championTemplate}}
+</div>

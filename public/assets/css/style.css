@@ -1,0 +1,567 @@
+		
+        html                    { overflow-y:scroll; }
+        body                    { padding-top:5px; }
+        #champ-list              { margin-bottom:30px; }
+        .jumbotron	{margin-bottom: 0px;}
+        h1{background-color:rgba(192,192,192,0.3);border-radius: 10px;}
+        .nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+        
+/*NAVBAR*/
+.navbar-brand{
+    padding-top: 0px;
+}
+.navbar-brand img{
+    height:100%;
+}
+
+
+/*SIDEBAR*/
+#sidebarHud{
+    background:#151515;
+    font: 15px arial, sans-serif;
+    color:rgb(62, 253, 255);
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 100px;
+    box-shadow: rgb(123, 242, 248) 0px 0px 6px 0px inset;
+    text-align: right;
+}
+#sidebarHud h2{
+    border-bottom: 2px groove #00EFFF;
+    border-bottom-right-radius: 2px;
+    border-bottom-left-radius:2px;
+}
+#sidebarHud riot-derp{
+    width: 100%;
+    font-size: 10px;
+}
+
+#sidebarHud div[gradientbar]{
+    height: 2em;
+   /* border-radius: 20px;*/
+}
+#sidebarHud div[gradientbar] span:nth-of-type(1){
+    float:left;
+    margin-left: 5px;
+}
+#sidebarHud div[gradientbar] span:nth-of-type(2){
+    float:right;
+    margin-right: 5px;
+}
+#sidebarHud div.league-info{
+    border-top: 2px groove #00EFFF;
+    border-top-right-radius: 2px;
+    border-top-left-radius:2px;
+}
+#sidebarHud div.league-info p{
+    display: inline-block;
+}
+#sidebarHud div.league-info img{
+    width:3em;
+}
+
+
+
+
+
+
+
+
+
+        /* form styling */
+#form-container                { background:#2f2f2f; margin-bottom:20px;border-radius:5px;color:white; }
+#form-container .page-header   { background:#151515; margin:0; padding:30px; 
+    border-top-left-radius:5px; border-top-right-radius:5px; }
+
+/* numbered buttons */
+#status-buttons                 {  }
+#status-buttons a               { color:#FFF; display:inline-block; font-size:12px; margin-right:10px; text-align:center; text-transform:uppercase; }
+#status-buttons a:hover         { text-decoration:none; }
+
+/* we will style the span as the circled number */
+#status-buttons span            { background:#080808; display:block; height:30px; margin:0 auto 10px; padding-top:5px; width:30px; 
+    border-radius:50%; }
+
+/* active buttons turn light green-blue*/
+#status-buttons a.active span   { background:#00BC8C; }
+
+#status-buttons                 {  }
+#status-buttons a               { color:#FFF; display:inline-block; font-size:12px; margin-right:10px; text-align:center; text-transform:uppercase; }
+#status-buttons a:hover         { text-decoration:none; }
+
+/*SNIPPET FOR RIOT ACC*/
+#riot-snippet{
+    color:black;
+}
+#riot-snippet img{
+    height: 50px;
+    width: 50px;
+}
+
+
+
+/*HOME page*/
+
+#champ-list > awesome-slider {
+    padding: 20px;
+    padding-left: 50px;
+    font: 12px arial, sans-serif;
+}
+
+#champ-list > awesome-slider > i:nth-of-type(1) {
+    position: absolute;
+    top:80px;
+    left: 10px;
+}
+#champ-list > awesome-slider > i:nth-of-type(2) {
+    position: absolute;
+    top:80px;
+    right: 10px;
+}
+
+.awesome-template{
+    width: 100px;
+    display: inline-block;
+    padding: 10px;
+    z-index: -1;
+    background-color:rgba(42,42,42,0.8);
+    border:3px ridge #c3c3c3;
+    border-radius: 3px;
+    transform: perspective(500px) rotateY(50deg) translate(50px,0px);
+    margin-left: -50px;
+}
+
+.templateOnFocus{
+    transform: none;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+.awesome-template>a {
+    font: 15px arial, sans-serif;
+    color:rgb(62, 253, 255);
+    overflow: hidden;
+    text-overflow:ellipsis;
+}
+.awesome-template>p {
+   background-color:rgba(42,42,42,0.5);
+   border:3px ridge #1c1c1c;
+   border-radius: 3px;
+   margin: 0px;
+   text-align: center;
+    color:rgb(62, 253, 255);
+    width: 80%;
+    margin-left: 10%;
+    font-size: 12px;
+}
+.awesome-template>img{
+    width: 80%;
+    margin-left: 10%;
+
+}
+.awesome-template>champion-loading-pic{
+    width: 80%;
+    margin-left: 10%;
+    height: 0px;
+    padding-bottom: 150%;
+}
+.awesome-template>i{
+    color:white;
+}
+
+
+/*TEMPLATE page*/
+#viewAwesomeTemplate{
+    display: inline-block;
+    transform: perspective(200px) rotateY(20deg) translate(50px,0px);
+}
+
+.panel-default>.panel-heading{
+    background-color: #343434;
+    color:white;
+}
+.panel-default>.panel-heading+.panel-collapse>.panel-body{
+    border-top-color: #00EFFF;
+    background-color: #1c1c1c;
+}
+
+#templateWatchedPro{
+    display: inline-block;
+    margin-left: 50px;
+}
+#templateBuild{
+    display: inline-block;
+    margin-left: 50px;
+    height:40px;
+    width: 240px;
+}
+#templateBuild>item-pic{
+    margin: 0px;
+    background-size:contain;
+    background-repeat: no-repeat;
+    float:left;
+    height: 100%;
+    width: 16%;
+
+}
+#editTemplate{
+    background-color:rgba(42,42,42,0.5);
+}
+#watchedPro{
+    display: inline-block;
+}
+#watchedPro > input{
+    float:left;
+    width: 40%;
+}
+#watchedPro > select{
+    float: left;
+    width: 20%;
+}
+#watchedPro > button{
+    border:3px ridge #3c3c3c;
+   border-radius: 3px;
+}
+
+
+#watchedBuildsWrapper{
+    height: 200px;
+    overflow: auto;
+}
+.itemBuild{
+    height:50px;
+    width: 400px;
+    display: inline-block;
+}
+.itemBuild>item-pic{
+    margin: 0px;
+    background-size:contain;
+    background-repeat: no-repeat;
+    float:left;
+    height: 100%;
+    width: 12.5%;
+
+}
+
+.itemBuild>item-pic.carbon-texture{
+    background-size: 16px 16px;
+    background-repeat: repeat;
+
+}
+
+.itemBuild>profile-pic{
+    margin: 0px;
+    background-size:contain;
+    background-repeat: no-repeat;
+    float:left;
+    height: 1em;
+    width: 1em;
+
+}
+
+.build-won{
+    border:2px groove rgb(0,79,0);
+}
+.build-lost{
+    border:2px groove rgb(79,0,0);
+}
+
+#itemsPool{
+    background: orange;
+    overflow: auto;
+    width: 600px;
+    height: 100px;
+}
+#itemsPool>item-pic{
+    margin: 0px;
+    background-size:contain;
+    background-repeat: no-repeat;
+    float:left;
+    height: 70%;
+    width: 12.5%;
+
+}
+
+
+
+#myItemBuild{
+    background: white;
+    height: 50px;
+    width: 300px;
+    overflow: auto;
+}
+#myItemBuild>item-pic{
+    margin: 0px;
+    background-size:contain;
+    background-repeat: no-repeat;
+    float:left;
+    height: 100%;
+    width: 16.6%;
+
+}
+
+
+item-pic{
+     border:3px ridge #717171;
+    border-radius: 3px;
+}
+
+.carbon-texture{
+    background:
+    radial-gradient(black 15%, transparent 16%) 0 0,
+    radial-gradient(black 15%, transparent 16%) 8px 8px,
+    radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 0 1px,
+    radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 8px 9px;
+    background-color:#282828;
+    background-size:16px 16px;
+}
+
+/*GAMER page*/
+div[back-img]{
+    width: 700px;
+   /* height: 1400px;*/
+    color: #fff;
+    background-size:contain;
+    background-repeat:no-repeat;
+    background-color: black;
+    padding-top:0px;
+}
+.username{
+    background:rgba(0,0,0,0.7);
+    width: 120%;
+    height: 50px;
+    margin-left: -10%;
+    border-radius: 10px;
+}
+/*RECENT GAMES*/
+.has-win{
+    background: rgb(0,32,0);
+}
+.has-loss{
+    background: rgb(32,0,0);
+}
+#recent-games{
+    padding: 0px;
+    background-color:rgba(0,123,123,0.3);
+    border-radius:10px;
+    margin-top: 100px;     
+}
+#recent-games>div{
+    float:left;
+    width:10%;
+    /*border:3px ridge #212121;*/
+}
+#recent-games img{
+    width: 90%;
+}
+#recent-games champion-icon-pic{
+    width: 90%;
+    height: 0px;
+    padding-bottom: 90%;
+    margin-left: 5%;
+    margin-top: 5%;
+}
+/*MOST PLAYED*/
+#mostPlayedChampions{
+    background-color:rgba(192,192,192,0.3);
+    border-radius:10px;
+}
+#mostPlayedChampions>h2,#recent-games>h2{
+    margin:0px;
+    background-color:rgba(42,42,42,0.5);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+.most-champion-bar{
+    padding:0px;
+    height: 100px;
+}
+.most-champion-picture{
+    padding:0px;
+    margin: 0px;
+    height: 100px;
+    background: black;
+}
+champion-loading-pic,champion-icon-pic{
+    display: block;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.most-champion-picture champion-loading-pic{
+    height: 100%;
+    width: 100%;
+}
+#mostPlayedChampions>div{
+    margin: 0 auto;
+}
+#mostPlayedChampions>div>div>div>p:nth-of-type(1){
+    font: 13px Helvetica, Arial;
+    text-align: center;
+}
+#mostPlayedChampions>div>div>div>p:nth-of-type(2){
+    font: 13px Helvetica, Arial;
+    padding: 0px;
+    margin:0px;
+    margin-left: 25%;
+    position: absolute;
+    bottom: 0;  
+}
+#mostPlayedChampions img{
+    height:100px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#awesomeFunctionality img{
+    height: 100px;
+}
+#awesomeFunctionality>button{
+    background: #222222;
+    border:3px ridge #c3c3c3;
+    border-radius: 20%;
+    height: 50px;
+    width:120px;
+  
+}
+
+#yoloMine{
+    margin: 0px;
+    padding: 0px;
+    padding-top: 40px;
+    height: 200px;
+    width: 200px;
+    margin-left: 33%;
+    position: relative;
+    overflow: hidden;
+    background: url(../img/psGod/INNER.png),url(../img/psGod/OUTER.png);
+    background-size: contain;
+}
+/*#yoloMine:before
+{
+    content: "";
+    position: absolute;
+    z-index: -1;
+    margin: 0px;
+    padding: 0px;
+    height: 200px;
+    width: 200px;
+    background: url(../img/psGod/INNER.png),url(../img/psGod/OUTER.png);
+    background-size: contain;
+    -webkit-animation:load 1.7s infinite ease;
+}
+
+@-webkit-keyframes load {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}*/
+
+
+#yoloMine>button{
+    background: #222222;
+    border:3px ridge #c3c3c3;
+    border-radius: 50%;
+    height: 120px;
+    width:120px;
+  
+}
+#yoloMine>p{
+
+    background: #222222;
+    border:3px ridge #c3c3c3;
+    border-radius: 50%;
+    height: 120px;
+    width:120px;
+    padding-top: 20px;
+    margin-left: 40px;
+}
+
+
+/* ANIMATIONS
+============================================================================= */
+/* slide out to the left */
+@keyframes slideOutLeft {
+    to      { transform: translateX(-200%); }
+}
+@-moz-keyframes slideOutLeft {  
+    to      { -moz-transform: translateX(-200%); }
+}
+@-webkit-keyframes slideOutLeft {
+    to      { -webkit-transform: translateX(-200%); }
+}
+
+/* slide in from the right */
+@keyframes slideInRight {
+    from    { transform:translateX(200%); }
+    to      { transform: translateX(0); }
+}
+@-moz-keyframes slideInRight {
+    from    { -moz-transform:translateX(200%); }
+    to      { -moz-transform: translateX(0); }
+}
+@-webkit-keyframes slideInRight {
+    from    { -webkit-transform:translateX(200%); }
+    to      { -webkit-transform: translateX(0); }
+}
+/*LEAVE*/
+/* slide in from the bottom */ 
+@keyframes slideOutLeft {
+    to      { transform: translateX(-100%); }
+}
+/*ENTER*/
+/*SCALE UP*/
+@keyframes scaleUp {
+    from    { opacity: 0.3; -webkit-transform: scale(0.8); }
+}
+
+.ui-view-container {
+  position: relative;
+  /*height: 65px;*/
+}
+
+[ui-view].ng-enter, [ui-view].ng-leave {
+  position:absolute;
+  left: 0;
+  right: 0;
+  -webkit-transition:all 0.5s ease-in-out;
+    -moz-transition:all 0.5s ease-in-out;
+    -o-transition:all 0.5s ease-in-out;
+    transition:all 0.5s ease-in-out;
+}
+
+[ui-view].ng-enter {
+  opacity: 0;
+  /*-webkit-transform:scale3d(0.8, 0.8, 0.8);
+  -moz-transform:scale3d(0.8, 0.8, 0.8);
+  transform:scale3d(0.8, 0.8, 0.8);*/
+}
+
+[ui-view].ng-enter-active {
+  opacity: 1;
+ /* -webkit-transform:scale3d(1, 1, 1);
+  -moz-transform:scale3d(1, 1, 1);
+  transform:scale3d(1, 1, 1);*/
+}
+
+[ui-view].ng-leave {
+  opacity: 1;
+  /*padding-left: 0px;*/  
+  /*-webkit-transform:translate3d(0, 0, 0);
+  -moz-transform:translate3d(0, 0, 0);
+  transform:translate3d(0, 0, 0);*/
+}
+
+[ui-view].ng-leave-active {
+  opacity: 0;
+  /*padding-left: 100px;*/
+ /* -webkit-transform:translate3d(100px, 0, 0);
+  -moz-transform:translate3d(100px, 0, 0);
+  transform:translate3d(100px, 0, 0);*/
+}

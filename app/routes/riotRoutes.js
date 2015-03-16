@@ -7,18 +7,40 @@ var async=require('async');
 
 var LRU=require('lru-cache'),options={max:50,maxAge:1000*60*2},cache=LRU(options);
 
+var rateBrocker={
+	limit:10*1000,
+	open:true,
+	timeLocked:0,
+	reset:function(){
+		this.open=true;
+		this.timeLocked=0;
+	},
+	timeTillOpen:function(){
+		return this.limit-(Date.now()-this.timeLocked);
+	}
+};
 
 function getResource(url,callback){
+
 	function fromSource(){
 		request(url,function(err,response,body){
-			if(response.statusCode===404){
+			if(err || response.statusCode===404){
 				callback('error');
 			}else if(response.statusCode===429){
-				console.log('rate exceeded; delaying and trying again');
+
+				if(rateBrocker.open){
+					rateBrocker.open=false;
+					rateBrocker.timeLocked=Date.now();
+				}
+				console.log('Should timeout with'+rateBrocker.timeTillOpen());
+
 				setTimeout(function(){
 					fromSource();
-				},1000);
+				},rateBrocker.timeTillOpen());
 			}else{
+				console.log('success');
+				rateBrocker.reset();
+
 				var info=JSON.parse(body);
 				cache.set(url,info);
 				callback(info);
@@ -60,35 +82,85 @@ function addChamp(array,info){
 module.exports=function(router){
 	router.route('/riot')
 		.get(function(req,res){
-			var url='https://euw.api.pvp.net/api/lol/euw/v2.2/matchhistory/58560700?championIds=7&api_key=7947d3bb-10c2-4fc3-b2b3-0805a2aa805f';
-			getResource(url,function(data){
-				var itemsMatches=data.matches.map(function(el){
-					return {
-						winner:el.participants[0].stats.winner,
-						kills:el.participants[0].stats.kills,
-						deaths:el.participants[0].stats.deaths,
-						assists:el.participants[0].stats.assists,
-						item0:el.participants[0].stats.item0,
-						item1:el.participants[0].stats.item1,
-						item2:el.participants[0].stats.item2,
-						item3:el.participants[0].stats.item3,
-						item4:el.participants[0].stats.item4,
-						item5:el.participants[0].stats.item5,
-						item6:el.participants[0].stats.item6
+			//OPTIONAL params... region,lolids,champion
+			//returns item data from matches for certain champion played by given summoners
+			console.log(req.query);
+			//gets the first 3 queries
+			var configMaxQueries=3;
+			var lolids=req.query.lolid.split(',').splice(0,configMaxQueries);
+			var regions=req.query.region.split(',').splice(0,configMaxQueries);
+
+			var itemData=[];
+
+			async.each(lolids,function(lolid,cbDerp){
+				var region=regions[lolids.indexOf(lolid)];
+				var url='https://'+region+'.api.pvp.net/api/lol/'+region+'/v2.2/matchhistory/'+lolid+'?championIds='+req.query.champion+'&api_key=7947d3bb-10c2-4fc3-b2b3-0805a2aa805f';				
+				getResource(url,function(data){
+					if(data==='error')
+						cbDerp('error fetching data for '+lolid);
+					if(!data.matches){
+						console.log(lolid,' has no matches data for ',req.query.champion);
+						cbDerp();
+					}else{
+						var itemsMatches=data.matches.map(function(el){
+							return {
+								player:el.participantIdentities[0].player,
+								winner:el.participants[0].stats.winner,
+								kills:el.participants[0].stats.kills,
+								deaths:el.participants[0].stats.deaths,
+								assists:el.participants[0].stats.assists,
+								item0:el.participants[0].stats.item0,
+								item1:el.participants[0].stats.item1,
+								item2:el.participants[0].stats.item2,
+								item3:el.participants[0].stats.item3,
+								item4:el.participants[0].stats.item4,
+								item5:el.participants[0].stats.item5,
+								item6:el.participants[0].stats.item6
+							};
+						});
+						itemData=itemData.concat(itemsMatches);
+						cbDerp();
+
 					};
-					
+
 				});
-				res.status(200).send(itemsMatches);
+			},function(err){
+				if(err)
+					res.status(404).send(err);
+				//console.log(itemData);
+				res.status(200).send(itemData);
+
 			});
+			//end of async call
+
 		});
+
 
 //get self info with token data
 	router.route('/riot/self')
 		.get(function(req,res){
 			var url=RiotUrl.getSummonerByName(req.user.riot.region,req.user.riot.lolacc);
-			var u=req.user.riot.lolacc.toLowerCase().replace(/ /g,'');
-			getResource(url,function(selfInfo){
-				console.log(selfInfo);
+			//var u=req.user.riot.lolacc.toLowerCase().replace(/ /g,'');
+			getResource(url,function(summonerInfo){
+				var accInfo=summonerInfo[Object.keys(summonerInfo)[0]];
+				console.log(summonerInfo);
+				
+
+				accInfo.local=req.user.local.name;
+				accInfo.region=req.user.riot.region;
+				var url=RiotUrl.getLeagueStatsEntry(req.user.riot.region,req.user.riot.lolid);
+				getResource(url,function(leagueInfo){
+					console.log(leagueInfo);
+					if(leagueInfo==='error'){
+						res.status(200).send(accInfo);
+					}else{
+						accInfo.leagueInfo=leagueInfo[req.user.riot.lolid][0];
+						res.status(200).send(accInfo);
+					}
+				});
+
+
+				/*console.log(selfInfo);
 				selfInfo[u].local=req.user.local.name;
 				console.log(selfInfo[u].id);
 				var url=RiotUrl.getLeagueStatsEntry(req.user.riot.region,req.user.riot.lolid);
@@ -100,7 +172,7 @@ module.exports=function(router){
 						selfInfo[u].leagueInfo=leagueInfo[req.user.riot.lolid][0];
 						res.status(200).send(selfInfo[u]);
 					}
-				});
+				});*/
 			});
 		});
 

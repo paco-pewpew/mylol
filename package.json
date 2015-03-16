@@ -23,5 +23,14 @@
     "request": "~2.51.0",
     "serve-favicon": "~2.2.0",
     "bower":"~1.3.12"
+  },
+  "devDependencies": {
+    "grunt": "latest",
+    "grunt-contrib-uglify": "latest",
+    "grunt-contrib-less": "latest",
+    "grunt-contrib-cssmin": "latest",
+    "grunt-contrib-watch": "latest",
+    "grunt-nodemon": "latest",
+    "grunt-concurrent": "latest"
   }
 }

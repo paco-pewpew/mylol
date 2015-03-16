@@ -47,10 +47,14 @@ module.exports=function(router){
 		})
 		.put(function(req,res){
 			console.log(req.body.itemBuild);
+			console.log(req.body);
 			Champion.findByIdAndUpdate(req.params.champ_id,{
 				name:req.body.name,
 				champion:req.body.champion,
-				itemBuild:req.body.itemBuild
+				itemBuild:req.body.itemBuild,
+				'watchedPro.lolid':req.body.watchedPro.lolid,
+				'watchedPro.region':req.body.watchedPro.region,
+				watchedPros:req.body.watchedPros
 			},function(err,result){
 				if(err)
 					res.send(err);

@@ -1,0 +1,108 @@
+/* src/css/pretty.less */
+riot-derp {
+  width: 400px;
+  /*5% of the width*/
+  /*6% of the width*/
+  text-align: center;
+  display: inline-block;
+  font-size: 20px;
+  line-height: 1.2em;
+  /*font-size: 12px;
+	line-height: 15px;*/
+  font-family: "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
+  color: white;
+}
+.lol-search,
+.result-snippet {
+  overflow: hidden;
+  background: rgba(63, 63, 63, 0.6);
+  border: 3px ridge #344060;
+  border-radius: 20%;
+  height: 0px;
+  padding-bottom: 25%;
+}
+.lol-search {
+  border-color: #605C34;
+}
+riot-derp:not([summoner]) .result-snippet {
+  border-color: #346035;
+}
+.lol-search > input {
+  background-color: rgba(0, 10, 42, 0.8);
+  border: 0.2em groove #393f88;
+  color: #3efdff;
+  display: block;
+  width: 80%;
+  margin-left: 10%;
+  margin-top: 1%;
+  height: 0px;
+  padding: 0px;
+  padding-top: 3%;
+  padding-bottom: 3%;
+  font: inherit;
+}
+.lol-search > button {
+  display: block;
+  width: 80%;
+  margin-left: 10%;
+  background-color: #1f1f1f;
+  background-image: linear-gradient(to bottom, #2a2a2a, #1f1f1f 50%, #1a1a1a);
+  box-shadow: inset 1px 1px 1px 0 #424242, inset -1px -1px 1px 0 rgba(0, 0, 0, 0.54), 1px 1px 3px 0 rgba(0, 0, 0, 0.3);
+  border-bottom-right-radius: 50%;
+  border-bottom-left-radius: 50%;
+}
+.imba-btn-region {
+  display: inline-block;
+  padding: 0px 12px;
+}
+.result-snippet > p {
+  background-color: rgba(0, 10, 42, 0.8);
+  border: 0.2em groove #393f88;
+  color: #3efdff;
+  overflow: hidden;
+  float: left;
+  width: 60%;
+  margin: 3% 0px 0px 0px;
+  height: 0px;
+  padding: 0px;
+  padding-bottom: 5%;
+  font: inherit;
+}
+/*.result-snippet>img{
+	float:left;
+	width: 25%;
+}*/
+.result-snippet > profile-pic {
+  float: left;
+  width: 25%;
+  height: 0px;
+  padding-bottom: 25%;
+  background-size: contain;
+}
+.result-snippet > i {
+  background-color: rgba(0, 10, 42, 0.8);
+  border: 2px ridge #393f88;
+  width: 15%;
+  height: 0px;
+  padding-bottom: 9%;
+  margin-top: 2%;
+}
+.result-snippet > i:nth-of-type(1) {
+  color: green;
+  border-top-right-radius: 50%;
+}
+.result-snippet > i:nth-of-type(2) {
+  color: red;
+  border-bottom-right-radius: 50%;
+}
+.result-snippet > i:nth-of-type(3) {
+  color: grey;
+  /*height: (@snippetWidth/100*21);
+	padding-top: 0.5em;*/
+  height: 0px;
+  padding-top: 5%;
+  padding-bottom: 15%;
+  font-size: 2em;
+  border-bottom-right-radius: 40%;
+  border-top-right-radius: 40%;
+}
