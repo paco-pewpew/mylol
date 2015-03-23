@@ -10,6 +10,26 @@
 			.state('base',{
 				abstract:true,
 				url:'',
+				resolve:{
+					'resBindInfo':['$http',function($http){
+						return $http.get('/api/riot/self')
+							.then(function(data){
+								console.log('me: ',data.data)
+								return data.data;
+							});
+					}],
+					'resChampionList':['Riot',function(Riot){
+						return Riot.getChampionsList()
+								.then(function(championData){
+									console.log(championData.data.data)
+									var list={};
+									for(var champ in championData.data.data){
+											list[championData.data.data[champ].id]=championData.data.data[champ].key;
+									}
+									return list;
+								});
+					}]
+				},
 				templateUrl:'app/components/main/mainView.html',
 				controller:'MainCtrl'
 			})
@@ -17,15 +37,6 @@
 			.state('home',{
 				parent:'base',
 				url:'/home',
-				resolve:{
-					'resA':['$http','$window',function($http,$window){
-						return $http.get('/api/riot/self')
-							.then(function(data){
-								$window.sessionStorage.userRiot = JSON.stringify(data.data);
-								return data.data;
-							});
-					}]
-				},
 				views:{
 					'centralContainer':{
 						templateUrl:'app/components/frontpage/frontpageView.html',
@@ -40,16 +51,6 @@
 			.state('gamer',{
 				parent:'base',
 				url:'/gamer',
-				/*resolve:{
-					'getRitoData':['$scope','Riot',function($scope,Riot){
-						Riot.getSelfRecent()
-							.success(function(data){
-								$scope.recentMatchesData=data.games;
-								$scope.lastChampionPlayed=data.games[0].championId;
-								return 'ggeasy';
-							});
-					}]
-				},*/
 				views:{
 					'centralContainer':{
 						templateUrl:'app/components/gamer/gamerView.html',

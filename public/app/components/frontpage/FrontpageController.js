@@ -1,20 +1,14 @@
 'use strict';
 angular.module('FrontpageController',[])
-	.controller('FrontpageCtrl',['$scope','$http','$window','Templates','TemplatesById',function($scope,$http,$window,Templates,TempaltesById){
+	.controller('FrontpageCtrl',['$scope','$http','$window','Templates',function($scope,$http,$window,Templates){
 		//$scope.championList=JSON.parse($window.sessionStorage.championList);
 		$scope.formData={};
+		$scope.templates={};
 
 		Templates.get()
 			.success(function(data){
 				$scope.templates=data;
 			});
-
-		$scope.deleteChamp=function(id){
-			TemplatesById.delete(id)
-				.success(function(data){
-					$scope.templates=data;
-				});
-		};
 
 		$scope.createChamp=function(){
 			Templates.post($scope.formData)
@@ -23,17 +17,4 @@ angular.module('FrontpageController',[])
 					$scope.formData={};
 				});		
 		};
-
-		$scope.derp=function(event){
-			console.log(event);
-		};
-	}])
-	.filter('limitFont',function(){
-		return function(input,limit){
-			if(input.length>limit){
-				return input.slice(0,limit).concat('...');	
-			}else{
-				return input;
-			}
-		};
-	});
+	}]);

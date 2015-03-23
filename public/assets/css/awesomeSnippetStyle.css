@@ -1,16 +1,14 @@
 /* src/css/pretty.less */
-riot-derp {
+awesome-snippet {
   width: 400px;
-  /*5% of the width*/
-  /*6% of the width*/
-  text-align: center;
-  display: inline-block;
   font-size: 20px;
+  /*5% of the width*/
   line-height: 1.2em;
-  /*font-size: 12px;
-	line-height: 15px;*/
+  /*6% of the width*/
   font-family: "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
   color: white;
+  text-align: center;
+  display: inline-block;
 }
 .lol-search,
 .result-snippet {
@@ -24,7 +22,7 @@ riot-derp {
 .lol-search {
   border-color: #605C34;
 }
-riot-derp:not([summoner]) .result-snippet {
+awesome-snippet:not([summoner]) .result-snippet {
   border-color: #346035;
 }
 .lol-search > input {
@@ -51,9 +49,26 @@ riot-derp:not([summoner]) .result-snippet {
   border-bottom-right-radius: 50%;
   border-bottom-left-radius: 50%;
 }
-.imba-btn-region {
-  display: inline-block;
+.imba-btn {
+  display: block;
   padding: 0px 12px;
+  text-decoration: none;
+  font: inherit;
+  color: #dec58d;
+  background-color: #4708FC;
+  background: linear-gradient(to bottom, #313131 0, #18614e 100%);
+  border: 1px solid #766e4c;
+  border-radius: 4px;
+}
+.imba-btn:hover {
+  color: #F7DA9B;
+  box-shadow: inset 0px 0px 10px rgba(45, 232, 198, 0.2);
+}
+.imba-btn.active,
+imba-btn:active {
+  background-color: #BF6904;
+  background: linear-gradient(#db8e01, #871e0a);
+  box-shadow: inset 1px 1px 9px rgba(135, 30, 10, 0.8), inset -1px -1px 5px rgba(181, 60, 2, 0.8);
 }
 .result-snippet > p {
   background-color: rgba(0, 10, 42, 0.8);
@@ -105,4 +120,10 @@ riot-derp:not([summoner]) .result-snippet {
   font-size: 2em;
   border-bottom-right-radius: 40%;
   border-top-right-radius: 40%;
+}
+awesome-snippet.ng-enter {
+  -webkit-animation: 1s pulse;
+  -moz-animation: 1s pulse;
+  -o-animation: 1s pulse;
+  animation: 1s pulse;
 }

@@ -50,7 +50,7 @@
 }
 
 
-riot-derp{
+awesome-snippet{
 
 	width: @snippetWidth;	
 	font-size: @snippetWidth/20; /*5% of the width*/
@@ -60,14 +60,6 @@ riot-derp{
 	text-align: center;
 
 	display: inline-block;
-	
-	font-size: @snippetWidth/20;
-	//line-height: @snippetWidth/100*6;
-	line-height: 1.2em;
-	/*font-size: 12px;
-	line-height: 15px;*/
-	font-family: @lolKingFont;
-	color:white;
 }
 
 .lol-search,.result-snippet{
@@ -77,7 +69,7 @@ riot-derp{
 .lol-search{
 	border-color: #605C34;
 }
-riot-derp:not([summoner]){
+awesome-snippet:not([summoner]){
 	.result-snippet{
 		border-color:#346035; 
 	}
@@ -103,10 +95,26 @@ riot-derp:not([summoner]){
 	border-bottom-right-radius: 50%;
 	border-bottom-left-radius: 50%;
 }
-.imba-btn-region{
-	display: inline-block;
+.imba-btn{
+	display: block;
 	padding: 0px 12px;
+	text-decoration: none;
+	font:inherit;
+	color: #dec58d;
 
+	background-color: #4708FC;
+	background: linear-gradient(to bottom,#313131 0,#18614E 100%);
+	border: 1px solid #766e4c;
+	border-radius: 4px;
+	&:hover{
+	  color: #F7DA9B;
+	  box-shadow: inset 0px 0px 10px rgba(45, 232, 198, 0.2);
+	}
+}
+.imba-btn.active,imba-btn:active{
+	  background-color: #BF6904;
+	  background: linear-gradient(#db8e01,#871e0a);
+	  box-shadow: inset 1px 1px 9px rgba(135,30,10,.8),inset -1px -1px 5px rgba(181,60,2,.8);
 }
 
 .result-snippet>p{
@@ -165,3 +173,10 @@ riot-derp:not([summoner]){
 	border-top-right-radius: 40%;
 }
 	
+//ANIMATIONS
+awesome-snippet.ng-enter{
+  -webkit-animation:1s pulse;
+  -moz-animation:1s pulse;
+  -o-animation:1s pulse;
+  animation:1s pulse; 
+}

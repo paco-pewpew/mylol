@@ -1,23 +1,16 @@
-<div id="sidebarHud" class=" col-xs-10 col-xs-offset-2">
-	<h2>{{sidebarData.local}}</h2>
-	
-	<riot-derp summoner="{{sidebarData}}"></riot-derp>
-		
-	<div gradientbar horizontal="true"
-	percentage-positive="{{100*sidebarData.leagueInfo.entries[0].wins/(sidebarData.leagueInfo.entries[0].wins+sidebarData.leagueInfo.entries[0].losses|number:0)}}" 
-        color-positive="rgba(91, 5, 5, 0.8)" color-negative="rgba(5, 91, 5, 0.8)">
-        <span>{{sidebarData.leagueInfo.entries[0].wins}}</span>
-        <span>{{sidebarData.leagueInfo.entries[0].losses}}</span>
-    </div>
-
-    <div class="league-info">
-    	<img ng-src="assets/img/tierIcons/{{sidebarData.leagueInfo.tier}}_{{sidebarData.leagueInfo.entries[0].division}}.png">
-	    <p>
-	    	{{sidebarData.leagueInfo.name}},{{sidebarData.leagueInfo.tier}} {{sidebarData.leagueInfo.entries[0].division}}
-	    </p>
-    </div>
-       
-	
+<div id="sidebarHud" class="col-xs-12">
+	<p>
+		herp
+	</p>
+	<p>
+		herp
+	</p>
+	<p>
+		herp
+	</p>
+	<p>
+		herp
+	</p>
 </div>
 
 

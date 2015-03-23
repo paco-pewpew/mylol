@@ -1,6 +1,7 @@
 'use strict';
 angular.module('RiotService',[])
 	.factory('Riot',['$http',function($http){
+		var staticData={};
 		return {
 			getSelf:function(){
 				return $http.get('/api/riot/self');
@@ -25,6 +26,22 @@ angular.module('RiotService',[])
 			},
 			getChampionsList:function(){
 				return $http.get('/api/riot/champions/list');
+				
+				/*return (staticData.championList?staticData.championList:fetchStaticData());
+
+				function fetchStaticData(){
+					$http.get('/api/riot/champions/list')
+						.then(function(championData){
+							console.log(championData.data.data);
+							var list={};
+							for(var champ in championData.data.data){
+									list[championData.data.data[champ].id]=championData.data.data[champ].key;
+							}
+							staticData.championList=list;
+							return list;
+						});
+				}*/
+
 			}
 		};
 	}]);

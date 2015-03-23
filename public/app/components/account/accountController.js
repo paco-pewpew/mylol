@@ -1,33 +1,50 @@
 'use strict';
-angular.module('AccountController',['RiotDirectives'])
+angular.module('AccountController',['RiotDirectives','awesomeSnippetDirective'])
 	.controller('FormCtrl',['$http','$scope','$stateParams','$state','$window','Riot','Users',
 		function($http,$scope,$stateParams,$state,$window,Riot,Users){
 		$scope.signupForm={};
 		$scope.loginForm={};
 		$scope.bind={
 			have:false,
-			lolacc:{}
+			lolacc:{},
+			setBind:function(summoner){
+				this.have=true;
+				this.lolacc=summoner;
+				$scope.signupForm.lolid=summoner.id;
+				$scope.signupForm.lolacc=summoner.name;
+				$scope.signupForm.region=summoner.region;
+			},
+			removeBind:function(){
+				this.have=false;
+				this.lolacc={};
+				delete $scope.signupForm.lolid;
+				delete $scope.signupForm.lolacc;
+				delete $scope.signupForm.region;
+			}
 		};
 
 		$scope.acceptBind=function(result){
 			console.log('binding',result);
-			$scope.bind={
+			$scope.bind.setBind(result);
+			/*$scope.bind={
 				have:true,
 				lolacc:result
 			};
 
 			$scope.signupForm.lolid=result.id;
 			$scope.signupForm.lolacc=result.name;
-			$scope.signupForm.region=result.region;
+			$scope.signupForm.region=result.region;*/
 		};
 		$scope.removeBind=function(){
+			$scope.bind.removeBind();
+			/*
 			$scope.bind={
 				have:false,
 				lolacc:{}
 			};
 			delete $scope.signupForm.lolid;
 			delete $scope.signupForm.lolacc;
-			delete $scope.signupForm.region;
+			delete $scope.signupForm.region;*/
 		};
 
 

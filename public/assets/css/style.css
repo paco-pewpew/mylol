@@ -1,8 +1,8 @@
 		
         html                    { overflow-y:scroll; }
-        body                    { padding-top:5px; }
+        body                    { padding-top:5px; background-color:#111;}
         #champ-list              { margin-bottom:30px; }
-        .jumbotron	{margin-bottom: 0px;}
+        .jumbotron	{margin-bottom: 0px;  /*box-shadow: 0pt 0pt 5px #000;*/  box-shadow: rgb(123, 242, 248) 0px 0px 6px 0px inset;}
         h1{background-color:rgba(192,192,192,0.3);border-radius: 10px;}
         .nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
         
@@ -32,8 +32,8 @@
     border-bottom-right-radius: 2px;
     border-bottom-left-radius:2px;
 }
-#sidebarHud riot-derp{
-    width: 100%;
+#sidebarHud awesome-snippet{
+    width: 200px;
     font-size: 10px;
 }
 
@@ -70,7 +70,7 @@
 
 
         /* form styling */
-#form-container                { background:#2f2f2f; margin-bottom:20px;border-radius:5px;color:white; }
+#form-container                { background:#2f2f2f; margin-bottom:20px;border-radius:5px;color:white;box-shadow: rgb(123, 242, 248) 0px 0px 6px 0px; }
 #form-container .page-header   { background:#151515; margin:0; padding:30px; 
     border-top-left-radius:5px; border-top-right-radius:5px; }
 
@@ -89,86 +89,6 @@
 #status-buttons                 {  }
 #status-buttons a               { color:#FFF; display:inline-block; font-size:12px; margin-right:10px; text-align:center; text-transform:uppercase; }
 #status-buttons a:hover         { text-decoration:none; }
-
-/*SNIPPET FOR RIOT ACC*/
-#riot-snippet{
-    color:black;
-}
-#riot-snippet img{
-    height: 50px;
-    width: 50px;
-}
-
-
-
-/*HOME page*/
-
-#champ-list > awesome-slider {
-    padding: 20px;
-    padding-left: 50px;
-    font: 12px arial, sans-serif;
-}
-
-#champ-list > awesome-slider > i:nth-of-type(1) {
-    position: absolute;
-    top:80px;
-    left: 10px;
-}
-#champ-list > awesome-slider > i:nth-of-type(2) {
-    position: absolute;
-    top:80px;
-    right: 10px;
-}
-
-.awesome-template{
-    width: 100px;
-    display: inline-block;
-    padding: 10px;
-    z-index: -1;
-    background-color:rgba(42,42,42,0.8);
-    border:3px ridge #c3c3c3;
-    border-radius: 3px;
-    transform: perspective(500px) rotateY(50deg) translate(50px,0px);
-    margin-left: -50px;
-}
-
-.templateOnFocus{
-    transform: none;
-    margin-left: 50px;
-    margin-right: 50px;
-}
-
-.awesome-template>a {
-    font: 15px arial, sans-serif;
-    color:rgb(62, 253, 255);
-    overflow: hidden;
-    text-overflow:ellipsis;
-}
-.awesome-template>p {
-   background-color:rgba(42,42,42,0.5);
-   border:3px ridge #1c1c1c;
-   border-radius: 3px;
-   margin: 0px;
-   text-align: center;
-    color:rgb(62, 253, 255);
-    width: 80%;
-    margin-left: 10%;
-    font-size: 12px;
-}
-.awesome-template>img{
-    width: 80%;
-    margin-left: 10%;
-
-}
-.awesome-template>champion-loading-pic{
-    width: 80%;
-    margin-left: 10%;
-    height: 0px;
-    padding-bottom: 150%;
-}
-.awesome-template>i{
-    color:white;
-}
 
 
 /*TEMPLATE page*/
@@ -316,6 +236,14 @@ item-pic{
     background-color:#282828;
     background-size:16px 16px;
 }
+.imba-btn-block{
+    width:80%;
+    margin-left: 10%;
+}
+.imba-has-error>.panel-heading{
+    box-shadow: inset 1px 1px 12px rgba(255, 0, 21, 0.5);
+}
+
 
 /*GAMER page*/
 div[back-img]{
@@ -348,17 +276,22 @@ div[back-img]{
     margin-top: 100px;     
 }
 #recent-games>div{
-    float:left;
+    display: inline-block;
+    height: 100px;
     width:10%;
     /*border:3px ridge #212121;*/
+}
+#recent-games>div>p{
+    padding: 0px;
+    margin: 0px;
+    font-size:12px;
 }
 #recent-games img{
     width: 90%;
 }
 #recent-games champion-icon-pic{
     width: 90%;
-    height: 0px;
-    padding-bottom: 90%;
+    height: 60%;
     margin-left: 5%;
     margin-top: 5%;
 }
@@ -382,12 +315,6 @@ div[back-img]{
     margin: 0px;
     height: 100px;
     background: black;
-}
-champion-loading-pic,champion-icon-pic{
-    display: block;
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
 }
 .most-champion-picture champion-loading-pic{
     height: 100%;
@@ -486,82 +413,50 @@ champion-loading-pic,champion-icon-pic{
 
 /* ANIMATIONS
 ============================================================================= */
-/* slide out to the left */
-@keyframes slideOutLeft {
-    to      { transform: translateX(-200%); }
-}
-@-moz-keyframes slideOutLeft {  
-    to      { -moz-transform: translateX(-200%); }
-}
-@-webkit-keyframes slideOutLeft {
-    to      { -webkit-transform: translateX(-200%); }
-}
-
-/* slide in from the right */
-@keyframes slideInRight {
-    from    { transform:translateX(200%); }
-    to      { transform: translateX(0); }
-}
-@-moz-keyframes slideInRight {
-    from    { -moz-transform:translateX(200%); }
-    to      { -moz-transform: translateX(0); }
-}
-@-webkit-keyframes slideInRight {
-    from    { -webkit-transform:translateX(200%); }
-    to      { -webkit-transform: translateX(0); }
-}
-/*LEAVE*/
-/* slide in from the bottom */ 
-@keyframes slideOutLeft {
-    to      { transform: translateX(-100%); }
-}
-/*ENTER*/
-/*SCALE UP*/
-@keyframes scaleUp {
-    from    { opacity: 0.3; -webkit-transform: scale(0.8); }
-}
 
 .ui-view-container {
   position: relative;
   /*height: 65px;*/
 }
 
-[ui-view].ng-enter, [ui-view].ng-leave {
-  position:absolute;
-  left: 0;
-  right: 0;
-  -webkit-transition:all 0.5s ease-in-out;
-    -moz-transition:all 0.5s ease-in-out;
-    -o-transition:all 0.5s ease-in-out;
-    transition:all 0.5s ease-in-out;
-}
-
 [ui-view].ng-enter {
-  opacity: 0;
-  /*-webkit-transform:scale3d(0.8, 0.8, 0.8);
-  -moz-transform:scale3d(0.8, 0.8, 0.8);
-  transform:scale3d(0.8, 0.8, 0.8);*/
+   -webkit-animation:1s fadeIn;
+  -moz-animation:1s fadeIn;
+  -o-animation:1s fadeIn;
+  animation:1s fadeIn;
 }
 
-[ui-view].ng-enter-active {
-  opacity: 1;
- /* -webkit-transform:scale3d(1, 1, 1);
-  -moz-transform:scale3d(1, 1, 1);
-  transform:scale3d(1, 1, 1);*/
+[ui-view].ng-enter awesome-template,
+awesome-template.ng-enter{
+  -webkit-animation:1s awesomeBounceInLeft;
+  -moz-animation:1s awesomeBounceInLeft;
+  -o-animation:1s awesomeBounceInLeft;
+  animation:1s awesomeBounceInLeft; 
 }
 
-[ui-view].ng-leave {
-  opacity: 1;
-  /*padding-left: 0px;*/  
-  /*-webkit-transform:translate3d(0, 0, 0);
-  -moz-transform:translate3d(0, 0, 0);
-  transform:translate3d(0, 0, 0);*/
+@-webkit-keyframes awesomeBounceInLeft {
+  0%, 60%, 75%, 90%, 100% {
+    -webkit-transition-timing-function: cubic-bezier(1.000, -0.530, 0.405, 1.425);
+    transition-timing-function: cubic-bezier(1.000, -0.530, 0.405, 1.425);
+  }
+
+  0% {
+    -webkit-transform: translate(-300px, 0);
+    transform: translate(-300px, 0);
+    opacity:0;
+  }
+
+  100% {
+    -webkit-transform: transform: perspective(500px) rotateY(50deg) translate(50px,0px);
+    transform: transform: perspective(500px) rotateY(50deg) translate(50px,0px);
+    opacity: 1;
+
+  }
 }
 
-[ui-view].ng-leave-active {
-  opacity: 0;
-  /*padding-left: 100px;*/
- /* -webkit-transform:translate3d(100px, 0, 0);
-  -moz-transform:translate3d(100px, 0, 0);
-  transform:translate3d(100px, 0, 0);*/
+awesome-template.ng-leave{
+  -webkit-animation:1s hinge;
+  -moz-animation:1s hinge;
+  -o-animation:1s hinge;
+  animation:1s hinge; 
 }

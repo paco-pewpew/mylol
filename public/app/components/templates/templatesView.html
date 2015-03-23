@@ -1,73 +1,44 @@
-<div class="jumbotron text-center" back-img="{{champ.champion}}">
-    <div class="username">Template: {{champ.name}}
+<div class="jumbotron text-center" back-img="{{templateResolved.champion}}">
+    <div class="username">Template: {{templateResolved.name}}
         <br>
-        Champion: {{champ.champion}}
+        Champion: {{templateResolved.champion}}
     </div>
 
-    <div id="viewAwesomeTemplate" class="awesome-template">
-        <a>{{champ.name|limitFont:6}}</a>
-        <p>{{champ.champion}}</p>
-        <img ng-src="http://ddragon.leagueoflegends.com/cdn/img/champion/loading/{{champ.champion}}_0.jpg">
-        <i class="fa fa-times" ng-click="deleteChamp(champ._id)">delete</i>
+    <awesome-template template="templateResolved" ng-show="templateStatus.set"></awesome-template>
+
+    <div id="templateBuild" ng-show="templateStatus.set">
+        <item-pic id="{{item}}" ng-repeat="item in templateResolved.itemBuild track by $index"></item-pic>
     </div>
+   
+     <accordion close-others="{{templateStatus.set}}">
 
-    <div id="templateBuild">
-        <item-pic id="{{item}}" ng-repeat="item in champ.itemBuild track by $index"></item-pic>
-    </div>
-
-
-    <div id="editTemplate">
-    	<h2>Edit template</h2>
-    	<form id="championTemplate-edit-form" ng-submit="processChampionTemplate()">
-            <div class="row">
-                <div class="form-group col-lg-6">
-                    <label for="templateName">Template Name</label>
-                    <input type="text" class="form-control" placeholder="template name" ng-model="championTemplate.name">
-                </div>
-
-                <div class="form-group col-lg-6">
-                    <label for="championName">Champion Name</label>
-                    <input type="text" class="form-control" placeholder="champion for template" ng-model="championTemplate.champion">
-                </div>
-            </div>
-			
-
-	    	<button type="submit" class="btn btn-success">Edit template</button>
-
-    	</form>
-    	
-    	
-
-    </div>
-
-     <accordion close-others="'false'">
-
-        <accordion-group heading="Template caption">
+        <accordion-group heading="Template caption" ng-class="{'imba-has-error':templateStatus.championUnset}" is-open="templateStatus.championUnset">
           <div class="form-group col-lg-6">
             <label for="templateName">Template Name</label>
-            <input type="text" class="form-control" placeholder="name of template" name="templateName" ng-model="championTemplate.name">
+            <input type="text" class="form-control" placeholder="name of template" name="templateName" ng-model="templateNew.name">
           </div>
 
           <div class="form-group col-lg-6">
             <label for="championName">Champion Name</label>
-            <input type="text" class="form-control" placeholder="champion template" name="championName" ng-model="championTemplate.champion">
+            <input type="text" ng-model="templateNew.champion" placeholder="champion template" name="championName" 
+            typeahead="champion for champion in champions | filter:$viewValue | limitTo:8" class="form-control">
           </div>
         </accordion-group>
 
-        <accordion-group heading="watched players">
+        <accordion-group heading="watched players" ng-class="{'imba-has-error':templateStatus.watchedProsUnset}" is-open="templateStatus.watchedProsUnset">
             <!--Shows the watched-->
-            <riot-derp summoner="{{summoner}}" ng-repeat="summoner in championTemplate.watchedPros"
+            <awesome-snippet summoner="{{summoner}}" ng-repeat="summoner in templateNew.watchedPros"
                     accept="wtf(result)" remove="omg($index)">
-            </riot-derp>
+            </awesome-snippet>
             <!--One free to add more(if there are less than 3 watched)-->
-            <riot-derp ng-show="championTemplate.watchedPros.length<3" accept="wtf(result)" remove="omg($index)"></riot-derp>
+            <awesome-snippet ng-show="templateNew.watchedPros.length<3" accept="wtf(result)" remove="omg($index)"></awesome-snippet>
         </accordion-group>
 
     </accordion>
 
 
 
-    <div>
+    <div ng-show="templateStatus.set&&(watchedBuilds.length>0)">
        
         <div id="watchedBuildsWrapper">
             <div class="itemBuild" ng-repeat="build in watchedBuilds" 
@@ -98,6 +69,9 @@
         </div>
 
     </div>
+    <button class="btn imba-btn imba-btn-block" ng-click="processtemplateNew()">Edit template</button>
+    
+    <p>templateOld:{{templateResolved}}</p>
 
-     championTemplate: {{championTemplate}}
+     <p>templateNew: {{templateNew}}</p>
 </div>

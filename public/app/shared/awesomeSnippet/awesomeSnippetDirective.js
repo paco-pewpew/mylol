@@ -1,6 +1,6 @@
 'use strict';
 angular.module('awesomeSnippetDirective',['RiotDirectives'])
-.directive('riotDerp',function(){
+.directive('awesomeSnippet',function(){
 	return {
 		restrict:'EA',
 		scope:{

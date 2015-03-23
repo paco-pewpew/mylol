@@ -6,4 +6,4 @@ angular.module('awesomeApp',[
 	 'TemplateController','GamerController','AccountController',
 	 'UserService','TemplatesService','RiotService',
 	 'VisualDirectives','RiotDirectives',
-	 'awesomeSliderDirective','awesomeSnippetDirective']);
+	 'awesomeSliderDirective','awesomeSnippetDirective','awesomeTemplateDirective']);

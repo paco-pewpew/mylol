@@ -1,14 +1,17 @@
 <div class="jumbotron text-center" back-img="{{championList[lastChampionPlayed]}}">
     <div class="username">{{user.name}}</div>
-    
     <div class="row" id="recent-games">
          <h2>Recent games</h2>
 		<!--little boxes for each game-->
 		<div  ng-class="{'has-win build-won':match.stats.win,'has-loss build-lost':!match.stats.win}"
 		 ng-repeat="match in recentMatchesData">
-            {{match.stats.win?'win':'loss'}}
+            <p>
+                {{match.stats.win?'win':'loss'}}
+            </p>
             <champion-icon-pic champion-name="{{championList[match.championId]}}"></champion-icon-pic>
-	    	{{match.stats.championsKilled}}/{{match.stats.numDeaths}}/{{match.stats.assists}}
+	    	<p>
+                {{match.stats.championsKilled||0}}/{{match.stats.numDeaths||0}}/{{match.stats.assists||0}}
+            </p>
 		</div>
     </div>
 

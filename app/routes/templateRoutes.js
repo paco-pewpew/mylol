@@ -52,8 +52,6 @@ module.exports=function(router){
 				name:req.body.name,
 				champion:req.body.champion,
 				itemBuild:req.body.itemBuild,
-				'watchedPro.lolid':req.body.watchedPro.lolid,
-				'watchedPro.region':req.body.watchedPro.region,
 				watchedPros:req.body.watchedPros
 			},function(err,result){
 				if(err)

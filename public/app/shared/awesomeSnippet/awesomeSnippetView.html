@@ -1,11 +1,10 @@
 <div ng-show="!result" class="lol-search">
-	<input type="text" placeholder="region" ng-model="searchForm.region">
-	<!--<div class="imba-btn-group">
-		<label class="imba-btn-region" ng-model="searchForm.region" btn-radio="{{region}}" ng-repeat="region in allowedRegions">{{region}}</label>
-	</div>-->
+	<!--<input type="text" placeholder="region" ng-model="searchForm.region">-->
+	<div class="btn-group">
+        <label class="btn imba-btn" ng-model="searchForm.region" btn-radio="region" ng-repeat="region in allowedRegions">{{region}}</label>
+    </div>
 	<input type="text" placeholder="name" ng-model="searchForm.name">
 	<button ng-click="checkAccount()">check player</button>
-	{{searchForm.region}}
 </div>
 <div ng-show="result" class="result-snippet">
 	<!--<img ng-src="http://ddragon.leagueoflegends.com/cdn/5.2.1/img/profileicon/{{result.profileIconId}}.png">-->

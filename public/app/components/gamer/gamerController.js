@@ -1,10 +1,10 @@
 'use strict';
 angular.module('GamerController',['VisualDirectives','RiotDirectives'])
-	.controller('GamerCtrl',['$scope','$window','Riot',function($scope,$window,Riot){
+	.controller('GamerCtrl',['$scope','$window','resChampionList','Riot',function($scope,$window,resChampionList,Riot){
 		//$scope.championList=JSON.parse($window.sessionStorage.championList);
+		$scope.championList=resChampionList;
 		$scope.awesomeData;
 		$scope.mining=false;
-		
 
 		Riot.getSelfRecent()
 			.success(function(data){

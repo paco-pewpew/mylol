@@ -7,10 +7,6 @@ var Champion=mongoose.model('Champion',{
 		type:String,
 		//default:'champion name'
 	},
-	watchedPro:{
-		lolid:String,
-		region:String
-	},
 	watchedPros:[{
 		id:String,
 		name:String,
