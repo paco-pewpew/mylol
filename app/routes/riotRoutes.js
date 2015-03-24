@@ -5,7 +5,7 @@ var request=require('request');
 var async=require('async');
 
 
-var LRU=require('lru-cache'),options={max:50,maxAge:1000*60*2},cache=LRU(options);
+var LRU=require('lru-cache'),options={max:50,maxAge:1000},cache=LRU(options);
 
 var rateBrocker={
 	limit:10*1000,
@@ -24,7 +24,7 @@ function getResource(url,callback){
 
 	function fromSource(){
 		request(url,function(err,response,body){
-			if(err || response.statusCode===404){
+			if(err || response.statusCode===404 || response.statusCode===503){
 				callback('error');
 			}else if(response.statusCode===429){
 
@@ -96,39 +96,40 @@ module.exports=function(router){
 				var region=regions[lolids.indexOf(lolid)];
 				var url='https://'+region+'.api.pvp.net/api/lol/'+region+'/v2.2/matchhistory/'+lolid+'?championIds='+req.query.champion+'&api_key=7947d3bb-10c2-4fc3-b2b3-0805a2aa805f';				
 				getResource(url,function(data){
-					if(data==='error')
+					if(data==='error'){
 						cbDerp('error fetching data for '+lolid);
-					if(!data.matches){
-						console.log(lolid,' has no matches data for ',req.query.champion);
-						cbDerp();
 					}else{
-						var itemsMatches=data.matches.map(function(el){
-							return {
-								player:el.participantIdentities[0].player,
-								winner:el.participants[0].stats.winner,
-								kills:el.participants[0].stats.kills,
-								deaths:el.participants[0].stats.deaths,
-								assists:el.participants[0].stats.assists,
-								item0:el.participants[0].stats.item0,
-								item1:el.participants[0].stats.item1,
-								item2:el.participants[0].stats.item2,
-								item3:el.participants[0].stats.item3,
-								item4:el.participants[0].stats.item4,
-								item5:el.participants[0].stats.item5,
-								item6:el.participants[0].stats.item6
-							};
-						});
-						itemData=itemData.concat(itemsMatches);
-						cbDerp();
-
-					};
-
+						if(!data.matches){
+							console.log(lolid,' has no matches data for ',req.query.champion);
+							cbDerp();
+						}else{
+							var itemsMatches=data.matches.map(function(el){
+								return {
+									player:el.participantIdentities[0].player,
+									winner:el.participants[0].stats.winner,
+									kills:el.participants[0].stats.kills,
+									deaths:el.participants[0].stats.deaths,
+									assists:el.participants[0].stats.assists,
+									item0:el.participants[0].stats.item0,
+									item1:el.participants[0].stats.item1,
+									item2:el.participants[0].stats.item2,
+									item3:el.participants[0].stats.item3,
+									item4:el.participants[0].stats.item4,
+									item5:el.participants[0].stats.item5,
+									item6:el.participants[0].stats.item6
+								};
+							});
+							itemData=itemData.concat(itemsMatches);
+							cbDerp();
+						}
+					}
 				});
 			},function(err){
-				if(err)
-					res.status(404).send(err);
-				//console.log(itemData);
-				res.status(200).send(itemData);
+				if(err){
+					res.status(404).send(err);	
+				}else{
+					res.status(200).send(itemData);	
+				}
 
 			});
 			//end of async call
@@ -142,37 +143,25 @@ module.exports=function(router){
 			var url=RiotUrl.getSummonerByName(req.user.riot.region,req.user.riot.lolacc);
 			//var u=req.user.riot.lolacc.toLowerCase().replace(/ /g,'');
 			getResource(url,function(summonerInfo){
-				var accInfo=summonerInfo[Object.keys(summonerInfo)[0]];
 				console.log(summonerInfo);
-				
+				if(summonerInfo==='error'){
+					res.status(404).send('error fetching self info');	
+				}else{
+					var accInfo=summonerInfo[Object.keys(summonerInfo)[0]];
+					accInfo.local=req.user.local.name;
+					accInfo.region=req.user.riot.region;
 
-				accInfo.local=req.user.local.name;
-				accInfo.region=req.user.riot.region;
-				var url=RiotUrl.getLeagueStatsEntry(req.user.riot.region,req.user.riot.lolid);
-				getResource(url,function(leagueInfo){
-					console.log(leagueInfo);
-					if(leagueInfo==='error'){
-						res.status(200).send(accInfo);
-					}else{
-						accInfo.leagueInfo=leagueInfo[req.user.riot.lolid][0];
-						res.status(200).send(accInfo);
-					}
-				});
-
-
-				/*console.log(selfInfo);
-				selfInfo[u].local=req.user.local.name;
-				console.log(selfInfo[u].id);
-				var url=RiotUrl.getLeagueStatsEntry(req.user.riot.region,req.user.riot.lolid);
-				getResource(url,function(leagueInfo){
-					console.log(leagueInfo);
-					if(leagueInfo==='error'){
-						res.status(200).send(selfInfo[u]);
-					}else{
-						selfInfo[u].leagueInfo=leagueInfo[req.user.riot.lolid][0];
-						res.status(200).send(selfInfo[u]);
-					}
-				});*/
+					var url=RiotUrl.getLeagueStatsEntry(req.user.riot.region,req.user.riot.lolid);
+					getResource(url,function(leagueInfo){
+						console.log(leagueInfo);
+						if(leagueInfo==='error'){
+							res.status(200).send(accInfo);	
+						}else{
+							accInfo.leagueInfo=leagueInfo[req.user.riot.lolid][0];
+							res.status(200).send(accInfo);	
+						}
+					});
+				}
 			});
 		});
 
@@ -180,7 +169,11 @@ module.exports=function(router){
 		.get(function(req,res){
 			var url=RiotUrl.getGamesRecent(req.user.riot.region,req.user.riot.lolid);
 			getResource(url,function(recentGames){
-				res.status(200).send(recentGames);
+				if(recentGames==='error'){
+					res.status(404).send('error fetching recent games data');
+				}else{
+					res.status(200).send(recentGames);
+				}
 			});
 		});
 

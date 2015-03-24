@@ -5,8 +5,9 @@ awesome-template {
   padding: 10px;
   z-index: -1;
   background-color: rgba(42, 42, 42, 0.8);
-  border: 3px ridge #c3c3c3;
+  border: 1px solid #000000;
   border-radius: 3px;
+  box-shadow: rgba(123, 242, 248, 0.7) 0px 0px 6px 0px;
   transform: perspective(500px) rotateY(50deg) translate(50px, 0px);
   margin-left: -50px;
 }
@@ -35,6 +36,7 @@ awesome-template i {
   transform: none;
   margin-left: 50px;
   margin-right: 50px;
+  box-shadow: #7bf2f8 0px 0px 6px 0px;
 }
 .templateOnFocus-add {
   transform: perspective(500px) rotateY(50deg) translate(50px, 0px);

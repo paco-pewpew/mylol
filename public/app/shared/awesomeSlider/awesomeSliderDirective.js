@@ -1,6 +1,6 @@
 'use strict';
 angular.module('awesomeSliderDirective',['RiotDirectives'])
-	.directive('awesomeSlider',function($animate){
+	.directive('awesomeSlider',function($animate,$timeout){
 		return {
 			restrict:'E',
 			scope:{
@@ -25,10 +25,11 @@ angular.module('awesomeSliderDirective',['RiotDirectives'])
 				};
 			}],
 			link:function(scope,element,attrs){
+
+				var hoverItems=[];
+
 				scope.$watch('current',function(newValue){
 					var templates=element[0].querySelectorAll('awesome-template');
-					console.log(templates);
-
 					[].forEach.call(templates,function(template,id){
 						if(id===newValue){
 							$animate.addClass(angular.element(template),'templateOnFocus');
@@ -36,8 +37,25 @@ angular.module('awesomeSliderDirective',['RiotDirectives'])
 							$animate.removeClass(angular.element(template),'templateOnFocus');
 						}
 					});
-					
+				});
 
+				scope.$on('awesomeTemplateEntered',function(event,templateId){
+					//every hover is pushed and after a timeout the last one is taken
+					//timeout with false to remove it from $apply but with $digest() for performance
+					hoverItems.push(templateId);
+					$timeout(function(){
+						if(hoverItems[hoverItems.length-1]===templateId){
+							hoverItems=[];
+
+							scope.templates.forEach(function(template,id){
+								if(template._id===templateId){
+									scope.current=id;
+									scope.$digest();
+								}
+							});
+
+						}
+					},100,false);
 				});
 
 			},

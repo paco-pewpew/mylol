@@ -55,6 +55,7 @@ angular.module('RiotDirectives',[])
 					if(value && value!=='0'){
 						scope.championName=value;
 						img.src='http://ddragon.leagueoflegends.com/cdn/5.5.3/img/champion/'+value+'.png';
+						//successful img
 						img.addEventListener('load',function(){
 							console.log('champion icon loaded for ',value);
 							scope.imgLoaded=true;
@@ -63,6 +64,7 @@ angular.module('RiotDirectives',[])
 								'background-color':'black'
 							});
 						});
+						//not found(due to version or non existing champ)
 						img.addEventListener('error',function(){
 							console.log('champion icon for ',value,' not fount');
 						});
@@ -80,25 +82,47 @@ angular.module('RiotDirectives',[])
 	
 	.directive('championLoadingPic',function(){
 		return {
-			restrict:'EA',
+			restrict:'E',
 			scope:{},
 			link:function(scope,element,attrs){
+				var img=new Image();
+				scope.championName='';
+				scope.imgLoaded=false;
+				scope.imgError=false;
+
 				attrs.$observe('championName',function(value){
+
 					if(value && value!=='0'){
 						scope.championName=value;
-						element.css({
-							'background-image':'url(http://ddragon.leagueoflegends.com/cdn/img/champion/loading/'+value+'_0.jpg)'
+						img.src='http://ddragon.leagueoflegends.com/cdn/img/champion/loading/'+value+'_0.jpg';
 						
+						img.addEventListener('load',function(){
+							scope.imgLoaded=true;
+							scope.$digest();
+							console.log('champLoadingPic for ',value,' done');
+
+							element.css({
+								'background-image':'url('+img.src+')'
+							});
 						});
-					}else{	
-						element.css({
-							'background-color':'pink'
+
+						img.addEventListener('error',function(){
+							scope.imgLoaded=true;
+							scope.imgError=true;
+							scope.$digest();
+							console.log('championLoadingPic for ',value,' not found. ERROR!' );
+
 						});
+						
+					}else{
+						element.addClass('carbon-texture');
 					}
 
 				});
 			},
-			template:'<p id="champion-name">{{championName}}</p>'
+			template:'<i id="fetching" class="fa fa-spinner fa-pulse" ng-show="!imgLoaded&&championName"></i>'+
+			'<i id="notFound" ng-show="imgLoaded&&imgError" class="fa fa-question"></i>'+
+			'<p id="champion-name">{{championName}}</p>'
 		}; 
 	})
 
@@ -120,6 +144,3 @@ angular.module('RiotDirectives',[])
 			}
 		};
 	});
-
-
-

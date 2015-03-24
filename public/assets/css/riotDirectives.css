@@ -2,6 +2,7 @@ champion-loading-pic,
 champion-icon-pic {
   display: block;
   position: relative;
+  text-align: center;
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
@@ -26,4 +27,20 @@ champion-icon-pic {
   text-overflow: ellipsis;
   border-top: 1px solid #00EFFF;
   background-color: rgba(42, 42, 42, 0.5);
+}
+#fetching,
+#notFound {
+  display: block;
+  font-size: 4em;
+  color: #7bf2f8;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+#fetching::before {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
