@@ -7,7 +7,7 @@ angular.module('awesomeSliderDirective',['RiotDirectives'])
 				templates:'=content'
 			},
 			controller:['$scope','TemplatesById',function($scope,TemplatesById){
-				$scope.current=0;
+				$scope.current=-1;
 				$scope.previousTemplate=function(){
 					$scope.current--;
 				};
@@ -20,15 +20,15 @@ angular.module('awesomeSliderDirective',['RiotDirectives'])
 						TemplatesById.delete(template._id)
 							.success(function(data){
 								$scope.templates=data;
+								$scope.current=0;
 							});
 					}
 				};
 			}],
 			link:function(scope,element,attrs){
-
 				var hoverItems=[];
-
-				scope.$watch('current',function(newValue){
+				//set focus on template as current
+				scope.$watch('current',function(newValue,oldValue){
 					var templates=element[0].querySelectorAll('awesome-template');
 					[].forEach.call(templates,function(template,id){
 						if(id===newValue){
@@ -38,7 +38,7 @@ angular.module('awesomeSliderDirective',['RiotDirectives'])
 						}
 					});
 				});
-
+				//set current based on mouseovered template
 				scope.$on('awesomeTemplateEntered',function(event,templateId){
 					//every hover is pushed and after a timeout the last one is taken
 					//timeout with false to remove it from $apply but with $digest() for performance

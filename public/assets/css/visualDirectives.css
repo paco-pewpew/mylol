@@ -1,0 +1,16 @@
+awesome-errorbox {
+  display: block;
+  background: black;
+  padding: 1em;
+  border: 2px groove #4f0000;
+  color: #a53333;
+}
+awesome-errorbox i.fa.fa-bug {
+  font-size: 1em;
+}
+awesome-errorbox i.fa.fa-repeat {
+  display: block;
+  font-size: 1.5em;
+  color: #a53333;
+  cursor: pointer;
+}

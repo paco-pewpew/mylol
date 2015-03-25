@@ -1,0 +1,81 @@
+/*TEMPLATE page*/
+.panel-default > .panel-heading {
+  background-color: #282828;
+  color: white;
+}
+.panel-default > .panel-heading + .panel-collapse > .panel-body {
+  border-top-color: #00EFFF;
+  background-color: #1b1b1b;
+}
+#templateBuild {
+  display: inline-block;
+  margin-left: 50px;
+  height: 40px;
+  width: 240px;
+}
+item-pic {
+  border: 3px ridge #717171;
+  border-radius: 3px;
+}
+#templateBuild > item-pic,
+#myItemBuild > item-pic,
+.itemBuild > item-pic,
+#itemsPool > item-pic {
+  margin: 0px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  float: left;
+  height: 100%;
+  width: 16.6%;
+}
+#watchedBuildsWrapper {
+  height: 200px;
+  overflow: auto;
+}
+.itemBuild {
+  display: inline-block;
+  height: 40px;
+  width: 400px;
+  background: #282828;
+}
+.itemBuild item-pic {
+  width: 10%;
+}
+.itemBuild item-pic.carbon-texture {
+  background-size: 16px 16px;
+  background-repeat: repeat;
+}
+.itemBuild profile-pic {
+  margin: 0px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  float: left;
+  height: 100%;
+  width: 10%;
+}
+.build-won {
+  border: 2px groove #004f00;
+}
+.build-lost {
+  border: 2px groove #4f0000;
+}
+#itemsPool {
+  background: orange;
+  overflow: auto;
+  width: 600px;
+  height: 100px;
+}
+#itemsPool item-pic {
+  height: 70%;
+  width: 12.5%;
+}
+#myItemBuild {
+  height: 50px;
+  width: 300px;
+  overflow: auto;
+  display: inline-block;
+  background: #282828;
+}
+.imba-has-error > .panel-heading {
+  box-shadow: inset 1px 1px 12px rgba(255, 0, 21, 0.5);
+}

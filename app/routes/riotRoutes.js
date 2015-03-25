@@ -141,7 +141,6 @@ module.exports=function(router){
 	router.route('/riot/self')
 		.get(function(req,res){
 			var url=RiotUrl.getSummonerByName(req.user.riot.region,req.user.riot.lolacc);
-			//var u=req.user.riot.lolacc.toLowerCase().replace(/ /g,'');
 			getResource(url,function(summonerInfo){
 				console.log(summonerInfo);
 				if(summonerInfo==='error'){
@@ -182,20 +181,16 @@ module.exports=function(router){
 			//returns 3 most played champions
 			var url=RiotUrl.getStats(req.user.riot.region,req.user.riot.lolid);
 			getResource(url,function(championStats){
-				var champArray=[].concat(championStats.champions);
-				//sorts ascending order by played sessions
-				champArray.sort(function(a,b){ 
-					 var playedA=a.stats.totalSessionsPlayed; 
-					 var playedB=b.stats.totalSessionsPlayed; 
-					 return playedA-playedB; 
-					});
-				//gets the last3 - (most played)
-				var mostPlayed=[];
-				var topPlayed=3;//adds +1 for all info id:0
-				for(var i=0;i<=topPlayed;i++){
-					mostPlayed.push(champArray.pop());
-				}
+				if(championStats==='error'){
+					res.status(404).send('error fetching champion statistics');
+				}else{
+					var mostPlayed=championStats.champions.sort(function(a,b){ 
+						 var playedA=a.stats.totalSessionsPlayed; 
+						 var playedB=b.stats.totalSessionsPlayed; 
+						 return playedB-playedA; 
+						}).slice(0,4);
 				res.status(200).send(mostPlayed);
+				}
 			});
 
 		});

@@ -7,8 +7,6 @@ angular.module('VisualDirectives',[])
 			link:function(scope,element,attrs){
 				var cP=attrs.colorPositive;
 				var cN=attrs.colorNegative;
-				console.log(attrs.colorPositive);
-				console.log(attrs.percentagePositive);
 				attrs.$observe('percentagePositive',function(value){
 					element.css({
 					/*'background': 'linear-gradient('+((attrs.horizontal)?'to right':'to top')+', '+cP+' 0%,'+cP+' '+(value-1)+'%,'+
@@ -23,6 +21,16 @@ angular.module('VisualDirectives',[])
 				});
 			}
 		};
+	})
+	.directive('awesomeErrorbox',function(){
+		return{	
+			restrict:'E',
+			scope:{
+				errormessage:'@message',
+				fetchFunction:'&'
+			},
+			template:'<i class="fa fa-bug"> {{errormessage}}</i><i class="fa fa-repeat" ng-click="fetchFunction()"></i>'
+		}
 	});
 
 

@@ -62,7 +62,7 @@
         </div>
 
         <p>Make your build</p>
-        <div id="myItemBuild">
+        <div id="myItemBuild" ng-class="{'build-lost':myBuild.length<6}">
             <item-pic id="{{item}}" ng-repeat="item in myBuild track by $index" ng-click="removeFromBuild(item,$index)">
                 {{item}}
             </item-pic>

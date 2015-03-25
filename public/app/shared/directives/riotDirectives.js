@@ -9,7 +9,7 @@ angular.module('RiotDirectives',[])
 					if(value!==''){
 						img.src='http://ddragon.leagueoflegends.com/cdn/img/champion/splash/'+value+'_0.jpg';
 						img.addEventListener('load',function(){
-							console.log('bg img loaded');
+							//console.log('bg img loaded');
 							element.css({
 								'background-image':'url('+img.src+')'
 							});
@@ -57,7 +57,7 @@ angular.module('RiotDirectives',[])
 						img.src='http://ddragon.leagueoflegends.com/cdn/5.5.3/img/champion/'+value+'.png';
 						//successful img
 						img.addEventListener('load',function(){
-							console.log('champion icon loaded for ',value);
+							//console.log('champion icon loaded for ',value);
 							scope.imgLoaded=true;
 							element.css({
 								'background-image':'url('+img.src+')',
@@ -95,12 +95,12 @@ angular.module('RiotDirectives',[])
 					if(value && value!=='0'){
 						scope.championName=value;
 						img.src='http://ddragon.leagueoflegends.com/cdn/img/champion/loading/'+value+'_0.jpg';
+						//img.src=STATIC_DATA.champLoadingPic(value);
 						
 						img.addEventListener('load',function(){
 							scope.imgLoaded=true;
 							scope.$digest();
-							console.log('champLoadingPic for ',value,' done');
-
+							//console.log('champLoadingPic for ',value,' done');
 							element.css({
 								'background-image':'url('+img.src+')'
 							});
@@ -143,4 +143,8 @@ angular.module('RiotDirectives',[])
 				});
 			}
 		};
+	})
+	.constant('STATIC_DATA',{
+		championLoadingPic:function(value){return 'http://ddragon.leagueoflegends.com/cdn/img/champion/loading/'+value+'_0.jpg}';},
+		championIconPic:function(value){return 'url(http://ddragon.leagueoflegends.com/cdn/5.5.3/img/profileicon/'+value+'.png )';}
 	});

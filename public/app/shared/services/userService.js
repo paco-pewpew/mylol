@@ -19,7 +19,12 @@ angular.module('UserService',[])
 	    }
 	  };
 	}])
-
+	.value('loggedUser',{
+		local:'user local acc name',
+		name:'riot acc name',
+		id:'riot id',
+		region:'riot region'
+	})
 	//
 	.factory('Users',['$http','$window',function($http,$window){
 		//help function to transform Form data 

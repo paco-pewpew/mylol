@@ -1,21 +1,42 @@
 'use strict';
 angular.module('GamerController',['VisualDirectives','RiotDirectives'])
-	.controller('GamerCtrl',['$scope','$window','resChampionList','Riot',function($scope,$window,resChampionList,Riot){
+	.controller('GamerCtrl',['$scope','$window','resChampionList','loggedUser','Riot',function($scope,$window,resChampionList,loggedUser,Riot){
 		//$scope.championList=JSON.parse($window.sessionStorage.championList);
+		$scope.loggedUser=loggedUser;
 		$scope.championList=resChampionList;
 		$scope.awesomeData;
 		$scope.mining=false;
+		$scope.errors={
+			recentMatches:false,
+			mostPlayedChampions:false,
+			message:'Error fetching data.'
+		};
+		$scope.fetchRecentMatches=function(){
+			Riot.getSelfRecent()
+				.success(function(data){
+					$scope.errors.recentMatches=false;
+					$scope.recentMatches=data.games;
+					$scope.lastChampionPlayed=data.games[0].championId;
+				})
+				.error(function(data){
+					$scope.errors.recentMatches=true;
+				});
+		};
+		$scope.fetchRecentMatches();
 
-		Riot.getSelfRecent()
-			.success(function(data){
-				$scope.recentMatchesData=data.games;
-				$scope.lastChampionPlayed=data.games[0].championId;
-			});
-
-		Riot.getSelfStats()
-			.success(function(data){
-				$scope.mostPlayedChampions=data;
-			});
+		$scope.fetchMostPlayedChampions=function(){
+			console.log('fetching most played champions');
+			Riot.getSelfStats()
+				.success(function(data){
+					$scope.errors.mostPlayedChampions=false;
+					$scope.mostPlayedChampions=data;
+				})
+				.error(function(data){
+					$scope.errors.mostPlayedChampions=true;
+				});
+		};
+		$scope.fetchMostPlayedChampions();
+		
 
 		$scope.awesomeFunctionality=function(){
 			Riot.getSelfLeague()

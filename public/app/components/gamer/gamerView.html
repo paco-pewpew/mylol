@@ -1,10 +1,10 @@
 <div class="jumbotron text-center" back-img="{{championList[lastChampionPlayed]}}">
-    <div class="username">{{user.name}}</div>
+    <div class="username">{{loggedUser.name}} @ {{loggedUser.region}}</div>
     <div class="row" id="recent-games">
          <h2>Recent games</h2>
 		<!--little boxes for each game-->
 		<div  ng-class="{'has-win build-won':match.stats.win,'has-loss build-lost':!match.stats.win}"
-		 ng-repeat="match in recentMatchesData">
+		 ng-repeat="match in recentMatches">
             <p>
                 {{match.stats.win?'win':'loss'}}
             </p>
@@ -13,13 +13,13 @@
                 {{match.stats.championsKilled||0}}/{{match.stats.numDeaths||0}}/{{match.stats.assists||0}}
             </p>
 		</div>
+        <awesome-errorbox ng-if="errors.recentMatches" message="{{errors.message}}" fetch-function="fetchRecentMatches()"></awesome-errorbox>
     </div>
 
-    
     <div class="row" id="mostPlayedChampions">
         <h2>Most played champs</h2>
-        <div class="bar col-xs-4" ng-show="$index!=0" ng-repeat="champ in mostPlayedChampions">
-            <div class="row">
+        <div class="bar col-xs-4" ng-if="$index!=0 && !errors.mostPlayedChampions" ng-repeat="champ in mostPlayedChampions">
+            <div class="row" ng-if="!errors.mostPlayedChampions">
                 <div class="col-xs-2 col-xs-offset-2 most-champion-bar" gradientbar percentage-positive="{{100*champ.stats.totalSessionsPlayed/mostPlayedChampions[0].stats.totalSessionsPlayed|number:0}}" 
                 color-positive="yellow"
                 color-negative="gray">{{champ.stats.totalSessionsPlayed}}
@@ -34,10 +34,10 @@
                 color-negative="rgba(255,0,0,1)">
                 <p>{{champ.stats.totalSessionsPlayed-champ.stats.totalSessionsWon}}</p>
                 <p>{{champ.stats.totalSessionsWon}}</p>
-
                 </div>
             </div>
         </div>
+        <awesome-errorbox ng-if="errors.mostPlayedChampions" message="{{errors.message}}" fetch-function="fetchMostPlayedChampions()"></awesome-errorbox>
     </div>
 
     <div class="row" id="miningFunctionality">

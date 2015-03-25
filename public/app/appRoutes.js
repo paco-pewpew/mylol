@@ -11,10 +11,14 @@
 				abstract:true,
 				url:'',
 				resolve:{
-					'resBindInfo':['$http',function($http){
+					'resBindInfo':['$http','loggedUser',function($http,loggedUser){
 						return $http.get('/api/riot/self')
 							.then(function(data){
-								console.log('me: ',data.data)
+								console.log('me: ',data.data);
+								loggedUser.local=data.data.local;
+								loggedUser.name=data.data.name;
+								loggedUser.id=data.data.id;
+								loggedUser.region=data.data.region;
 								return data.data;
 							});
 					}],
