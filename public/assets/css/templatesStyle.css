@@ -40,6 +40,7 @@ item-pic {
 }
 .itemBuild item-pic {
   width: 10%;
+  color: black;
 }
 .itemBuild item-pic.carbon-texture {
   background-size: 16px 16px;
@@ -78,4 +79,10 @@ item-pic {
 }
 .imba-has-error > .panel-heading {
   box-shadow: inset 1px 1px 12px rgba(255, 0, 21, 0.5);
+}
+.popover {
+  background-color: #0e0e19;
+}
+.popover-title {
+  background-color: #191919;
 }

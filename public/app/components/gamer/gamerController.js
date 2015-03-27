@@ -1,9 +1,9 @@
 'use strict';
 angular.module('GamerController',['VisualDirectives','RiotDirectives'])
-	.controller('GamerCtrl',['$scope','$window','resChampionList','loggedUser','Riot',function($scope,$window,resChampionList,loggedUser,Riot){
+	.controller('GamerCtrl',['$scope','$window','resStaticData','loggedUser','Riot',function($scope,$window,resStaticData,loggedUser,Riot){
 		//$scope.championList=JSON.parse($window.sessionStorage.championList);
 		$scope.loggedUser=loggedUser;
-		$scope.championList=resChampionList;
+		$scope.championList=resStaticData.championList;
 		$scope.awesomeData;
 		$scope.mining=false;
 		$scope.errors={

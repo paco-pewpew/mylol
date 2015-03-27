@@ -19,7 +19,7 @@
     <div class="col-sm-4">
         
         <div id="sidebarHud" class=" col-xs-10 col-xs-offset-2">
-            <h2>{{sidebarData.local}}</h2>
+            <h2><a ui-sref="gamer">{{sidebarData.local}}</a></h2>
             <awesome-snippet summoner="{{sidebarData}}"></awesome-snippet>
             <div gradientbar horizontal="true"
             percentage-positive="{{100*sidebarData.leagueInfo.entries[0].wins/(sidebarData.leagueInfo.entries[0].wins+sidebarData.leagueInfo.entries[0].losses|number:0)}}" 
@@ -36,7 +36,7 @@
             </div>
         </div>
 
-        <div class="ui-view-container col-xs-10 col-xs-offset-2">
+        <div class="ui-view-container">
             <div ui-view="sideBar"></div>
         </div>
 

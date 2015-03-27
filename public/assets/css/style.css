@@ -29,8 +29,9 @@
 }
 #sidebarHud h2{
     border-bottom: 2px groove #00EFFF;
-    border-bottom-right-radius: 2px;
-    border-bottom-left-radius:2px;
+}
+#sidebarHud>h2>a{
+    color:rgb(189, 217, 242);
 }
 #sidebarHud awesome-snippet{
     width: 200px;
@@ -60,6 +61,21 @@
 #sidebarHud div.league-info img{
     width:3em;
 }
+/*Dynamic sidebar*/
+[ui-view="sideBar"]>div {
+    margin-top: 20px;
+    padding:20px;
+    background:#151515;
+    font: 15px arial, sans-serif;
+    color:rgb(1, 122, 123);
+    border-bottom-left-radius: 100px;
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    box-shadow: rgb(123, 242, 248) 0px 0px 6px 0px inset;
+    text-align: right;
+}
+
 
 
 
@@ -73,6 +89,7 @@
 #form-container                { background:#2f2f2f; margin-bottom:20px;border-radius:5px;color:white;box-shadow: rgb(123, 242, 248) 0px 0px 6px 0px; }
 #form-container .page-header   { background:#151515; margin:0; padding:30px; 
     border-top-left-radius:5px; border-top-right-radius:5px; }
+#summoner-bind{padding:20px;text-align: center;}
 
 /* numbered buttons */
 #status-buttons                 {  }
@@ -281,37 +298,3 @@ div[back-img]{
   animation:1s fadeIn;
 }
 
-[ui-view].ng-enter awesome-template,
-awesome-template.ng-enter{
-  -webkit-animation:1s awesomeBounceInLeft;
-  -moz-animation:1s awesomeBounceInLeft;
-  -o-animation:1s awesomeBounceInLeft;
-  animation:1s awesomeBounceInLeft; 
-}
-
-@-webkit-keyframes awesomeBounceInLeft {
-  0%, 60%, 75%, 90%, 100% {
-    -webkit-transition-timing-function: cubic-bezier(1.000, -0.530, 0.405, 1.425);
-    transition-timing-function: cubic-bezier(1.000, -0.530, 0.405, 1.425);
-  }
-
-  0% {
-    -webkit-transform: translate(-300px, 0);
-    transform: translate(-300px, 0);
-    opacity:0;
-  }
-
-  100% {
-    -webkit-transform: transform: perspective(500px) rotateY(50deg) translate(50px,0px);
-    transform: transform: perspective(500px) rotateY(50deg) translate(50px,0px);
-    opacity: 1;
-
-  }
-}
-
-awesome-template.ng-leave{
-  -webkit-animation:1s hinge;
-  -moz-animation:1s hinge;
-  -o-animation:1s hinge;
-  animation:1s hinge; 
-}

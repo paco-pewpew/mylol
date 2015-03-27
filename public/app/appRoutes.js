@@ -22,17 +22,19 @@
 								return data.data;
 							});
 					}],
-					'resChampionList':['Riot',function(Riot){
-						return Riot.getChampionsList()
-								.then(function(championData){
-									console.log(championData.data.data)
-									var list={};
-									for(var champ in championData.data.data){
-											list[championData.data.data[champ].id]=championData.data.data[champ].key;
+					'resStaticData':['Riot',function(Riot){
+						return Riot.getStaticData()
+								.then(function(fetchedData){
+									var staticData=fetchedData.data;
+									var championList={};
+									for(var champ in staticData.champion){
+											championList[staticData.champion[champ].key]=staticData.champion[champ].id;
 									}
-									return list;
+									staticData.championList=championList;
+									console.log(staticData);
+									return staticData;
 								});
-					}]
+					}],
 				},
 				templateUrl:'app/components/main/mainView.html',
 				controller:'MainCtrl'
@@ -48,7 +50,9 @@
 					},
 					'sideBar':{
 						templateUrl:'app/components/sidebar/sidebarView.html',
-						controller:'SidebarCtrl'
+						controller:['$scope',function($scope){
+							$scope.sidebarData='Here you can view snippets of your templates, create new ones and more to come';
+						}]
 					}
 				}
 			})
@@ -62,7 +66,9 @@
 					},
 					'sideBar':{
 						templateUrl:'app/components/sidebar/sidebarView.html',
-						controller:'SidebarCtrl'
+						controller:['$scope',function($scope){
+							$scope.sidebarData='Here you can view data of your bound summoner: recent games, most played champions and more to cone';
+						}]
 					}
 				}
 			})
@@ -85,7 +91,9 @@
 					},
 					'sideBar':{
 						templateUrl:'app/components/sidebar/sidebarView.html',
-						controller:'SidebarCtrl'
+						controller:['$scope',function($scope){
+							$scope.sidebarData='Here you can make your templates for specific champion';
+						}]
 					}
 				}
 			})

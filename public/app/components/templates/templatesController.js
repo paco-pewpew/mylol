@@ -1,14 +1,17 @@
 'use strict';
 angular.module('TemplateController',['VisualDirectives','RiotDirectives','awesomeTemplateDirective'])
-	.controller('TemplateCtrl',['$scope','$http','$stateParams','$window','TemplatesById','Riot','resTemplate','resChampionList',
-		function($scope,$http,$stateParams,$window,TemplatesById,Riot,resTemplate,resChampionList){
-		$scope.championList=resChampionList;
-		$scope.champions=Object.keys(resChampionList).map(function(el){return resChampionList[el]});
+	.controller('TemplateCtrl',['$scope','$http','$stateParams','$window','TemplatesById','Riot','resTemplate','resStaticData',
+		function($scope,$http,$stateParams,$window,TemplatesById,Riot,resTemplate,resStaticData){
+		$scope.itemsData=resStaticData.item;
+		$scope.championList=resStaticData.championList;
+		$scope.championNames=Object.keys($scope.championList).map(function(el){return $scope.championList[el];});
 		$scope.templateResolved=resTemplate;
 		$scope.watchedBuilds=[];
 		$scope.itemsWatchedBuilds=[];
 		$scope.myBuild=[];
 
+		$scope.htmlTooltip = 'I\'ve been made <b>bold</b>!';
+		
 		$scope.templateStatus={
 			championUnset:false,
 			watchedProsUnset:false,

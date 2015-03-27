@@ -59,3 +59,55 @@ awesome-template i {
   margin-left: -50px;
   margin-right: 0px;
 }
+[ui-view].ng-enter awesome-template,
+awesome-template.ng-enter,
+awesome-template.ng-move {
+  -webkit-animation: 1s awesomeBounceInLeft;
+  -moz-animation: 1s awesomeBounceInLeft;
+  -o-animation: 1s awesomeBounceInLeft;
+  animation: 1s awesomeBounceInLeft;
+}
+@-webkit-keyframes awesomeBounceInLeft {
+  0%,
+  60%,
+  75%,
+  90%,
+  100% {
+    -webkit-transition-timing-function: cubic-bezier(1, -0.53, 0.405, 1.425);
+    transition-timing-function: cubic-bezier(1, -0.53, 0.405, 1.425);
+  }
+  0% {
+    -webkit-transform: translate(-300px, 0);
+    transform: translate(-300px, 0);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: perspective(500px) rotateY(50deg) translate(50px, 0px);
+    transform: perspective(500px) rotateY(50deg) translate(50px, 0px);
+    opacity: 1;
+  }
+}
+awesome-template.ng-leave {
+  -webkit-animation: 1s fadeOutRightBig;
+  -moz-animation: 1s fadeOutRightBig;
+  -o-animation: 1s fadeOutRightBig;
+  animation: 1s fadeOutRightBig;
+}
+@-webkit-keyframes awesomewtf {
+  0%,
+  60%,
+  75%,
+  90%,
+  100% {
+    -webkit-transition-timing-function: cubic-bezier(1, -0.53, 0.405, 1.425);
+    transition-timing-function: cubic-bezier(1, -0.53, 0.405, 1.425);
+  }
+  0% {
+    width: 100px;
+    opacity: 1;
+  }
+  100% {
+    width: 0px;
+    opacity: 0;
+  }
+}

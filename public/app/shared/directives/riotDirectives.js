@@ -26,7 +26,7 @@ angular.module('RiotDirectives',[])
 		};
 
 	})
-	.directive('itemPic',function(){
+	.directive('itemPic',['$compile',function($compile){
 		return {
 			restrict:'EA',
 			link:function(scope,element,attrs){
@@ -42,7 +42,7 @@ angular.module('RiotDirectives',[])
 				});
 			}
 		}; 
-	})
+	}])
 	.directive('championIconPic',function(){
 		return {
 			restrict:'EA',
@@ -102,7 +102,8 @@ angular.module('RiotDirectives',[])
 							scope.$digest();
 							//console.log('champLoadingPic for ',value,' done');
 							element.css({
-								'background-image':'url('+img.src+')'
+								'background-image':'url('+img.src+')',
+								'background-size':'contain'
 							});
 						});
 

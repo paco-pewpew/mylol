@@ -40,7 +40,6 @@ function getResource(url,callback){
 			}else{
 				console.log('success');
 				rateBrocker.reset();
-
 				var info=JSON.parse(body);
 				cache.set(url,info);
 				callback(info);
@@ -342,6 +341,50 @@ module.exports=function(router){
 			var url=RiotUrl.getChampionList();
 			getResource(url,function(championList){
 				res.status(200).send(championList);
+			});
+		});
+
+	//Fetches static data from DDragon
+	router.route('/riot/staticdata')
+		.get(function(req,res){
+			var staticData={};
+			//which of the endpoints to fetch
+			var staticDataUrls=[
+				//'http://ddragon.leagueoflegends.com/realms/na.json'
+				RiotUrl.getStaticData.realmStatus
+			];
+
+			getResource(RiotUrl.getStaticData.realmStatus,function(fetchedData){
+				if(fetchedData==='error'){
+					res.status(404).send('failed to get realms status');
+				}else{
+					staticData.dataVersions=fetchedData.n;
+					console.log(staticData.dataVersions.item);
+
+					var staticDataUrls=[
+						RiotUrl.getStaticData.items(staticData.dataVersions.item),
+						RiotUrl.getStaticData.champions(staticData.dataVersions.champion)
+					];
+					console.log(staticDataUrls);
+					
+					async.each(staticDataUrls,function(url,fetchingDone){
+						getResource(url, function(fetchedData){
+							if(fetchedData==='error'){
+								fetchingDone('failed to fetch some of the data');
+							}else{
+								staticData[fetchedData.type]=fetchedData.data;
+								fetchingDone();
+							}
+						});
+					},function(err){
+						if(err){
+							console.log('error fetchin data');
+							res.status(404).send('failed to get some of the data');
+						}else{
+							res.status(200).send(staticData);
+						}
+					});
+				}
 			});
 		});
 
