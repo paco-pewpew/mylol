@@ -1,8 +1,9 @@
 'use strict';
 angular.module('GamerController',['VisualDirectives','RiotDirectives'])
-	.controller('GamerCtrl',['$scope','$window','resStaticData','loggedUser','Riot',function($scope,$window,resStaticData,loggedUser,Riot){
+	.controller('GamerCtrl',['$scope','$window','resStaticData','resBindInfo','Riot',
+		function($scope,$window,resStaticData,resBindInfo,Riot){
 		//$scope.championList=JSON.parse($window.sessionStorage.championList);
-		$scope.loggedUser=loggedUser;
+		$scope.userInfo=resBindInfo;
 		$scope.championList=resStaticData.championList;
 		$scope.awesomeData;
 		$scope.mining=false;
@@ -41,7 +42,7 @@ angular.module('GamerController',['VisualDirectives','RiotDirectives'])
 		$scope.awesomeFunctionality=function(){
 			Riot.getSelfLeague()
 				.success(function(data){
-					console.log('success');
+					console.log('success',data);
 					$scope.awesomeData=data;
 					var yolo=data.champions;
 					yolo.sort(function(a,b){

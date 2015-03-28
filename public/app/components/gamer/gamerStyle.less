@@ -1,3 +1,37 @@
+/*RECENT GAMES*/
+.has-win{
+    background: rgb(0,32,0);
+}
+.has-loss{
+    background: rgb(32,0,0);
+}
+#recent-games{
+    padding: 0px;
+    background-color:rgba(0,123,123,0.3);
+    border-radius:10px;
+    margin-top: 100px;     
+}
+#recent-games>div{
+    display: inline-block;
+    height: 100px;
+    width:10%;
+    /*border:3px ridge #212121;*/
+}
+#recent-games>div>p{
+    padding: 0px;
+    margin: 0px;
+    font-size:12px;
+}
+#recent-games img{
+    width: 90%;
+}
+#recent-games champion-icon-pic{
+    width: 90%;
+    height: 60%;
+    margin-left: 5%;
+    margin-top: 5%;
+}
+
 #mostPlayedChampions{
     background-color:rgba(192,192,192,0.3);
     border-radius:10px;
@@ -8,7 +42,7 @@
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
 }
-.most-champion-bar{
+#mostPlayedChampions div[gradientbar]{
     padding:0px;
     height: 100px;
 }
@@ -25,35 +59,13 @@
 #mostPlayedChampions>div{
     margin: 0 auto;
 }
-#mostPlayedChampions>div>div>div>p:nth-of-type(1){
-    font: 13px Helvetica, Arial;
-    text-align: center;
-}
-#mostPlayedChampions>div>div>div>p:nth-of-type(2){
-    font: 13px Helvetica, Arial;
-    padding: 0px;
-    margin:0px;
-    margin-left: 25%;
-    position: absolute;
-    bottom: 0;  
-}
-#mostPlayedChampions img{
-    height:100px;
-    margin-left: auto;
-    margin-right: auto;
-}
+
+
 
 #awesomeFunctionality img{
     height: 100px;
 }
-#awesomeFunctionality>button{
-    background: #222222;
-    border:3px ridge #c3c3c3;
-    border-radius: 20%;
-    height: 50px;
-    width:120px;
-  
-}
+
 
 #yoloMine{
     margin: 0px;
@@ -110,4 +122,14 @@
     width:120px;
     padding-top: 20px;
     margin-left: 40px;
+}
+
+.hot-picks-data{
+    p{
+        font-size:14px;
+        text-align: left;
+    }
+}
+.hot-picks-summoner{
+    background-color:rgba(14,14,20,0.5);
 }

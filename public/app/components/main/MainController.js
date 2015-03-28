@@ -4,8 +4,7 @@ angular.module('MainController',[])
 		function($scope,$state,$window,resBindInfo,Users,Riot){
 		//binds logged state to sessionStorage or false(for first entry before its created)
 		$scope.logged=$window.sessionStorage.logged||false;
-		//$scope.sidebarData=JSON.parse($window.sessionStorage.userRiot);
-		$scope.sidebarData=resBindInfo;
+		$scope.boundSummoner=resBindInfo;
 		$scope.setLoggedState=function(value){
 			$scope.logged=value;
 		};

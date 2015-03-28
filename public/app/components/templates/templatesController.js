@@ -9,8 +9,6 @@ angular.module('TemplateController',['VisualDirectives','RiotDirectives','awesom
 		$scope.watchedBuilds=[];
 		$scope.itemsWatchedBuilds=[];
 		$scope.myBuild=[];
-
-		$scope.htmlTooltip = 'I\'ve been made <b>bold</b>!';
 		
 		$scope.templateStatus={
 			championUnset:false,
@@ -33,15 +31,12 @@ angular.module('TemplateController',['VisualDirectives','RiotDirectives','awesom
 			watchedPros:[].concat($scope.templateResolved.watchedPros)
 		};
 		
-		$scope.omg=function(index){
-			console.log('index of watched: ',index);
+		$scope.removeWatched=function(index){
 			$scope.templateNew.watchedPros.splice(index,1);
 		};
 
-		$scope.wtf=function(result){
-			console.log('wtf');
+		$scope.addWatched=function(result){
 			if(result){
-				console.log(result);
 				$scope.templateNew.watchedPros.push(result);
 			};
 		};
@@ -53,6 +48,7 @@ angular.module('TemplateController',['VisualDirectives','RiotDirectives','awesom
 			TemplatesById.put($scope.templateResolved._id,$scope.templateNew)
 				.success(function(data){
 					console.log(data);
+					$scope.myBuild=[];
 					$scope.templateResolved=data;
 					$scope.getWatchedBuilds();
 				})
@@ -64,10 +60,10 @@ angular.module('TemplateController',['VisualDirectives','RiotDirectives','awesom
 		
 
 		$scope.getWatchedBuilds=function(){
-			if($scope.templateNew.watchedPros.length>0){
+			var championId=Object.keys($scope.championList).filter(function(key){return $scope.championList[key]===$scope.templateNew.champion;});
+			if($scope.templateNew.watchedPros.length>0 && championId){
 				var watchedids=$scope.templateNew.watchedPros.reduce(function(a,b){return a.concat((a.length?',':''),b.id);},'');
 				var watchedregions=$scope.templateNew.watchedPros.reduce(function(a,b){return a.concat((a.length?',':''),b.region);},'');
-				var championId=Object.keys($scope.championList).filter(function(key){return $scope.championList[key]===$scope.templateNew.champion;});
 				console.log(watchedids,watchedregions,championId);
 				//Riot.getSummonerMatchesByChampion(watched.region,watched.lolid,championId)
 				Riot.getSummonerMatchesByChampion(watchedregions,watchedids,championId)
@@ -84,6 +80,9 @@ angular.module('TemplateController',['VisualDirectives','RiotDirectives','awesom
 							return (arr.indexOf(el)===id && el!==0);
 						});
 						
+					})
+					.error(function(data){
+						console.log('error fetching builds',data);
 					});
 			}
 			

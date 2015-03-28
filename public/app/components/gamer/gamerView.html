@@ -1,5 +1,5 @@
 <div class="jumbotron text-center" back-img="{{championList[lastChampionPlayed]}}">
-    <div class="username">{{loggedUser.name}} @ {{loggedUser.region}}</div>
+    <div class="page-heading-container">{{userInfo.name}} @ {{userInfo.region}}</div>
     <div class="row" id="recent-games">
          <h2>Recent games</h2>
 		<!--little boxes for each game-->
@@ -20,20 +20,20 @@
         <h2>Most played champs</h2>
         <div class="bar col-xs-4" ng-if="$index!=0 && !errors.mostPlayedChampions" ng-repeat="champ in mostPlayedChampions">
             <div class="row" ng-if="!errors.mostPlayedChampions">
-                <div class="col-xs-2 col-xs-offset-2 most-champion-bar" gradientbar percentage-positive="{{100*champ.stats.totalSessionsPlayed/mostPlayedChampions[0].stats.totalSessionsPlayed|number:0}}" 
+                <div class="col-xs-2 col-xs-offset-2 most-champion-bar" gradientbar
+                 positive-value="{{champ.stats.totalSessionsPlayed}}" negative-value="{{mostPlayedChampions[0].stats.totalSessionsPlayed-champ.stats.totalSessionsPlayed}}"
                 color-positive="yellow"
-                color-negative="gray">{{champ.stats.totalSessionsPlayed}}
+                color-negative="gray">
                 </div>
 
                 <div class="col-xs-4 most-champion-picture">
                      <champion-loading-pic champion-name="{{championList[champ.id]}}"></champion-loading-pic>
                 </div>
 
-                <div class="col-xs-2 most-champion-bar" gradientbar percentage-positive="{{100*champ.stats.totalSessionsWon/champ.stats.totalSessionsPlayed|number:0}}" 
+                <div class="col-xs-2 most-champion-bar" gradientbar 
+                positive-value="{{champ.stats.totalSessionsWon}}" negative-value="{{champ.stats.totalSessionsPlayed-champ.stats.totalSessionsWon}}"
                 color-positive="rgba(0,255,0,1)"
                 color-negative="rgba(255,0,0,1)">
-                <p>{{champ.stats.totalSessionsPlayed-champ.stats.totalSessionsWon}}</p>
-                <p>{{champ.stats.totalSessionsWon}}</p>
                 </div>
             </div>
         </div>
@@ -51,21 +51,27 @@
 
     <div class="row" id="awesomeFunctionality">
         <h3>Want to get better? Check out hot picks in your league</h3>
-        <button ng-click="awesomeFunctionality()">hot picks</button>
+        <button class="btn imba-btn imba-btn-block" ng-click="awesomeFunctionality()">hot picks</button>
+       
+        <button class="btn btn-default" ng-click="isCollapsed = !isCollapsed">
+            info based on top summoners in your league
+        </button>
+        <div collapse="isCollapsed">
+            <div class="well well-lg">
+                <p class="hot-picks-summoner" ng-repeat="summoner in awesomeData.players">{{summoner.playerOrTeamName}},   wins:{{summoner.wins}} - losses:{{summoner.losses}}</p>
+            </div> 
+        </div>
+
         <div class="row" ng-repeat="champ in awesomeData.champions">
-            <div class="col-xs-2">
-                Champ Id: {{champ.id}}
-                Occurencies: {{champ.count}}
-            </div>
              <div class="col-xs-4 most-champion-picture">
-                 <img ng-src="http://ddragon.leagueoflegends.com/cdn/img/champion/loading/{{championList[champ.id]}}_0.jpg">
+                 <champion-loading-pic champion-name="{{championList[champ.id]}}"></champion-loading-pic>
             </div>
-            <div class="col-xs-4">
-                Kills:{{champ.kills}}
-                Deaths:{{champ.deaths}}
-                Assists:{{champ.assists}}
+            <div class="col-xs-4 hot-picks-data">
+                <p>Occurencies: {{champ.count}}</p>
+                <p>K/D/A: {{champ.kills/champ.count|number:1}}/{{champ.deaths/champ.count|number:1}}/{{champ.assists/champ.count|number:1}}</p>
             </div>
         </div>
+
     </div>
 
 

@@ -68,13 +68,11 @@ item-pic{
 }
 
 #itemsPool{
-    background: orange;
     overflow: auto;
-    width: 600px;
-    height: 100px;
+    width: 100%;
     item-pic{
-        height: 70%;
-        width: 12.5%;
+        height: 50px;
+        width: 50px;
     }
 }
 
@@ -84,6 +82,7 @@ item-pic{
     overflow: auto;
     display: inline-block;
     background: @mediumGray;
+    margin-bottom: 20px;
 }
 
 
@@ -96,4 +95,17 @@ item-pic{
 }
 .popover-title{
     background-color:rgb(25,25,25);
+}
+
+#myItemBuild>item-pic.ng-enter{
+  -webkit-animation:1s flash;
+  -moz-animation:1s flash;
+  -o-animation:1s flash;
+  animation:1s flash;     
+}
+#myItemBuild>item-pic.ng-leave{
+  -webkit-animation:1s fadeOutUp;
+  -moz-animation:1s fadeOutUp;
+  -o-animation:1s fadeOutUp;
+  animation:1s fadeOutUp;     
 }

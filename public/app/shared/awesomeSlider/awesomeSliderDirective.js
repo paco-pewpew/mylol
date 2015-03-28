@@ -57,7 +57,7 @@ angular.module('awesomeSliderDirective',['RiotDirectives'])
 					});
 				});
 				//set sliderOptions.current based on mouseovered template
-				/*scope.$on('awesomeTemplateEntered',function(event,templateId){
+				scope.$on('awesomeTemplateEntered',function(event,templateId){
 					//every hover is pushed and after a timeout the last one is taken
 					//timeout with false to remove it from $apply but with $digest() for performance
 					hoverItems.push(templateId);
@@ -74,7 +74,7 @@ angular.module('awesomeSliderDirective',['RiotDirectives'])
 
 						}
 					},100,false);
-				});*/
+				});
 
 			},
 			templateUrl:'app/shared/awesomeSlider/awesomeSliderView.html'

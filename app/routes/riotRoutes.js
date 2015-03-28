@@ -84,55 +84,60 @@ module.exports=function(router){
 			//OPTIONAL params... region,lolids,champion
 			//returns item data from matches for certain champion played by given summoners
 			console.log(req.query);
-			//gets the first 3 queries
+			//gets the first 3 queries max summoners to watch = 3
 			var configMaxQueries=3;
 			var lolids=req.query.lolid.split(',').splice(0,configMaxQueries);
 			var regions=req.query.region.split(',').splice(0,configMaxQueries);
+			console.log(lolids,regions);
 
-			var itemData=[];
+			if(lolids.length===0||lolids.length!=regions.length||!req.query.champion){
+				res.status(404).send('Search criteria not valid. Need query for specific champion on multiple summoners');
+			}else{
+				var itemData=[];
 
-			async.each(lolids,function(lolid,cbDerp){
-				var region=regions[lolids.indexOf(lolid)];
-				var url='https://'+region+'.api.pvp.net/api/lol/'+region+'/v2.2/matchhistory/'+lolid+'?championIds='+req.query.champion+'&api_key=7947d3bb-10c2-4fc3-b2b3-0805a2aa805f';				
-				getResource(url,function(data){
-					if(data==='error'){
-						cbDerp('error fetching data for '+lolid);
-					}else{
-						if(!data.matches){
-							console.log(lolid,' has no matches data for ',req.query.champion);
-							cbDerp();
+				async.each(lolids,function(lolid,cbDerp){
+					var region=regions[lolids.indexOf(lolid)];
+					var url='https://'+region+'.api.pvp.net/api/lol/'+region+'/v2.2/matchhistory/'+lolid+'?championIds='+req.query.champion+'&api_key=7947d3bb-10c2-4fc3-b2b3-0805a2aa805f';				
+					getResource(url,function(data){
+						if(data==='error'){
+							cbDerp('error fetching data for '+lolid);
 						}else{
-							var itemsMatches=data.matches.map(function(el){
-								return {
-									player:el.participantIdentities[0].player,
-									winner:el.participants[0].stats.winner,
-									kills:el.participants[0].stats.kills,
-									deaths:el.participants[0].stats.deaths,
-									assists:el.participants[0].stats.assists,
-									item0:el.participants[0].stats.item0,
-									item1:el.participants[0].stats.item1,
-									item2:el.participants[0].stats.item2,
-									item3:el.participants[0].stats.item3,
-									item4:el.participants[0].stats.item4,
-									item5:el.participants[0].stats.item5,
-									item6:el.participants[0].stats.item6
-								};
-							});
-							itemData=itemData.concat(itemsMatches);
-							cbDerp();
+							if(!data.matches){
+								console.log(lolid,' has no matches data for ',req.query.champion);
+								cbDerp();
+							}else{
+								var itemsMatches=data.matches.map(function(el){
+									return {
+										player:el.participantIdentities[0].player,
+										winner:el.participants[0].stats.winner,
+										kills:el.participants[0].stats.kills,
+										deaths:el.participants[0].stats.deaths,
+										assists:el.participants[0].stats.assists,
+										item0:el.participants[0].stats.item0,
+										item1:el.participants[0].stats.item1,
+										item2:el.participants[0].stats.item2,
+										item3:el.participants[0].stats.item3,
+										item4:el.participants[0].stats.item4,
+										item5:el.participants[0].stats.item5,
+										item6:el.participants[0].stats.item6,
+										version:el.matchVersion
+									};
+								});
+								itemData=itemData.concat(itemsMatches);
+								cbDerp();
+							}
 						}
+					});
+				},function(err){
+					if(err){
+						res.status(404).send(err);	
+					}else{
+						res.status(200).send(itemData);	
 					}
+
 				});
-			},function(err){
-				if(err){
-					res.status(404).send(err);	
-				}else{
-					res.status(200).send(itemData);	
-				}
-
-			});
-			//end of async call
-
+				//end of async call
+			}
 		});
 
 
@@ -209,7 +214,6 @@ module.exports=function(router){
 					   return (el.isInactive===false && el.wins/el.losses>2);
 					}).sort(function(a,b){return b.leaguePoints-a.leaguePoints;});
 					
-					console.log('iterating through active players...');
 					var gg=[].concat(activePlayers);
 					var leagueMostPlayedChampions=[];
 					
@@ -224,8 +228,7 @@ module.exports=function(router){
 							});
 					},function(err){
 						if(err)
-							res.status(404).send({message:'some kind of error'});
-						console.log(leagueMostPlayedChampions);
+							res.status(404).send({message:'error fetching match history for one of the players'});
 						res.status(200).send({players:activePlayers,champions:leagueMostPlayedChampions});
 					});
 
@@ -244,93 +247,94 @@ module.exports=function(router){
 
 
 			
-			async.each([url1,url2],function(url,cbOne){
+			async.each([url1,url2],function(url,summonersMining){
 				getResource(url,function(league){
-					if(league[req.user.riot.lolid]!==undefined)	league=league[req.user.riot.lolid][0];
-					var leagueEntries=league.entries.filter(function(entry){
-						return entry.isInactive===false;
-						//return (entry.isInactive===false&&(league.tier==='CHALLENGER'?entry.wins/entry.losses>1.5:entry.wins/entry.losses<0.7));
-					}).sort(function(a,b){
-						return (league.tier==='CHALLENGER'?b.wins/b.losses-a.wins/a.losses:a.wins/a.losses-b.wins/b.losses);
-						//return b.leaguePoints-a.leaguePoints;
-					}).slice(0,10);
-					playersBase=playersBase.concat(leagueEntries);
-					console.log(leagueEntries);
-					async.each(leagueEntries,function(entry,cbTwo){
-						var url=RiotUrl.getStats(req.user.riot.region,entry.playerOrTeamId);
-						getResource(url,function(stats){
-							if(stats==='error'){
-								console.log('Error with fetchin stats for players');
-								cbTwo('error');
+					if(league==='error'){
+						summonersMining('error getting summonerList'+url);
+					}else{
+						if(league[req.user.riot.lolid]!==undefined)	league=league[req.user.riot.lolid][0];
+						var leagueEntries=league.entries.filter(function(entry){
+							return entry.isInactive===false;
+							//return (entry.isInactive===false&&(league.tier==='CHALLENGER'?entry.wins/entry.losses>1.5:entry.wins/entry.losses<0.7));
+						}).sort(function(a,b){
+							return (league.tier==='CHALLENGER'?b.wins/b.losses-a.wins/a.losses:a.wins/a.losses-b.wins/b.losses);
+							//return b.leaguePoints-a.leaguePoints;
+						}).slice(0,10);
+						playersBase=playersBase.concat(leagueEntries);
+						console.log(leagueEntries);
+						async.each(leagueEntries,function(entry,statsMining){
+							var url=RiotUrl.getStats(req.user.riot.region,entry.playerOrTeamId);
+							getResource(url,function(stats){
+								if(stats==='error'){
+									statsMining('Error with fetchin stats for players');
+								}else{
+									stats.champions.forEach(function(el){
+										if(el.id===0){
+											playersChampions.push({
+												type:(league.tier==='CHALLENGER'?'good':'bad'),
+												avgKills:el.stats.totalChampionKills/el.stats.totalSessionsPlayed,
+												totalDeaths:el.stats.totalDeathsPerSession/el.stats.totalSessionsPlayed,
+												totalAssists:el.stats.totalAssists/el.stats.totalSessionsPlayed,
+											});
+										}
+									});
+									statsMining();
+								}
+							});
+						},function(err){
+							if(err){
+								//summonersMining('error');
+								summonersMining(err);
 							}else{
-								stats.champions.forEach(function(el){
-									if(el.id===0){
-										playersChampions.push({
-											type:(league.tier==='CHALLENGER'?'good':'bad'),
-											avgKills:el.stats.totalChampionKills/el.stats.totalSessionsPlayed,
-											totalDeaths:el.stats.totalDeathsPerSession/el.stats.totalSessionsPlayed,
-											totalAssists:el.stats.totalAssists/el.stats.totalSessionsPlayed,
-										});
-									}
-								});
-								cbTwo();
+								summonersMining();	
 							}
 						});
-					},function(err){
-						if(err){
-							cbOne('error');
-						}else{
-							cbOne();	
-						}
-					});
+					}
 				});
 			},function(err){
-				if(err)
-					res.status(404).send({message:'some kind of error'});
-				
-				console.log(playersChampions);
-				
-				var miningClasses={
-					good:new DM.mineClass(),
-					bad:new DM.mineClass(),
-					doTheMath:function(){
-						this.good.calculateGaussianParameters();
-						this.bad.calculateGaussianParameters();
-					}
-				};
-
-				playersChampions.forEach(function(el){
-					miningClasses[el.type].occurrences+=1;
-					miningClasses[el.type].kills.dataSet.push(el.avgKills);
-					miningClasses[el.type].deaths.dataSet.push(el.totalDeaths);
-					miningClasses[el.type].assists.dataSet.push(el.totalAssists);
-				});
-				
-				miningClasses.doTheMath();
-				console.log(miningClasses);
-
-				var me={};
-				var url=RiotUrl.getStats(req.user.riot.region,req.user.riot.lolid);
-				console.log(url);
-				getResource(url,function(stats){
-					stats.champions.forEach(function(el){
-						if(el.id===0){
-							me.kills=el.stats.totalChampionKills/el.stats.totalSessionsPlayed;
-							me.deaths=el.stats.totalDeathsPerSession/el.stats.totalSessionsPlayed;
-							me.assists=el.stats.totalAssists/el.stats.totalSessionsPlayed;
+				if(err){
+					res.status(404).send({message:'error mining ',error:err});	
+				}else{
+					var miningClasses={
+						good:new DM.mineClass(),
+						bad:new DM.mineClass(),
+						doTheMath:function(){
+							this.good.calculateGaussianParameters();
+							this.bad.calculateGaussianParameters();
 						}
+					};
+
+					playersChampions.forEach(function(el){
+						miningClasses[el.type].occurrences+=1;
+						miningClasses[el.type].kills.dataSet.push(el.avgKills);
+						miningClasses[el.type].deaths.dataSet.push(el.totalDeaths);
+						miningClasses[el.type].assists.dataSet.push(el.totalAssists);
 					});
+					
+					miningClasses.doTheMath();
+					console.log(miningClasses);
 
-					DM.calculateAllProperties(me,miningClasses);
-					DM.calculateChancesAllClasses(me,miningClasses);
-					DM.calculateProbabilityAllClasses(me,miningClasses);
+					var me={};
+					var url=RiotUrl.getStats(req.user.riot.region,req.user.riot.lolid);
+					console.log(url);
+					getResource(url,function(stats){
+						stats.champions.forEach(function(el){
+							if(el.id===0){
+								me.kills=el.stats.totalChampionKills/el.stats.totalSessionsPlayed;
+								me.deaths=el.stats.totalDeathsPerSession/el.stats.totalSessionsPlayed;
+								me.assists=el.stats.totalAssists/el.stats.totalSessionsPlayed;
+							}
+						});
 
-					var result=DM.getMostProbableClass(me,miningClasses);
-					console.log(me);
-					res.status(200).send({base:playersBase,data:playersChampions,miningData:miningClasses,probabilityMe:me,result:result});
-				});
+						DM.calculateAllProperties(me,miningClasses);
+						DM.calculateChancesAllClasses(me,miningClasses);
+						DM.calculateProbabilityAllClasses(me,miningClasses);
 
-
+						var result=DM.getMostProbableClass(me,miningClasses);
+						console.log(me);
+						res.status(200).send({base:playersBase,data:playersChampions,miningData:miningClasses,probabilityMe:me,result:result});
+					});
+				}
 			});
 
 		});
