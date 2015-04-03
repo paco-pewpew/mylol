@@ -14,3 +14,34 @@ awesome-errorbox i.fa.fa-repeat {
   color: #a53333;
   cursor: pointer;
 }
+[gradientbar] {
+  height: 2em;
+}
+[gradientbar][horizontal="true"] span:nth-of-type(1) {
+  float: left;
+  margin-left: 5px;
+}
+[gradientbar][horizontal="true"] span:nth-of-type(2) {
+  float: right;
+  margin-right: 5px;
+}
+[gradientbar]:not([horizontal="true"]) span:nth-of-type(1) {
+  display: block;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0);
+  bottom: 0px;
+}
+[gradientbar]:not([horizontal="true"]) span:nth-of-type(2) {
+  display: block;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0);
+  top: 0px;
+}
+.attention-remove {
+  -webkit-animation: 0.5s bounce;
+  -moz-animation: 0.5s bounce;
+  -o-animation: 0.5s bounce;
+  animation: 0.5s bounce;
+}

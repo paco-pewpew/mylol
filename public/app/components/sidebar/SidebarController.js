@@ -1,5 +1,14 @@
-'use strict';
-angular.module('SidebarController',['RiotDirectives','VisualDirectives'])
-	.controller('SidebarCtrl',['$scope','$window',function($scope,$window){
-		$scope.sidebarData='optional data relevant* to the state';
-	}]);
+(function() {
+    'use strict';
+
+    angular
+        .module('awesomeApp.sidebar',[])
+        .controller('SidebarCtrl', SidebarCtrl);
+
+    /* @ngInject */
+    function SidebarCtrl() {
+        var vm = this;
+        vm.sidebarData='optional data';
+    }
+})();
+

@@ -1,30 +1,82 @@
 module.exports = function(grunt) {
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
+		//Define paths
+		js_dist_path:'public/assets/js',
+		css_dist_path:'public/assets/css',
+		app_build_path:'public/app/',
+        components_build_path:'public/app/components/',
+        shared_build_path:'public/app/shared/',
 		
-		
+
+         ngAnnotate: {
+	        derp: {
+	            files: [
+	                {
+	                    expand: true,
+	                    src: ['<%=app_build_path%>/**/*.js'],
+	                    dest:'<%=js_dist_path%>',
+	                    ext: '.annotated.js', // Dest filepaths will have this extension.
+	                    extDot: 'last',       // Extensions in filenames begin after the last dot
+	                    flatten: true
+	                }
+	            ]
+	        }
+	    },
+
+	    uglify:{
+	    	dynamic:{
+	    		files:[{
+				  expand: true,
+				  cwd: '<%=js_dist_path%>',
+				  src: ['*.js','!*.min.js'],
+				  dest: '<%=js_dist_path%>',
+				  ext: '.min.js',
+				  extDot: 'last',
+				  flatten: true
+				}]
+	    	}
+	    },
+
+	     concat:{
+	    	derp:{
+	    		files:[{
+				  src: ['<%=js_dist_path%>/*.min.js'],
+				  dest: '<%=js_dist_path%>/mylolBuilt.concat.min.js'
+				}]
+	    	}
+	    },
+
 
 		less: {
 	      build: {
-	        files: {
-	          'public/assets/css/mainStyle.css': 'public/app/components/main/mainStyle.less',
-	          'public/assets/css/templatesStyle.css': 'public/app/components/templates/templatesStyle.less',
-	          'public/assets/css/gamerStyle.css': 'public/app/components/gamer/gamerStyle.less',
-	          'public/assets/css/awesomeSliderStyle.css': 'public/app/shared/awesomeSlider/awesomeSliderStyle.less',	
-	          'public/assets/css/awesomeTemplateStyle.css': 'public/app/shared/awesomeTemplate/awesomeTemplateStyle.less',
-	          'public/assets/css/awesomeSnippetStyle.css': 'public/app/shared/awesomeSnippet/awesomeSnippetStyle.less',
-	          'public/assets/css/riotDirectives.css':'public/app/shared/directives/riotDirectives.less',
-	          'public/assets/css/visualDirectives.css':'public/app/shared/directives/visualDirectives.less'
-	        }
+	        files:[{
+			  expand: true,
+			  cwd: '<%=components_build_path%>',
+			  src: ['**/*.less'],
+			  dest: '<%=css_dist_path%>',
+			  ext: '.css',
+			  flatten: true
+			},{
+			  expand: true,
+			  cwd: '<%=shared_build_path%>',
+			  src: ['**/*.less'],
+			  dest: '<%=css_dist_path%>',
+			  ext: '.css',
+			  flatten: true
+			}]
 	      }
 	    },
 
 
-
 	    watch: {
 	      css: {
-	        files: ['public/app/shared/**/*.less','public/app/components/**/*.less'],
+	        files: ['<%=components_build_path%>/**/*.less','<%=shared_build_path%>/**/*.less'],
 	        tasks: ['less']
+	      },
+	      js:{
+	      	files: ['<%=app_build_path%>/**/*.js'],
+	      	tasks: ['ngAnnotate','uglify','concat']
 	      }
 	    },
 
@@ -42,11 +94,15 @@ module.exports = function(grunt) {
 	    }  
 
 	});
-
+	
+	grunt.loadNpmTasks('grunt-ng-annotate');
 	grunt.loadNpmTasks('grunt-contrib-less');
+	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-watch');
+	grunt.loadNpmTasks('grunt-contrib-concat');
+	grunt.loadNpmTasks('grunt-ng-annotate');
 	grunt.loadNpmTasks('grunt-nodemon');
 	grunt.loadNpmTasks('grunt-concurrent');
 	
-	grunt.registerTask('default',['less','concurrent']);
+	grunt.registerTask('default',['less','ngAnnotate','uglify','concat','concurrent']);
 };

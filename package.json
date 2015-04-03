@@ -29,7 +29,9 @@
     "grunt-contrib-uglify": "latest",
     "grunt-contrib-less": "latest",
     "grunt-contrib-cssmin": "latest",
+    "grunt-contrib-concat":"latest",
     "grunt-contrib-watch": "latest",
+    "grunt-ng-annotate":"latest",
     "grunt-nodemon": "latest",
     "grunt-concurrent": "latest"
   }

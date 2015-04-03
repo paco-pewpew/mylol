@@ -1,0 +1,17 @@
+<div ng-show="!vm.result" class="lol-search">
+	<!--<input type="text" placeholder="region" ng-model="searchForm.region">-->
+	<div class="btn-group">
+        <label class="btn imba-btn" ng-model="vm.searchForm.region" btn-radio="region" ng-repeat="region in vm.allowedRegions">{{region}}</label>
+    </div>
+	<input type="text" placeholder="name" ng-model="vm.searchForm.name">
+	<button ng-click="vm.checkAccount()">check player</button>
+</div>
+<div ng-show="vm.result" class="result-snippet">
+	<!--<img ng-src="http://ddragon.leagueoflegends.com/cdn/5.2.1/img/profileicon/{{result.profileIconId}}.png">-->
+	<profile-pic id="{{vm.result.profileIconId}}"></profile-pic>
+	<p>{{vm.result.name}}</p>
+	<p>{{vm.result.summonerLevel}} lvl, {{vm.result.region}}</p>
+	<i class="fa fa-thumbs-o-up" ng-show="!summoner && approveFunction" ng-click="vm.acceptSummoner()"></i>
+	<i class="fa fa-thumbs-o-down" ng-show="!summoner && approveFunction" ng-click="vm.rejectSummoner()"></i>
+	<i class="fa fa-times" ng-show="summoner && removeFunction" ng-click="vm.removeSummoner()"></i>
+</div>

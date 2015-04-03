@@ -1,0 +1,44 @@
+<div class="container">
+    <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" ui-sref="home"><img src="assets/img/psGod/logo.png"></a>
+        </div>
+
+        <ul class="navbar navbar-nav navbar-right">
+            <li><a ui-sref="gamer"><i class="fa fa-users"></i>Gamer</a></li>
+            <li><a  ui-sref="account"><i class="fa fa-sign-in">Account</i></a></li>
+            <li><a  href="" ng-click="vm.logoutUser()"><i class="fa fa-sign-out">Log out</i></a></li>
+        </ul>
+    </div>
+</nav>
+</div>
+
+
+<div class="container">
+    <div class="col-sm-4">
+        
+        <div id="sidebarHud" class=" col-xs-10 col-xs-offset-2">
+            <h2><a ui-sref="gamer">{{vm.boundSummoner.local}}</a></h2>
+            <aws-snippet summoner="{{vm.boundSummoner}}"></aws-snippet>
+            <div gradientbar horizontal="true" 
+            positive-value="{{vm.boundSummoner.leagueInfo.entries[0].wins}}" negative-value="{{vm.boundSummoner.leagueInfo.entries[0].losses}}" color-positive="rgba(91, 5, 5, 0.8)" color-negative="rgba(5, 91, 5, 0.8)">
+            </div>
+
+            <div class="league-info">
+                <img ng-src="assets/img/tierIcons/{{vm.boundSummoner.leagueInfo.tier}}_{{vm.boundSummoner.leagueInfo.entries[0].division}}.png">
+                <p>
+                    {{vm.boundSummoner.leagueInfo.name}},{{vm.boundSummoner.leagueInfo.tier}} {{vm.boundSummoner.leagueInfo.entries[0].division}}
+                </p>
+            </div>
+        </div>
+
+        <div class="ui-view-container">
+            <div ui-view="sideBar"></div>
+        </div>
+
+    </div>
+	<div class="col-sm-8 ui-view-container">
+        <div ui-view="centralContainer"></div>    
+    </div>
+</div>

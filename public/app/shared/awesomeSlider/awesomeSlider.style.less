@@ -1,0 +1,27 @@
+aws-slider {
+    padding: 50px 20px 20px 50px;
+    font: 12px arial, sans-serif;
+    overflow: hidden;
+    display: block;
+    #templatesFilter{
+    	position: absolute;
+    	top:0px;
+    	left:0px;
+    }
+    &>i{
+    	position: absolute;
+	    top:80px;
+	    color:rgb(123, 242, 248);
+	    opacity: 0.5;
+	    cursor:pointer;
+    }
+    &>i:nth-of-type(1) {
+	    left: 10px;
+	}
+	&>i:nth-of-type(2) {
+	    right: 10px;
+	}
+	&>i:hover{
+	    opacity:1;
+	}
+}

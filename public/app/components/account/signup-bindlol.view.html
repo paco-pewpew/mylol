@@ -1,0 +1,17 @@
+<div class="row">
+	<div id="summoner-bind" class="col-xs-8 col-xs-offset-2">
+		<aws-snippet summoner="{{vm.bind.lolacc}}" ng-if="vm.bind.have"
+		accept="vm.bind.setBind(result)" remove="vm.bind.removeBind()"></aws-snippet>
+
+		<aws-snippet ng-if="!vm.bind.have"
+		accept="vm.bind.setBind(result)" remove="vm.bind.removeBind()"></aws-snippet>
+		
+
+	</div>
+
+<div class="col-xs-6 col-xs-offset-3">
+    <a ui-sref="^.finish" class="btn btn-block btn-info">
+    Next Section <span class="glyphicon glyphicon-circle-arrow-right"></span>
+    </a>
+</div>
+</div>

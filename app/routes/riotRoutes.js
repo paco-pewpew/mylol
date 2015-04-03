@@ -5,7 +5,7 @@ var request=require('request');
 var async=require('async');
 
 
-var LRU=require('lru-cache'),options={max:50,maxAge:1000},cache=LRU(options);
+var LRU=require('lru-cache'),options={max:50,maxAge:1000*60*10},cache=LRU(options);
 
 var rateBrocker={
 	limit:10*1000,
@@ -144,7 +144,9 @@ module.exports=function(router){
 //get self info with token data
 	router.route('/riot/self')
 		.get(function(req,res){
+			console.log('fak tihs',req.user);
 			var url=RiotUrl.getSummonerByName(req.user.riot.region,req.user.riot.lolacc);
+
 			getResource(url,function(summonerInfo){
 				console.log(summonerInfo);
 				if(summonerInfo==='error'){
@@ -396,6 +398,7 @@ module.exports=function(router){
 	router.route('/riot/summoner')
 		.get(function(req,res){
 			var url=RiotUrl.getSummonerByName(req.query.region,req.query.name);
+			console.log(req.query);
 			getResource(url,function(summoner){
 				if(summoner==='error'){
 					res.status(404).send(summoner);

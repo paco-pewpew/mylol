@@ -24,13 +24,22 @@
 		},
 		getMatchHistory:function(region,id){
 			return 'https://'+region+'.api.pvp.net/api/lol/'+region+'/v2.2/matchhistory/'+id+'?rankedQueues=RANKED_SOLO_5x5&beginIndex=0&endIndex=15&api_key='+riotApiKey;
-			//return 'https://euw.api.pvp.net/api/lol/'+region+'/v2.2/matchhistory/'+id+'?rankedQueues=RANKED_SOLO_5x5&api_key='+riotApiKey;
 		},
 		getStats:function(region,id){
 			return 'https://'+region+'.api.pvp.net/api/lol/'+region+'/v1.3/stats/by-summoner/'+id+'/ranked?season=SEASON2015&api_key='+riotApiKey;
 		},
 		getChallengers:function(region){
 			return 'https://'+region+'.api.pvp.net/api/lol/'+region+'/v2.5/league/challenger?type=RANKED_SOLO_5x5&api_key='+riotApiKey;
+		},
+		getStaticData:{
+			realmStatus:'http://ddragon.leagueoflegends.com/realms/na.json',
+			items:function(version){
+				return 'http://ddragon.leagueoflegends.com/cdn/'+version+'/data/en_US/item.json ';
+			},
+			champions:function(version){
+				return 'http://ddragon.leagueoflegends.com/cdn/'+version+'/data/en_US/champion.json ';
+			}
+
 		}
 
 	};	

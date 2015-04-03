@@ -37,7 +37,19 @@ angular.module('VisualDirectives',[])
 				fetchFunction:'&'
 			},
 			template:'<i class="fa fa-bug"> {{errormessage}}</i><i class="fa fa-repeat" ng-click="fetchFunction()"></i>'
-		}
+		};
+	})
+	.directive('animate',function($timeout,$animate){
+		return{
+			restrict:'A',
+			link:function(scope,element,attrs){
+				attrs.$observe('animate',function(val){
+					$animate.addClass(element,'attention',function(){
+						$animate.removeClass(element,'attention');
+					});
+				});
+			}
+		};
 	});
 
 

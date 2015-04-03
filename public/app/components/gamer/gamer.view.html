@@ -1,0 +1,78 @@
+<div class="jumbotron text-center" back-img="{{vm.championList[vm.lastChampionPlayed]}}">
+    <div class="page-heading-container">{{vm.userInfo.name}} @ {{vm.userInfo.region}}</div>
+    <div class="row" id="recent-games">
+         <h2>Recent games</h2>
+		<!--little boxes for each game-->
+		<div  ng-class="{'has-win build-won':match.stats.win,'has-loss build-lost':!match.stats.win}"
+		 ng-repeat="match in vm.recentMatches">
+            <p>
+                {{match.stats.win?'win':'loss'}}
+            </p>
+            <champion-icon-pic champion-name="{{vm.championList[match.championId]}}"></champion-icon-pic>
+	    	<p>
+                {{match.stats.championsKilled||0}}/{{match.stats.numDeaths||0}}/{{match.stats.assists||0}}
+            </p>
+		</div>
+        <awesome-errorbox ng-if="vm.errors.recentMatches" message="{{vm.errors.message}}" fetch-function="fetchRecentMatches()"></awesome-errorbox>
+    </div>
+
+    <div class="row" id="mostPlayedChampions">
+        <h2>Most played champs</h2>
+        <div class="bar col-xs-4" ng-if="$index!=0 && !vm.errors.mostPlayedChampions" ng-repeat="champ in vm.mostPlayedChampions">
+            <div class="row" ng-if="!vm.errors.mostPlayedChampions">
+                <div class="col-xs-2 col-xs-offset-2 most-champion-bar" gradientbar
+                 positive-value="{{champ.stats.totalSessionsPlayed}}" negative-value="{{vm.mostPlayedChampions[0].stats.totalSessionsPlayed-champ.stats.totalSessionsPlayed}}"
+                color-positive="yellow"
+                color-negative="gray">
+                </div>
+
+                <div class="col-xs-4 most-champion-picture">
+                     <champion-loading-pic champion-name="{{vm.championList[champ.id]}}"></champion-loading-pic>
+                </div>
+
+                <div class="col-xs-2 most-champion-bar" gradientbar 
+                positive-value="{{champ.stats.totalSessionsWon}}" negative-value="{{champ.stats.totalSessionsPlayed-champ.stats.totalSessionsWon}}"
+                color-positive="rgba(0,255,0,1)"
+                color-negative="rgba(255,0,0,1)">
+                </div>
+            </div>
+        </div>
+        <awesome-errorbox ng-if="vm.errors.mostPlayedChampions" message="{{vm.errors.message}}" fetch-function="fetchMostPlayedChampions()"></awesome-errorbox>
+    </div>
+
+    <div class="row" id="miningFunctionality">
+        <h3>Data mining-fetch good and bad then classifies you as one of them</h3>
+        <div id="yoloMine" mining-state="miningState">
+            <button ng-show="!vm.miningData && !mining" ng-click="vm.miningFunctionality()">good OR bad?</button>
+            <p ng-show="vm.miningData">verdict: {{vm.miningData.result.class}} <br> ({{miningResult}}%)</p>
+        </div>
+    </div>
+
+
+    <div class="row" id="awesomeFunctionality">
+        <h3>Want to get better? Check out hot picks in your league</h3>
+        <button class="btn imba-btn imba-btn-block" ng-click="vm.awesomeFunctionality()">hot picks</button>
+       
+        <button class="btn btn-default" ng-click="isCollapsed = !isCollapsed">
+            info based on top summoners in your league
+        </button>
+        <div collapse="isCollapsed">
+            <div class="well well-lg">
+                <p class="hot-picks-summoner" ng-repeat="summoner in vm.awesomeData.players">{{summoner.playerOrTeamName}},   wins:{{summoner.wins}} - losses:{{summoner.losses}}</p>
+            </div> 
+        </div>
+
+        <div class="row" ng-repeat="champ in vm.awesomeData.champions">
+             <div class="col-xs-4 most-champion-picture">
+                 <champion-loading-pic champion-name="{{vm.championList[champ.id]}}"></champion-loading-pic>
+            </div>
+            <div class="col-xs-4 hot-picks-data">
+                <p>Occurencies: {{champ.count}}</p>
+                <p>K/D/A: {{champ.kills/champ.count|number:1}}/{{champ.deaths/champ.count|number:1}}/{{champ.assists/champ.count|number:1}}</p>
+            </div>
+        </div>
+
+    </div>
+
+
+</div>

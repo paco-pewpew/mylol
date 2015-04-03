@@ -1,0 +1,24 @@
+<div class="form-group col-lg-10 col-lg-offset-1" ng-class="{'has-error':vm.errorName}">
+    <label for="name">Name</label>
+    <input type="text" class="form-control" name="name" ng-model="vm.signupForm.name">
+    <span class="help-block">{{vm.errorName}}</span>
+</div>
+
+<div class="form-group col-lg-10 col-lg-offset-1" ng-class="{'has-error':errorEmail}">
+    <label for="email">Email</label>
+    <input type="text" class="form-control" name="email" ng-model="vm.signupForm.email">
+    <span class="help-block">{{vm.errorEmail}}</span>
+</div>
+
+<div class="form-group col-lg-10 col-lg-offset-1">
+    <label for="password">Password</label>
+    <input type="password" class="form-control" name="password" ng-model="vm.signupForm.password">
+</div>
+
+<div class="form-group row">
+<div class="col-xs-6 col-xs-offset-3">
+    <a ui-sref="^.bindlol" class="btn btn-block btn-info">
+    Next Section <span class="glyphicon glyphicon-circle-arrow-right"></span>
+    </a>
+</div>
+</div>
