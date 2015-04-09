@@ -3,6 +3,8 @@
 @green:rgb(0,79,0);
 @red:rgb(79,0,0);
 
+
+
 .panel-default>.panel-heading{
     background-color: @mediumGray;
     color:white;
@@ -12,23 +14,37 @@
     background-color: darken(@mediumGray,5%);
 }
 
-#templateBuild{
-    display: inline-block;
-    margin-left: 50px;
-    height:40px;
-    width: 240px;
+#templateStats{
+  display: inline-block;
+  margin-left: 50px;
+  margin-bottom: 50px;
+  padding: 5px;
+  text-align: left;
+  background-color:rgba(42,42,42,0.8);
+  p{
+    margin: 0px;
+    font-size:12px;
+  }
+  #templateBuild{
+      display: inline-block;
+      height:40px;
+      width: 240px;
+  }  
 }
-item-pic{
+aws-riot[type='item-pic']{
     border:3px ridge #717171;
     border-radius: 3px;
+
 }
-#templateBuild>item-pic,#myItemBuild>item-pic,.itemBuild>item-pic,#itemsPool>item-pic{
+#templateBuild>aws-riot[type='item-pic'],#myItemBuild>aws-riot[type='item-pic'],.itemBuild>aws-riot[type='item-pic'],#itemsPool>aws-riot[type='item-pic']{
     margin: 0px;
-    background-size:contain;
-    background-repeat: no-repeat;
     float:left;
     height: 100%;
     width: 16.6%;
+    font-size: 8px;
+}
+#itemsPool>aws-riot[type='item-pic'],#myItemBuild>aws-riot[type='item-pic']{
+    cursor: pointer;
 }
 
 
@@ -42,7 +58,7 @@ item-pic{
     height:40px;
     width: 400px;
     background:@mediumGray;
-    item-pic{
+    aws-riot[type='item-pic']{
         width: 10%;
         color:black;
     }
@@ -50,7 +66,7 @@ item-pic{
         background-size: 16px 16px;
         background-repeat: repeat;
     }
-    profile-pic{
+    aws-riot[type='profile-icon-pic']{
         margin: 0px;
         background-size:contain;
         background-repeat: no-repeat;
@@ -70,7 +86,7 @@ item-pic{
 #itemsPool{
     display: inline-block;
     width: 100%;
-    item-pic{
+    aws-riot[type='item-pic']{
         height: 50px;
         width: 50px;
     }
@@ -97,26 +113,26 @@ item-pic{
     background-color:rgb(25,25,25);
 }
 
-#myItemBuild>item-pic.ng-enter{
-  -webkit-animation:0.5s flash;
-  -moz-animation:0.5s flash;
-  -o-animation:0.5s flash;
-  animation:0.5s flash;     
+#myItemBuild>aws-riot[type='item-pic'].ng-enter{
+  -webkit-animation:0.5s fadeInDown;
+  -moz-animation:0.5s fadeInDown;
+  -o-animation:0.5s fadeInDown;
+  animation:0.5s fadeInDown;     
 }
-#myItemBuild>item-pic.ng-leave{
+#myItemBuild>aws-riot[type='item-pic'].ng-leave{
   -webkit-animation:0.5s fadeOutUp;
   -moz-animation:0.5s fadeOutUp;
   -o-animation:0.5s fadeOutUp;
   animation:0.5s fadeOutUp;     
 }
 
-#itemsPool>item-pic.ng-enter{
+#itemsPool>aws-riot[type='item-pic'].ng-enter{
   -webkit-animation:0.5s fadeInUp;
   -moz-animation:0.5s fadeInUp;
   -o-animation:0.5s fadeInUp;
   animation:0.5s fadeInUp;     
 }
-#itemsPool>item-pic.ng-leave{
+#itemsPool>aws-riot[type='item-pic'].ng-leave{
   -webkit-animation:0.5s fadeOutDown;
   -moz-animation:0.5s fadeOutDown;
   -o-animation:0.5s fadeOutDown;

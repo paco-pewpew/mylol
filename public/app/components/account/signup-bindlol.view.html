@@ -1,12 +1,11 @@
 <div class="row">
-	<div id="summoner-bind" class="col-xs-8 col-xs-offset-2">
+	<div id="summoner-bind" class="col-xs-12" ng-class="{'has-error':vm.errorStack.bind}">
 		<aws-snippet summoner="{{vm.bind.lolacc}}" ng-if="vm.bind.have"
 		accept="vm.bind.setBind(result)" remove="vm.bind.removeBind()"></aws-snippet>
 
 		<aws-snippet ng-if="!vm.bind.have"
 		accept="vm.bind.setBind(result)" remove="vm.bind.removeBind()"></aws-snippet>
-		
-
+		<span class="help-block" ng-hide="vm.bind.have">{{vm.errorStack.bind}}</span>
 	</div>
 
 <div class="col-xs-6 col-xs-offset-3">

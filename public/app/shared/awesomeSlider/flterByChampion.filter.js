@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('awesomeSlider')
+        .module('awsSlider')
         .filter('filterByChampion', filterByChampion);
 
     function filterByChampion() {

@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('awesomeSnippet',[])
+        .module('awsSnippet',[])
         .directive('awsSnippet', awsSnippet);
 
     /* @ngInject */

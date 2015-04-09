@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('awesomeSlider',['RiotDirectives'])
+        .module('awsSlider',['awsRiot'])
         .directive('awsSlider', awsSlider);
        
     /* @ngInject */

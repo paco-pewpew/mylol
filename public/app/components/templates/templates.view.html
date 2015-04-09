@@ -1,20 +1,20 @@
-<div class="jumbotron text-center" back-img="{{vm.templateResolved.champion}}">
-    <div class="page-heading-container">Template: {{vm.templateResolved.name}}
-        <br>
-        Champion: {{vm.templateResolved.champion}}
+<div class="jumbotron text-center aws-content-body" back-img="{{vm.templateResolved.champion}}">
+    <div class="aws-page-header">
+        <p>Template: {{vm.templateResolved.name}}</p>
+        <p>Champion: {{vm.templateResolved.champion}}</p>
     </div>
 
     <aws-template template="vm.templateResolved" ng-if="vm.templateStatus.set"></aws-template>
 
-    <div id="templateBuild" ng-if="vm.templateStatus.set">
-        <item-pic id="{{item}}" ng-repeat="item in vm.templateResolved.itemBuild track by $index"></item-pic>
+    <div id="templateStats" class="aws-content-body" ng-if="vm.templateStatus.set">
+        <p ng-repeat="(stat,val) in vm.templateResolved.itemBuild.flatStatsAll|itemStats">{{stat}}:{{val}}</p>
+        <p>Total gold: {{vm.templateResolved.itemBuild.totalGold}}</p>
+
+        <div id="templateBuild" ng-if="vm.templateStatus.set">
+            <aws-riot type='item-pic' name="{{item}}" ng-repeat="item in vm.templateResolved.itemBuild.items track by $index"
+            popover="{{vm.itemsData[item].description}}" popover-title="{{vm.itemsData[item].name}}" popover-trigger="mouseenter"></aws-riot>
+        </div>
     </div>
-    
-    <div id="templateStats" ng-if="vm.templateStatus.set">
-        {{championData}}
-        Stats at 18lvl:
-        {{templateStats}}
-    </div>   
 
      <accordion close-others="{{vm.templateStatus.set}}">
 
@@ -45,14 +45,14 @@
 
 
     <div ng-show="vm.templateStatus.set&&(vm.watchedBuilds.length>0)">
-        <h2 class="content-header">Item builds of watched players</h2>
-        <div id="watchedBuildsWrapper" class="content-body">
+        <h2 class="aws-content-header">Item builds of watched players</h2>
+        <div id="watchedBuildsWrapper" class="aws-content-body">
             <div class="itemBuild" ng-repeat="build in vm.watchedBuilds" 
             ng-class="{'build-won':build.winner,'build-lost':!build.winner}">
-                <item-pic ng-repeat="slot in [0,1,2,3,4,5]" id="{{build['item'+slot]}}" version="{{build.version}}"
-                popover="{{vm.itemsData[build['item'+slot]].plaintext}}" popover-title="{{vm.itemsData[build['item'+slot]].name}}" popover-trigger="mouseenter">
-                </item-pic>
-                <profile-pic id="{{build.player.profileIcon}}"></profile-pic>
+                <aws-riot type='item-pic' ng-repeat="slot in [0,1,2,3,4,5]" name="{{build['item'+slot]}}" version="{{build.version}}"
+                popover="{{vm.itemsData[build['item'+slot]].description}}" popover-title="{{vm.itemsData[build['item'+slot]].name}}" popover-trigger="mouseenter">
+                </aws-riot>
+                <aws-riot type="profile-icon-pic" name="{{build.player.profileIcon}}"></aws-riot>
                 {{build.player.summonerName}}
                 <br>
                 {{build.kills}}-{{build.deaths}}-{{build.assists}}
@@ -60,25 +60,28 @@
             </div>
         </div>
 
-        <h2 class="content-header">Items pool</h2>
-        <div id="itemsPool" class="content-body">
-            <item-pic id="{{item}}" ng-repeat="item in vm.itemsWatchedBuilds" ng-click="vm.addToBuild(item,$index)"
-            popover="{{vm.itemsData[item].plaintext}}" popover-title="{{vm.itemsData[item].name}}" popover-trigger="mouseenter">
-            </item-pic>
+        <h2 class="aws-content-header">Items pool</h2>
+        <div id="itemsPool" class="aws-content-body">
+            <aws-riot type='item-pic' name="{{item}}" ng-repeat="item in vm.itemsWatchedBuilds" ng-click="vm.addToBuild(item,$index)"
+            popover="{{vm.itemsData[item].description}}" popover-title="{{vm.itemsData[item].name}}" popover-trigger="mouseenter">
+            </aws-riot>
         </div>
-        <h2 class="content-header-between"><i class="fa fa-arrow-circle-o-down" animate="{{vm.animateToggles.addItem}}"></i>compose build<i class="fa fa-arrow-circle-o-up" animate="{{vm.animateToggles.removeItem}}"></i></h2>
-        <div id="myItemBuild" ng-class="{'build-lost':vm.myBuild.length<6}">
-            <item-pic id="{{item}}" ng-repeat="item in vm.myBuild track by $index" ng-click="vm.removeFromBuild(item,$index)"
-            popover="{{vm.itemsData[item].plaintext}}" popover-title="{{vm.itemsData[item].name}}" popover-trigger="mouseenter" >
-            </item-pic>
+        <h2 class="aws-page-heading-inner">
+            <i class="fa fa-arrow-circle-o-down" animate-attention="{{vm.animateToggles.addItem}}"></i>
+            compose build
+            <i class="fa fa-arrow-circle-o-up" animate-attention="{{vm.animateToggles.removeItem}}"></i>
+        </h2>
+        <div id="myItemBuild" ng-class="{'build-lost':vm.myBuild.items.length<6}">
+            <aws-riot type='item-pic' name="{{item}}" ng-repeat="item in vm.myBuild.items" ng-click="vm.removeFromBuild(item,$index)"
+            popover="{{vm.itemsData[item].description}} <br>
+            Flat stats: {{vm.itemsData[item].stats}}
+            - {{vm.itemsData[item].gold.total}} gold"
+            popover-title="{{vm.itemsData[item].name}}" popover-trigger="mouseenter" >
+            </aws-riot>
         </div>
 
     </div>
     
     <button class="btn imba-btn imba-btn-block" ng-click="vm.processTemplate()">Edit template</button>
     
-    
-    <p>templateOld:{{vm.templateResolved}}</p>
-
-     <p>vm.templateNew: {{vm.templateNew}}</p>
 </div>

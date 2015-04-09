@@ -38,11 +38,19 @@ function getResource(url,callback){
 					fromSource();
 				},rateBrocker.timeTillOpen());
 			}else{
+				var info;
 				console.log('success');
-				rateBrocker.reset();
-				var info=JSON.parse(body);
-				cache.set(url,info);
-				callback(info);
+				try{
+					rateBrocker.reset();
+					info=JSON.parse(body);
+					cache.set(url,info);
+					callback(info);
+				}catch(ex){
+					info=body;
+					console.log(ex);
+					console.log(info);
+					callback('error');
+				}
 			}
 		});
 	}

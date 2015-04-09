@@ -86,6 +86,7 @@
 				url:'/account',
 				templateUrl:'app/components/account/account.view.html'
 			})
+			//signup form in the acccount page
 			.state('account.signup',{
 				url:'/signup',
 				abstract:'true',
@@ -110,6 +111,13 @@
 				url:'/login',
 				templateUrl:'app/components/account/login.view.html',
 				controller:'FormCtrl',
+				controllerAs:'vm'
+			})
+			//edit acc info
+			.state('account.info',{
+				url:'/info',
+				templateUrl:'app/components/account/info.view.html',
+				controller:'InfoCtrl',
 				controllerAs:'vm'
 			});
 			$urlRouterProvider.when('/account/signup','/account/signup/local');

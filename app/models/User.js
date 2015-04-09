@@ -17,15 +17,24 @@ var userSchema=mongoose.Schema({
 		password:{
 			type:String,
 			required:true
+
 		}
 	},
 	riot:{
-		lolid:String,
-		lolacc:String,
-		region:String
+		lolid:{
+			type: String,
+			required: true
+		},
+		lolacc:{
+			type: String,
+			required: true
+		},
+		region:{
+			type: String,
+			required: true
+		}
 	}
 });
-
 userSchema.methods.generateHash = function(password) {
     return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
 };

@@ -1,4 +1,4 @@
-champion-loading-pic,champion-icon-pic{
+aws-riot{
     display: block;
     position: relative;
     text-align: center;
@@ -6,14 +6,7 @@ champion-loading-pic,champion-icon-pic{
     background-repeat: no-repeat;
     background-position: center;
 }
-/*champion-loading-pic{
-	p{	
-		margin:0px;
-		padding: 0px;
-		background-color: rgba(42,42,42,0.5);
-	}
-}*/
-#champion-name{
+#name{
 	margin:0px;
 	padding: 0px;
 	position: absolute;
@@ -28,7 +21,11 @@ champion-loading-pic,champion-icon-pic{
 
 	border-top:1px solid #00EFFF;
 	background-color: rgba(42,42,42,0.5);
-
+}
+aws-riot[type='profile-icon-pic'],aws-riot[type='item-pic']{
+	#name{
+		display: none;
+	}
 }
 
 #fetching,#notFound{

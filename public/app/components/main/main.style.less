@@ -1,3 +1,12 @@
+.carbon-texture{
+    background:
+    radial-gradient(black 15%, transparent 16%) 0 0,
+    radial-gradient(black 15%, transparent 16%) 8px 8px,
+    radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 0 1px,
+    radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 8px 9px;
+    background-color:#282828;
+    background-size:16px 16px;
+}
 .imba-btn{
 	display: block;
 	padding: 0px 12px;
@@ -24,35 +33,126 @@
     margin-left: 10%;
 }
 
-.page-heading-container{
-    width: calc(~"100% + 120px");
-    margin-left: -60px;
-    padding: 1em;
-    background:rgba(0,0,0,0.7);
-}
-
-.content-header{
-  margin: 20px 0px 0px 0px;
-  background-color: rgba(42, 42, 42, 0.5);
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-  box-shadow: #00EFFF 0px 0px 10px;
-}
-.content-header-between{
-	&>i{
-		padding:0px 20px;
-		color:rgb(53,99,90);
+.aws-page{
+	&-header{
+		width: calc(~"100% + 120px");
+	    margin-left: -60px;
+	    background:rgba(0,0,0,0.7);
+		p{
+			font-size: inherit;
+	    	margin: 0px;
+	    	padding: 5px 0px;
+	    	border-bottom: 1px solid rgba(106, 163, 234, 0.7);
+		}
+	}
+	&-heading-inner{
+		i{
+			padding:0px 20px;
+			color:rgb(53,99,90);
+		}
 	}
 }
-.content-body{
-  background: #282828;
-  border: 2px solid black;
-  border-top: 1px solid #00EFFF;
-  box-shadow: #00EFFF 0px 0px 10px;
+
+.aws-content{
+	&-body{
+	  background: #282828;
+	  border: 2px solid black;
+	  box-shadow: rgba(106, 163, 234, 0.7) 0px 0px 5px;
+	}
+	&-header{
+	  background-color: rgba(42, 42, 42, 1);
+      border-top-left-radius: 10px;
+	  border-top-right-radius: 10px;
+	  border: 2px solid black;
+	  box-shadow: rgba(106, 163, 234, 0.7) 0px 0px 5px;
+	}
+
+}
+
+div[back-img]{
+    overflow: hidden;
+    color: #fff;
+    background-size:contain;
+    background-repeat:no-repeat;
+    background-color: black;
+    padding-top:0px;
 }
 
 
-#sidebarHud aws-snippet{
-	width: 200px;
-	font-size: 10px;
+
+ body{
+  padding-top:5px;
+  background-color:#111;
+}
+
+/*NAVBAR*/
+.navbar-brand{
+    padding: 5px;
+}
+.navbar-brand img{
+    height:100%;
+}
+
+/*SIDEBAR*/
+#sidebar-bind{
+    background:#151515;
+    font: 15px arial, sans-serif;
+    color:rgb(62, 253, 255);
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 100px;
+    box-shadow: rgb(123, 242, 248) 0px 0px 6px 0px inset;
+    text-align: right;
+    h2{
+    	border-bottom: 2px groove #00EFFF;
+    	a{
+    		color:rgb(189, 217, 242);
+    	}
+	}
+	aws-snippet{
+	    width: 200px;
+	    font-size: 10px;
+	}
+	div.league-info{
+	    border-top: 2px groove #00EFFF;
+	    border-top-right-radius: 2px;
+	    border-top-left-radius:2px;
+	    p{
+			display: inline-block;    	
+	    }
+	    img{
+	    	width: 3em;
+	    }
+	}
+
+}
+
+[ui-view="sideBar"]>div {
+    margin-top: 20px;
+    padding:20px;
+    background:#151515;
+    font: 15px arial, sans-serif;
+    color:rgb(1, 122, 123);
+    border-bottom-left-radius: 100px;
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    box-shadow: rgb(123, 242, 248) 0px 0px 6px 0px inset;
+    text-align: right;
+}
+
+/* ANIMATIONS
+============================================================================= */
+
+.ui-view-container {
+  position: relative;
+  /*height: 65px;*/
+}
+
+[ui-view].ng-enter {
+   -webkit-animation:1s fadeIn;
+  -moz-animation:1s fadeIn;
+  -o-animation:1s fadeIn;
+  animation:1s fadeIn;
 }

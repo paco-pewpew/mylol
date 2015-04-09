@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('awesomeApp.gamer',['VisualDirectives','RiotDirectives'])
+        .module('awesomeApp.gamer',['visualDirectives','awsRiot'])
         .controller('GamerCtrl', GamerCtrl);
 
     /* @ngInject */

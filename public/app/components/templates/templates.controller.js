@@ -2,73 +2,70 @@
     'use strict';
 
     angular
-        .module('awesomeApp.templates',['VisualDirectives','RiotDirectives','awesomeTemplate'])
+        .module('awesomeApp.templates',['visualDirectives','awsRiot','awsTemplate'])
         .controller('TemplateCtrl', TemplateCtrl);
 
     /* @ngInject */
-    function TemplateCtrl($scope,resTemplate,resStaticData,templatesData,Riot) {
+    function TemplateCtrl($scope,resTemplate,resStaticData,templatesData,Riot,AdvancedBuild) {
         var vm = this;
         vm.templateResolved=resTemplate;
         //deep coppy for edit
         vm.templateNew=angular.copy(vm.templateResolved);
-
+        //STATIC data
         vm.itemsData=resStaticData.item;
         vm.championList=resStaticData.championList;
 		vm.championNames=Object.keys(vm.championList).map(function(el){return vm.championList[el];});
+		var championData=resStaticData.champion[vm.templateResolved.champion];
+		console.log(championData);
+		//WATCHED
 		vm.watchedBuilds=[];
 		vm.getWatchedBuilds=getWatchedBuilds;
 		vm.itemsWatchedBuilds=[];
-		vm.myBuild=[];
-		var championData=resStaticData.champion[vm.templateResolved.champion];
-		console.log(championData);
-		///vm.templateStatus=templateStatus;
-
 		vm.removeWatched=removeWatched;
 		vm.addWatched=addWatched;
-		vm.processTemplate=processTemplate;
-
+		//BUILD
+		vm.myBuild=new AdvancedBuild(resStaticData.item);
+		console.log(vm.myBuild);
 		vm.addToBuild=addToBuild;
 		vm.removeFromBuild=removeFromBuild;
-
-
-        activate();
-
-        ////////////////
-
-        function activate() {
-        	getWatchedBuilds();
-        }
-
-
-        vm.templateStatus={
-			championUnset:false,
-			watchedProsUnset:false,
-			filled:false,
-			setStatus:function(){
-				this.championUnset=(vm.templateResolved.champion?false:true);
-				this.watchedProsUnset=(vm.templateResolved.watchedPros.length>0?false:true);
-				this.set=!(this.championUnset&&this.watchedProsUnset);
-			}
-		};
-		$scope.$watch('vm.templateResolved',function(){
-			vm.templateStatus.setStatus();
-
-			if(vm.templateStatus.filled){
-				vm.templateStats={movespeed:championData.stats.movespeed};
-				['hp','mp','armor','spellblock','hpregen','mpregen','crit','attackdamage'].forEach(function(el){
-					vm.templateStats[el]=championData.stats[el]+championData.stats[el+'perlevel']*18;
-				});
-			}
-
-			
-
-		});
-
-		
+		//animation helpers
 		vm.animateToggles={
 			addItem:false,
 			removeItem:false
 		};
+		//submit template
+		vm.processTemplate=processTemplate;
+        //STATUS of current   template based on info
+        vm.templateStatus={
+			championUnset:false,
+			watchedProsUnset:false,
+			set:false,
+			setStatus:function(){
+				this.championUnset=(vm.templateResolved.champion?false:true);
+				this.watchedProsUnset=(vm.templateResolved.watchedPros.length>0?false:true);
+				this.set=!(this.championUnset&&this.watchedProsUnset);
+				return this.set;
+			}
+		};
+
+		activate();
+
+        ////////////////
+       
+        function activate() {
+ 			if(vm.templateStatus.setStatus()){
+				vm.templateResolved.itemBuild=new AdvancedBuild(resStaticData.item,vm.templateResolved.itemBuild);
+	        
+	        	//deep coppy for edit
+	        	vm.templateNew=angular.copy(vm.templateResolved);
+
+	        	getWatchedBuilds();
+			}
+        }
+
+
+
+
 
 		function removeWatched(index){
 			vm.templateNew.watchedPros.splice(index,1);
@@ -82,14 +79,14 @@
 
 
 		function processTemplate(){
-			vm.templateNew.itemBuild=(vm.myBuild?vm.myBuild:null);
-			console.log(vm.templateNew);
+			vm.templateNew.itemBuild=(vm.myBuild.items?vm.myBuild.items:null);
+				console.log(vm.templateNew);
 			templatesData.updateById(vm.templateResolved._id,vm.templateNew)
 				.success(function(data){
 					console.log(data);
-					vm.myBuild=[];
 					vm.templateResolved=data;
-					vm.getWatchedBuilds();
+					activate();
+					vm.myBuild.redo();
 				})
 				.error(function(data){
 					console.log(data);
@@ -127,17 +124,19 @@
 
 
 		function addToBuild(item,index){
-			if(vm.myBuild.length<6){
+			if(vm.myBuild.items.length<6){
 				vm.itemsWatchedBuilds.splice(index,1);
-				vm.myBuild.push(item);	
+				vm.myBuild.addItem(item);	
 				vm.animateToggles.addItem=!vm.animateToggles.addItem;
+
 			}
 		}
 
 		function removeFromBuild(item,index){
-			vm.myBuild.splice(index,1);
+			vm.myBuild.removeItem(index);
 			vm.itemsWatchedBuilds.push(item);
 			vm.animateToggles.removeItem=!vm.animateToggles.removeItem;
+
 		}
 
     }

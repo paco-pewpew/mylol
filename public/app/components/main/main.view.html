@@ -15,10 +15,10 @@
 </div>
 
 
-<div class="container">
-    <div class="col-sm-4">
+<div class="container-fluid">
+    <div class="col-sm-3">
         
-        <div id="sidebarHud" class=" col-xs-10 col-xs-offset-2">
+        <div id="sidebar-bind" class=" col-xs-12">
             <h2><a ui-sref="gamer">{{vm.boundSummoner.local}}</a></h2>
             <aws-snippet summoner="{{vm.boundSummoner}}"></aws-snippet>
             <div gradientbar horizontal="true" 
@@ -38,7 +38,7 @@
         </div>
 
     </div>
-	<div class="col-sm-8 ui-view-container">
+	<div class="col-sm-6 ui-view-container">
         <div ui-view="centralContainer"></div>    
     </div>
 </div>

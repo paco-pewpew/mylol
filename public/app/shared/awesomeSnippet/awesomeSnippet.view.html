@@ -7,8 +7,7 @@
 	<button ng-click="vm.checkAccount()">check player</button>
 </div>
 <div ng-show="vm.result" class="result-snippet">
-	<!--<img ng-src="http://ddragon.leagueoflegends.com/cdn/5.2.1/img/profileicon/{{result.profileIconId}}.png">-->
-	<profile-pic id="{{vm.result.profileIconId}}"></profile-pic>
+	<aws-riot type="profile-icon-pic" name="{{vm.result.profileIconId}}"></aws-riot>
 	<p>{{vm.result.name}}</p>
 	<p>{{vm.result.summonerLevel}} lvl, {{vm.result.region}}</p>
 	<i class="fa fa-thumbs-o-up" ng-show="!summoner && approveFunction" ng-click="vm.acceptSummoner()"></i>

@@ -1,5 +1,8 @@
-<div class="jumbotron text-center" back-img="{{vm.championList[vm.lastChampionPlayed]}}">
-    <div class="page-heading-container">{{vm.userInfo.name}} @ {{vm.userInfo.region}}</div>
+<div class="jumbotron text-center aws-content-body" back-img="{{vm.championList[vm.lastChampionPlayed]}}">
+    <div class="aws-page-header">
+        <p>
+            {{vm.userInfo.name}} @ {{vm.userInfo.region}}</div>
+        </p>
     <div class="row" id="recent-games">
          <h2>Recent games</h2>
 		<!--little boxes for each game-->
@@ -8,7 +11,7 @@
             <p>
                 {{match.stats.win?'win':'loss'}}
             </p>
-            <champion-icon-pic champion-name="{{vm.championList[match.championId]}}"></champion-icon-pic>
+            <aws-riot type="champion-icon-pic" name="{{vm.championList[match.championId]}}"></aws-riot>
 	    	<p>
                 {{match.stats.championsKilled||0}}/{{match.stats.numDeaths||0}}/{{match.stats.assists||0}}
             </p>
@@ -27,7 +30,7 @@
                 </div>
 
                 <div class="col-xs-4 most-champion-picture">
-                     <champion-loading-pic champion-name="{{vm.championList[champ.id]}}"></champion-loading-pic>
+                     <aws-riot type="champion-loading-pic" name="{{vm.championList[champ.id]}}"></aws-riot>
                 </div>
 
                 <div class="col-xs-2 most-champion-bar" gradientbar 
@@ -44,7 +47,7 @@
         <h3>Data mining-fetch good and bad then classifies you as one of them</h3>
         <div id="yoloMine" mining-state="miningState">
             <button ng-show="!vm.miningData && !mining" ng-click="vm.miningFunctionality()">good OR bad?</button>
-            <p ng-show="vm.miningData">verdict: {{vm.miningData.result.class}} <br> ({{miningResult}}%)</p>
+            <p ng-show="vm.miningData">verdict: {{vm.miningData.result.class}} <br> ({{vm.miningData.miningResult}}%)</p>
         </div>
     </div>
 
@@ -64,7 +67,7 @@
 
         <div class="row" ng-repeat="champ in vm.awesomeData.champions">
              <div class="col-xs-4 most-champion-picture">
-                 <champion-loading-pic champion-name="{{vm.championList[champ.id]}}"></champion-loading-pic>
+                 <aws-riot type="champion-loading-pic" name="{{vm.championList[champ.id]}}"></aws-riot>
             </div>
             <div class="col-xs-4 hot-picks-data">
                 <p>Occurencies: {{champ.count}}</p>

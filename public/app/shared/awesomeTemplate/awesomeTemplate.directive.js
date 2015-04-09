@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('awesomeTemplate',[])
+        .module('awsTemplate',[])
         .directive('awsTemplate', awsTemplate);
 
     /* @ngInject */

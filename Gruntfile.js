@@ -105,4 +105,5 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-concurrent');
 	
 	grunt.registerTask('default',['less','ngAnnotate','uglify','concat','concurrent']);
+	grunt.registerTask('dev',['less','concurrent']);
 };

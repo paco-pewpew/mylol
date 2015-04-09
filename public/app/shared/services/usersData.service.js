@@ -1,34 +1,59 @@
-'use strict';
-angular.module('usersData',[])
-	//attach token to header Auth
-	.factory('authInterceptor',['$q','$window',function ($q, $window) {
-	  return {
-	    request: function (config) {
-	      config.headers = config.headers || {};
-	      if ($window.sessionStorage.token) {
-	        config.headers.Authorization = 'Bearer ' + $window.sessionStorage.token;
-	      }
-	      return config;
-	    },
-	    response: function (response) {
-	      if (response.status === 401) {
-	        // handle the case where the user is not authenticated
-	        $state.go('account.login');
-	      }
-	      return response || $q.when(response);
-	    }
-	  };
-	}])
+(function() {
+    'use strict';
 
-	.value('loggedUser',{
-		local:'user local acc name',
-		name:'riot acc name',
-		id:'riot id',
-		region:'riot region'
-	})
-	//
-	.factory('Users',['$http','$window',function($http,$window){
-		//help function to transform Form data 
+    angular
+        .module('usersData',[])
+        .factory('authInterceptor', authInterceptor)
+        .factory('Users',Users)
+        .value('loggedUser',loggedUser());
+    
+
+    /* @ngInject */
+    function authInterceptor($q,$window,$injector) {
+        var service = {
+            request: request,
+            response:response,
+            responseError:responseError
+        };
+        return service;
+
+        ////////////////
+
+        function request(config) {
+        	config.headers = config.headers || {};
+		    if ($window.sessionStorage.token) {
+		      config.headers.Authorization = 'Bearer ' + $window.sessionStorage.token;
+		    }
+		    return config;	
+        }
+
+        function response(res){
+        	return res || $q.when(res);
+        }
+
+        function responseError(rejection){
+        	//if not user tries to get to page for authenticated
+	    	if(rejection.status === 401){
+	    		$injector.get('$state').transitionTo('account.login');	
+	    	}
+	    	return $q.reject(rejection);
+        }
+    }
+
+
+    /* @ngInject */
+    function Users($http,$window){
+    	var service={
+    		createNewUser:createNewUser,
+    		loginUser:loginUser,
+    		logoutUser:logoutUser,
+    		editUser:editUser
+    	};
+    	return service;
+
+    	////////////////
+
+    	//help function to transform Form data 
 		function transformAndSendForm(method,url,formData){
 			return $http({
 				    method: method,
@@ -44,37 +69,34 @@ angular.module('usersData',[])
 				});
 		}
 
-		return {
-			createNewUser:function(signupFormData){
-				return transformAndSendForm('POST','/api/signup/',signupFormData);
-			},
-			loginUser:function(loginFormData){
-				return transformAndSendForm('POST','/api/login/',loginFormData);
-			},
-			logoutUser:function(){
-				delete $window.sessionStorage.logged;
-				delete $window.sessionStorage.token;
-				delete $window.sessionStorage.userRiot;
-			}
+		function createNewUser(signupFormData){
+			return transformAndSendForm('POST','/api/signup/',signupFormData);
+		}
+
+		function loginUser(loginFormData){
+			return transformAndSendForm('POST','/api/login/',loginFormData);
+		}
+
+		function logoutUser(){
+			delete $window.sessionStorage.logged;
+			delete $window.sessionStorage.token;
+			delete $window.sessionStorage.userRiot;
+		}
+
+		function editUser(id,editFormData){
+			return transformAndSendForm('PUT','/api/account',editFormData);
+		}
+
+    }
+
+
+    function loggedUser(){
+    	var userInfoTemplate={
+			local:'user local acc name',
+			name:'riot acc name',
+			id:'riot id',
+			region:'riot region'
 		};
-	}])
-	.factory('UserByName',['$http',function($http){
-		return {
-			get:function(formData){
-				return $http.get('/api/user/name'+formData.name);
-			}
-		};
-	}])
-	.factory('UserById',['$http',function($http){
-		return {
-			get:function(id){
-				return $http.get('/api/user/id'+id);
-			},
-			put:function(id,formData){
-				return $http.put('/api/user/id'+id,formData);
-			},
-			delete:function(id){
-				return $http.delete('/api/user/id'+id);
-			}
-		};
-	}]);
+    	return userInfoTemplate;
+	}
+})();
