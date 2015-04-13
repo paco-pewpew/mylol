@@ -6,90 +6,87 @@
         .controller('GamerCtrl', GamerCtrl);
 
     /* @ngInject */
-    function GamerCtrl(resStaticData,resBindInfo,Riot) {
+    function GamerCtrl(resStaticData,resBindInfo,Riot,AjaxCall) {
         var vm = this;
         vm.userInfo=resBindInfo;
         vm.championList=resStaticData.championList;
-        vm.fetchMostPlayedChampions=fetchRecentMatches;
-        vm.recentMatches=[];
         vm.lastChampionPlayed='';
-        vm.fetchMostPlayedChampions=fetchMostPlayedChampions;
-        vm.mostPlayedChampions=[];
-        vm.awesomeData;
-        vm.awesomeFunctionality=awesomeFunctionality;
-        vm.miningData;
-        vm.miningFunctionality=miningFunctionality;
-
-        vm.errors={
-			recentMatches:false,
-			mostPlayedChampions:false,
-			message:'Error fetching data.'
-		};
+        vm.recentMatches=new AjaxCall(fetchRecentMatches);
+        vm.mostPlayedChampions=new AjaxCall(fetchMostPlayedChampions);
+        vm.hotPicks=new AjaxCall(fetchHotPicks);
+        vm.bayesClassifier=new AjaxCall(miningFunctionality);
 
         activate();
 
         ////////////////
 
         function activate() {
-        	fetchRecentMatches();
-        	fetchMostPlayedChampions();
+        	vm.recentMatches.fetch();
+        	vm.mostPlayedChampions.fetch();
         }
 
         function fetchRecentMatches(){
-        	console.log('fetching recent matches');
+        	vm.recentMatches.isFetching=true;
 			Riot.getSelfRecent()
 				.success(function(data){
 					console.log('recent matches data',data);
-					vm.errors.recentMatches=false;
-					vm.recentMatches=data.games;
+					vm.recentMatches.isFetching=false;
+					vm.recentMatches.hasError=false;
+					vm.recentMatches.data=data.games;
 					vm.lastChampionPlayed=data.games[0].championId;
 				})
-				.error(function(data){
-					vm.errors.recentMatches=true;
+				.error(function(){
+					vm.recentMatches.isFetching=false;
+					vm.recentMatches.hasError=true;
 				});
 		}
 
 		function fetchMostPlayedChampions(){
-			console.log('fetching most played champions');
+			vm.mostPlayedChampions.isFetching=true;
 			Riot.getSelfStats()
 				.success(function(data){
+					 vm.mostPlayedChampions.isFetching=false;
+					 vm.mostPlayedChampions.hasError=false;
 					console.log('most played champions',data);
-					vm.errors.mostPlayedChampions=false;
-					vm.mostPlayedChampions=data;
+					 vm.mostPlayedChampions.data=data;
 				})
-				.error(function(data){
+				.error(function(){
+					 vm.mostPlayedChampions.isFetching=false;
 					vm.errors.mostPlayedChampions=true;
 				});
 		}
 
-		function awesomeFunctionality(){
+		function fetchHotPicks(){
+			vm.hotPicks.isFetching=true;
 			Riot.getSelfLeague()
 				.success(function(data){
+					vm.hotPicks.isFetching=false;
 					console.log('success',data);
-					vm.awesomeData=data;
-					var yolo=data.champions;
-					yolo.sort(function(a,b){
+					data.champions.sort(function(a,b){
 						return b.count-a.count;
-					}).splice(yolo.length/4,yolo.length-1);
+					}).splice(data.champions.length/4,data.champions.length-1);
+					vm.hotPicks.data=data;
+					
 
 				})
-				.error(function(data){
-					console.log('error');
-					console.log(data);
+				.error(function(){
+					vm.hotPicks.isFetching=false;
+					vm.hotPicks.hasError=true;
 				});
 		}
 
 		function miningFunctionality(){
-			vm.mining=true;
+			vm.bayesClassifier.isFetching=true;
 			Riot.getMining()
 				.success(function(data){
-					vm.mining=false;
-					vm.miningData=data;
-					vm.miningData.miningResult=Math.round(vm.miningData.result.probability*100);
+					vm.bayesClassifier.isFetching=false;
+					vm.bayesClassifier.data=data;
+					vm.bayesClassifier.data.miningResult=Math.round(vm.bayesClassifier.data.result.probability*100);
 					console.log('success');
 					console.log(data);
 				})
 				.error(function(data){
+					vm.bayesClassifier.isFetching=false;
 					console.log('error');
 					console.log(data);
 				});

@@ -35,14 +35,22 @@
 
 .aws-page{
 	&-header{
-		width: calc(~"100% + 120px");
-	    margin-left: -60px;
-	    background:rgba(0,0,0,0.7);
+	    background:url(../img/psGod/uiSprite.png);
+	    background-position:0px -200px;
+	    &.alone{
+	    	 background-position:0px -150px;
+	    }
+	    height: 50px;
+	    width: 650px;
+	    padding-top: 20px;
+	    padding-bottom: 10px;
+	    line-height: 20px;
+	    text-align: center;
+	    color:white;
 		p{
 			font-size: inherit;
 	    	margin: 0px;
-	    	padding: 5px 0px;
-	    	border-bottom: 1px solid rgba(106, 163, 234, 0.7);
+	    	padding:0px;
 		}
 	}
 	&-heading-inner{
@@ -79,67 +87,199 @@ div[back-img]{
 }
 
 
-
+html {
+  overflow-y: scroll;
+}
  body{
   padding-top:5px;
   background-color:#111;
+  div[ui-view='main']{
+  	width: 1300px;
+  	margin:0 auto;
+  }
+}
+a{
+	color: #88e8ff;
+	&:hover{
+		color: white;
+	}
 }
 
-/*NAVBAR*/
-.navbar-brand{
-    padding: 5px;
+#logo{
+	background:url(../img/psGod/logo.png) no-repeat 50% 0 ;
+	background-size: contain;
+	display: block;
+	width: 160px;
+	height: 50px;
+	margin: 0 auto;
+	top:10px;
+	position: relative;
 }
-.navbar-brand img{
-    height:100%;
+a#logo:hover:before
+{
+    content: "";
+    position: absolute;
+    padding: 0px;
+    margin-left: 100px;
+    margin-top: 5px;
+    height: 30px;
+    width: 30px;
+    background: rgb(17, 17, 17);
+}
+a#logo:hover:after
+{
+    content: "";
+    position: absolute;
+    padding: 0px;
+    margin-left: 100px;
+    margin-top: 5px;
+    height: 30px;
+    width: 30px;
+    background: url(../img/psGod/loading.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    -webkit-animation:rotation 1.7s infinite ease;
+}
+#header{
+	background:url(../img/psGod/uiSprite.png);
+    background-position:0 0;
+	height: 150px;
+	width: 570px;
+	margin: 0 auto;
+	position: relative;
+	top:-10px;
+	#menu{
+		width: 450px;
+		height: 50px;
+		margin: 0 auto;
+		position: relative;
+		top:32px;
+		list-style-type: none;
+		border-collapse: collapse;
+		padding: 0px;
+		li{
+			width: 170px;
+			height: 50px;
+			position: relative;
+			&:nth-of-type(1){
+				float:left;
+			}
+			&:nth-of-type(2){
+				float:right;
+			}
+		}
+		a{
+			height: 50px;
+			display: block;
+			text-transform: uppercase;
+			text-decoration: none;
+			line-height: 50px;
+			text-align: center;
+			span.menu-icon{
+				background-image:url(../img/psGod/iconsSprite.png);
+				width: 60px;
+				height: 50px;
+			}
+			&.active{
+				color:white;
+			}
+
+		}
+		a[ui-sref="home"]{
+			span.menu-icon{
+				float: left;
+				background-position: 0 -100px;
+			}
+			&:hover{
+				span.menu-icon{
+					background-position: 0 -50px;	
+				}
+			}
+			&.active{
+				span.menu-icon{
+					background-position: 0 0;	
+				}
+			}
+		}
+		a[ui-sref="gamer"]{
+			span.menu-icon{
+				background-position: -60px -100px;
+				float: right;
+			}
+			&:hover{
+				span.menu-icon{
+					background-position: -60px -50px;
+				}
+			}
+			&.active{
+				span.menu-icon{
+					background-position: -60px 0;
+				}
+			}
+			
+		}
+	}
+}
+
+div[ui-view="centralContainer"]{
+	width:650px;
 }
 
 /*SIDEBAR*/
-#sidebar-bind{
-    background:#151515;
-    font: 15px arial, sans-serif;
-    color:rgb(62, 253, 255);
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-    border-top-right-radius: 10px;
-    border-top-left-radius: 100px;
-    box-shadow: rgb(123, 242, 248) 0px 0px 6px 0px inset;
-    text-align: right;
-    h2{
-    	border-bottom: 2px groove #00EFFF;
-    	a{
-    		color:rgb(189, 217, 242);
-    	}
+#sidebar{
+	background:url(../img/psGod/uiSprite.png);
+    background-position:0px -250px;
+	width:270px;
+	height: 400px;
+	margin-top:-160px;
+	margin-right: 30px;
+	position: relative;
+	float: left;
+	padding: 180px 10px 10px 0px;
+	background-repeat: no-repeat;
+	color: rgb(149, 173, 92);
+	i{
+		margin-top: 6px;
+		margin-left: 43px;
+		font-size: 30px;
+		color: #88e8ff;
+		cursor: pointer;
+		&:hover{
+			color:white;
+		}
+	}
+	a{
+		float: right;
+		width: 180px;
+		margin-top: 25px;	
+		line-height: 30px;
+		text-transform: uppercase;
+		text-decoration: none;
+		text-align: center;
 	}
 	aws-snippet{
 	    width: 200px;
 	    font-size: 10px;
+	    margin-top: 25px;
+	    margin-left: 30px;
 	}
 	div.league-info{
-	    border-top: 2px groove #00EFFF;
-	    border-top-right-radius: 2px;
-	    border-top-left-radius:2px;
+		width: 240px;
+		margin-left: 10px;
+		font-size: 12px;
 	    p{
-			display: inline-block;    	
+			display: inline-block;
 	    }
 	    img{
 	    	width: 3em;
 	    }
 	}
-
-}
-
-[ui-view="sideBar"]>div {
-    margin-top: 20px;
-    padding:20px;
-    background:#151515;
-    font: 15px arial, sans-serif;
-    color:rgb(1, 122, 123);
-    border-bottom-left-radius: 100px;
-    border-bottom-right-radius: 10px;
-    border-top-right-radius: 10px;
-    border-top-left-radius: 10px;
-    box-shadow: rgb(123, 242, 248) 0px 0px 6px 0px inset;
-    text-align: right;
+	div[gradientbar]{
+		width: 200px;
+		margin-left: 30px;
+		border-bottom-right-radius: 20px;
+		border-bottom-left-radius: 20px;
+	}
 }
 
 /* ANIMATIONS
@@ -147,6 +287,7 @@ div[back-img]{
 
 .ui-view-container {
   position: relative;
+  float:left;
   /*height: 65px;*/
 }
 
@@ -155,4 +296,39 @@ div[back-img]{
   -moz-animation:1s fadeIn;
   -o-animation:1s fadeIn;
   animation:1s fadeIn;
+}
+
+[ui-view].ng-enter>#header {
+   -webkit-animation:1s bounceInDown;
+  -moz-animation:1s bounceInDown;
+  -o-animation:1s bounceInDown;
+  animation:1s bounceInDown;
+}
+[ui-view].ng-enter #sidebar{
+	-webkit-animation:1s bounceInLeft;
+  -moz-animation:1s bounceInLeft;
+  -o-animation:1s bounceInLeft;
+  animation:1s bounceInLeft;
+}
+/* BASIC overused keyframes
+============================================================================= */
+@-webkit-keyframes enlarge {
+  0% {
+    background-size: 80%;
+    background-position: 20px 20px;
+  }
+  100% {
+    background-size: 100%;
+    background-position: 0px 0px;
+  }
+}
+@-webkit-keyframes rotation {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
 }

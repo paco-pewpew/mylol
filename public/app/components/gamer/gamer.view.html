@@ -1,13 +1,14 @@
+<div class="aws-page-header">
+    <p>
+        {{vm.userInfo.name}} @ {{vm.userInfo.region}}
+    </p>
+</div>
 <div class="jumbotron text-center aws-content-body" back-img="{{vm.championList[vm.lastChampionPlayed]}}">
-    <div class="aws-page-header">
-        <p>
-            {{vm.userInfo.name}} @ {{vm.userInfo.region}}</div>
-        </p>
     <div class="row" id="recent-games">
          <h2>Recent games</h2>
 		<!--little boxes for each game-->
 		<div  ng-class="{'has-win build-won':match.stats.win,'has-loss build-lost':!match.stats.win}"
-		 ng-repeat="match in vm.recentMatches">
+		 ng-repeat="match in vm.recentMatches.data">
             <p>
                 {{match.stats.win?'win':'loss'}}
             </p>
@@ -16,60 +17,78 @@
                 {{match.stats.championsKilled||0}}/{{match.stats.numDeaths||0}}/{{match.stats.assists||0}}
             </p>
 		</div>
-        <awesome-errorbox ng-if="vm.errors.recentMatches" message="{{vm.errors.message}}" fetch-function="fetchRecentMatches()"></awesome-errorbox>
+        <awesome-errorbox ng-if="vm.recentMatches.hasError" message="'Error fetching data'" fetch-function="vm.recentMatches.fetch()"></awesome-errorbox>
     </div>
 
     <div class="row" id="mostPlayedChampions">
         <h2>Most played champs</h2>
-        <div class="bar col-xs-4" ng-if="$index!=0 && !vm.errors.mostPlayedChampions" ng-repeat="champ in vm.mostPlayedChampions">
-            <div class="row" ng-if="!vm.errors.mostPlayedChampions">
-                <div class="col-xs-2 col-xs-offset-2 most-champion-bar" gradientbar
-                 positive-value="{{champ.stats.totalSessionsPlayed}}" negative-value="{{vm.mostPlayedChampions[0].stats.totalSessionsPlayed-champ.stats.totalSessionsPlayed}}"
-                color-positive="yellow"
-                color-negative="gray">
-                </div>
+        <div class="row">
+            <div class="bar col-xs-4" ng-if="$index!=0 && ! vm.mostPlayedChampions.hasError" ng-repeat="champ in vm.mostPlayedChampions.data">
+                <div class="row">
+                    <div class="col-xs-2 col-xs-offset-2 most-champion-bar" gradientbar
+                     positive-value="{{champ.stats.totalSessionsPlayed}}" negative-value="{{vm.mostPlayedChampions.data[0].stats.totalSessionsPlayed-champ.stats.totalSessionsPlayed}}"
+                    color-positive="yellow"
+                    color-negative="gray">
+                    </div>
 
-                <div class="col-xs-4 most-champion-picture">
-                     <aws-riot type="champion-loading-pic" name="{{vm.championList[champ.id]}}"></aws-riot>
-                </div>
+                    <div class="col-xs-4 most-champion-picture">
+                         <aws-riot type="champion-loading-pic" name="{{vm.championList[champ.id]}}"></aws-riot>
+                    </div>
 
-                <div class="col-xs-2 most-champion-bar" gradientbar 
-                positive-value="{{champ.stats.totalSessionsWon}}" negative-value="{{champ.stats.totalSessionsPlayed-champ.stats.totalSessionsWon}}"
-                color-positive="rgba(0,255,0,1)"
-                color-negative="rgba(255,0,0,1)">
+                    <div class="col-xs-2 most-champion-bar" gradientbar 
+                    positive-value="{{champ.stats.totalSessionsWon}}" negative-value="{{champ.stats.totalSessionsPlayed-champ.stats.totalSessionsWon}}"
+                    color-positive="rgba(0,255,0,1)"
+                    color-negative="rgba(255,0,0,1)">
+                    </div>
                 </div>
             </div>
         </div>
-        <awesome-errorbox ng-if="vm.errors.mostPlayedChampions" message="{{vm.errors.message}}" fetch-function="fetchMostPlayedChampions()"></awesome-errorbox>
-    </div>
-
-    <div class="row" id="miningFunctionality">
-        <h3>Data mining-fetch good and bad then classifies you as one of them</h3>
-        <div id="yoloMine" mining-state="miningState">
-            <button ng-show="!vm.miningData && !mining" ng-click="vm.miningFunctionality()">good OR bad?</button>
-            <p ng-show="vm.miningData">verdict: {{vm.miningData.result.class}} <br> ({{vm.miningData.miningResult}}%)</p>
+        <div class="row">
+             <div id="overallStats" ng-if="vm.mostPlayedChampions.data">
+                 <h3 class="aws-content-header">Overall stats</h2>
+                <p class="aws-content-body"> 
+                    kills: {{vm.mostPlayedChampions.data[0].stats.totalChampionKills}}<br>
+                    deaths: {{vm.mostPlayedChampions.data[0].stats.totalDeathsPerSession}}<br>
+                    assists: {{vm.mostPlayedChampions.data[0].stats.totalAssists}}<br>
+                    double kills: {{vm.mostPlayedChampions.data[0].stats.totalDoubleKills}}<br>
+                    triple kills: {{vm.mostPlayedChampions.data[0].stats.totalTripleKills}}<br>
+                    quadra kills: {{vm.mostPlayedChampions.data[0].stats.totalQuadraKills}}<br>
+                    penta kills: {{vm.mostPlayedChampions.data[0].stats.totalPentaKills}}<br>
+                </p>
+            </div>
+            
+            <div id="classifierPointer">
+                <i class="fa fa-long-arrow-right fa-3x"></i>
+                <p>based on k/d/a</p>
+            </div>
+            
+            <div id="classifier" mining-state="vm.bayesClassifier.isFetching">
+                <div id="wheel" ng-class="{'spinwheel':vm.bayesClassifier.isFetching}">
+                    <button ng-show="!vm.bayesClassifier.data && !vm.bayesClassifier.isFetching" ng-click="vm.bayesClassifier.fetch()">good OR bad?</button>
+                    <p ng-show="vm.bayesClassifier.data">verdict: {{vm.bayesClassifier.data.result.class}} <br> ({{vm.bayesClassifier.data.miningResult}}%)</p>
+                </div>
+            </div>
         </div>
+        <awesome-errorbox ng-if=" vm.mostPlayedChampions.hasError" message="'Error fetching data'" fetch-function="vm.mostPlayedChampions.fetch()"></awesome-errorbox>
     </div>
 
 
-    <div class="row" id="awesomeFunctionality">
-        <h3>Want to get better? Check out hot picks in your league</h3>
-        <button class="btn imba-btn imba-btn-block" ng-click="vm.awesomeFunctionality()">hot picks</button>
-       
+
+    <h2 class="aws-content-header">Hot picks in your league</h2>
+    <button class="btn imba-btn imba-btn-block" ng-if="!vm.hotPicks.isFetching&&!vm.hotPicks.data" ng-click="vm.hotPicks.fetch()">hot picks</button>
+    <div id="hotPicks"  class="row aws-content-body" ng-if="vm.hotPicks.data&&!vm.hotPicks.hasError">
         <button class="btn btn-default" ng-click="isCollapsed = !isCollapsed">
             info based on top summoners in your league
         </button>
         <div collapse="isCollapsed">
             <div class="well well-lg">
-                <p class="hot-picks-summoner" ng-repeat="summoner in vm.awesomeData.players">{{summoner.playerOrTeamName}},   wins:{{summoner.wins}} - losses:{{summoner.losses}}</p>
+                <p class="hot-picks-summoner" ng-repeat="summoner in vm.hotPicks.data.players">{{summoner.playerOrTeamName}},   wins:{{summoner.wins}} - losses:{{summoner.losses}}</p>
             </div> 
         </div>
 
-        <div class="row" ng-repeat="champ in vm.awesomeData.champions">
-             <div class="col-xs-4 most-champion-picture">
-                 <aws-riot type="champion-loading-pic" name="{{vm.championList[champ.id]}}"></aws-riot>
-            </div>
-            <div class="col-xs-4 hot-picks-data">
+        <div class="row hot-pick" ng-repeat="champ in vm.hotPicks.data.champions">
+            <aws-riot type="champion-loading-pic" name="{{vm.championList[champ.id]}}"></aws-riot>
+            <div class="hot-pick-data">
                 <p>Occurencies: {{champ.count}}</p>
                 <p>K/D/A: {{champ.kills/champ.count|number:1}}/{{champ.deaths/champ.count|number:1}}/{{champ.assists/champ.count|number:1}}</p>
             </div>

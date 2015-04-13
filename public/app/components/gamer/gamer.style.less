@@ -35,6 +35,22 @@
 #mostPlayedChampions{
     background-color:rgba(192,192,192,0.3);
     border-radius:10px;
+    #overallStats{
+        float: left;
+        margin-left: 20px;
+        p{
+            text-align: left;
+            font-size: 14px;
+        }
+    }
+    #classifierPointer{
+        float:left;
+        height: 200px;
+        width: 30%;
+        i{
+            margin-top: 50%;
+        }
+    }
 }
 #mostPlayedChampions>h2,#recent-games>h2{
     margin:0px;
@@ -56,80 +72,78 @@
     height: 100%;
     width: 100%;
 }
-#mostPlayedChampions>div{
-    margin: 0 auto;
+
+
+
+.hot-picks-summoner{
+    background-color:rgba(14,14,20,0.5);
+}
+#hotPicks{
+    .hot-pick{
+        height: 100px;
+        aws-riot[type="champion-loading-pic"]{
+            height: 100%;
+            width: 100px;
+            display: inline-block;
+        }
+        .hot-pick-data{
+            display: inline-block;
+            p{
+                font-size:14px;
+                text-align: left;
+                margin: 0px;
+                padding: 0px;
+            }
+        }
+    }
 }
 
-
-
-#awesomeFunctionality img{
-    height: 100px;
-}
-
-
-#yoloMine{
-    margin: 0px;
-    padding: 0px;
-    padding-top: 40px;
-    height: 200px;
-    width: 200px;
-    margin-left: 33%;
+#classifier{
     position: relative;
-    overflow: hidden;
-    background: url(../img/psGod/INNER.png),url(../img/psGod/OUTER.png);
-    background-size: contain;
+    float: left;
+    z-index: 1;
+    #wheel{
+        display: inline-block;    
+        height: 200px;
+        width: 200px;
+        padding: 40px;
+        position: relative;
+        background: url(../img/psGod/INNER.png),url(../img/psGod/OUTER.png);
+        background-size: contain,80%;
+        background-position: 0,20px;
+        background-repeat: no-repeat;
+        &.spinwheel{
+            background: url(../img/psGod/INNER.png);
+            background-size: contain;
+            background-position: 0;
+        }
+        button,p{
+            background: #222222;
+            border:3px ridge #c3c3c3;
+            border-radius: 50%;
+            height: 100%;
+            width:100%;
+        }
+    }
 }
-/*#yoloMine:before
+
+.spinwheel:before
 {
     content: "";
     position: absolute;
     z-index: -1;
     margin: 0px;
+    margin-top: -40px;
+    //margin-left: -40px;
+    margin-left: -100px;
     padding: 0px;
     height: 200px;
     width: 200px;
-    background: url(../img/psGod/INNER.png),url(../img/psGod/OUTER.png);
-    background-size: contain;
-    -webkit-animation:load 1.7s infinite ease;
+    background: url(../img/psGod/OUTER.png);
+    background-size: 80%;
+    background-position: 20px 20px;
+    background-repeat: no-repeat;
+    -webkit-animation:enlarge 1.7s infinite linear,rotation 1.7s infinite ease;
 }
 
-@-webkit-keyframes load {
-  0% {
-    -webkit-transform: rotate(0deg);
-    transform: rotate(0deg);
-  }
-  100% {
-    -webkit-transform: rotate(360deg);
-    transform: rotate(360deg);
-  }
-}*/
 
-
-#yoloMine>button{
-    background: #222222;
-    border:3px ridge #c3c3c3;
-    border-radius: 50%;
-    height: 120px;
-    width:120px;
-  
-}
-#yoloMine>p{
-
-    background: #222222;
-    border:3px ridge #c3c3c3;
-    border-radius: 50%;
-    height: 120px;
-    width:120px;
-    padding-top: 20px;
-    margin-left: 40px;
-}
-
-.hot-picks-data{
-    p{
-        font-size:14px;
-        text-align: left;
-    }
-}
-.hot-picks-summoner{
-    background-color:rgba(14,14,20,0.5);
-}

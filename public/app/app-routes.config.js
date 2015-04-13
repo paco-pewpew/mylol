@@ -19,9 +19,13 @@
 					'resBindInfo':resolveUserBindInformation,
 					'resStaticData':resolveRiotStaticData,
 				},
-				templateUrl:'app/components/main/main.view.html',
-				controller:'MainCtrl',
-				controllerAs:'vm'
+				views:{
+					'main':{
+						templateUrl:'app/components/main/main.view.html',
+						controller:'MainCtrl',
+						controllerAs:'vm'		
+					}
+				}
 			})
 
 			.state('home',{
@@ -32,13 +36,13 @@
 						templateUrl:'app/components/frontpage/frontpage.view.html',
 						controller:'FrontpageCtrl',
 						controllerAs:'vm'
-					},
-					'sideBar':{
-						templateUrl:'app/components/sidebar/sidebarView.html',
+					}/*,
+					'helper':{
+						templateUrl:'app/components/helper/helper.view.html',
 						controller:['$scope',function($scope){
-							$scope.sidebarData='Here you can view snippets of your templates, create new ones and more to come';
+							$scope.helperData='Here you can view snippets of your templates, create new ones and more to come';
 						}]
-					}
+					}*/
 				}
 			})
 			.state('gamer',{
@@ -50,10 +54,10 @@
 						controller:'GamerCtrl',
 						controllerAs:'vm'
 					},
-					'sideBar':{
-						templateUrl:'app/components/sidebar/sidebarView.html',
+					'helper':{
+						templateUrl:'app/components/helper/helper.view.html',
 						controller:['$scope',function($scope){
-							$scope.sidebarData='Here you can view data of your bound summoner: recent games, most played champions and more to cone';
+							$scope.helperData='Here you can view data of your bound summoner: recent games, most played champions and more to cone';
 						}]
 					}
 				}
@@ -71,10 +75,10 @@
 						controller:'TemplateCtrl',
 						controllerAs:'vm'
 					},
-					'sideBar':{
-						templateUrl:'app/components/sidebar/sidebarView.html',
+					'helper':{
+						templateUrl:'app/components/helper/helper.view.html',
 						controller:['$scope',function($scope){
-							$scope.sidebarData='Here you can make your templates for specific champion';
+							$scope.helperData='Here you can make your templates for specific champion';
 						}]
 					}
 				}
@@ -84,7 +88,11 @@
 
 			.state('account',{
 				url:'/account',
-				templateUrl:'app/components/account/account.view.html'
+				views:{
+					'main':{
+						templateUrl:'app/components/account/account.view.html'
+					}
+				}
 			})
 			//signup form in the acccount page
 			.state('account.signup',{

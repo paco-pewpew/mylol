@@ -1,9 +1,7 @@
+<div class="aws-page-header">
+    <p>{{vm.templateResolved.name}} @ {{vm.templateResolved.champion}}</p>
+</div>
 <div class="jumbotron text-center aws-content-body" back-img="{{vm.templateResolved.champion}}">
-    <div class="aws-page-header">
-        <p>Template: {{vm.templateResolved.name}}</p>
-        <p>Champion: {{vm.templateResolved.champion}}</p>
-    </div>
-
     <aws-template template="vm.templateResolved" ng-if="vm.templateStatus.set"></aws-template>
 
     <div id="templateStats" class="aws-content-body" ng-if="vm.templateStatus.set">
