@@ -1,27 +1,29 @@
 <div class="row">
-    <div class="form-group col-lg-10 col-lg-offset-1" ng-class="{'has-error':vm.errorStack.name}">
-        <label for="name">Name</label>
-        <input type="text" name="name" class="form-control" ng-pattern="vm.patterns.name" ng-model="vm.signupForm.name">
-        <span class="help-block" ng-show="signupForm.name.$invalid">between 4 and 16 characters(a-z,0-9,_,-)</span>
-        <span class="help-block" ng-show="signupForm.name.$pristine">{{vm.errorStack.name}}</span>
-    </div>
-    <div class="form-group col-lg-10 col-lg-offset-1" ng-class="{'has-error':vm.errorStack.email}">
-        <label for="email">Email</label>
-        <input type="email" class="form-control" name="email" ng-pattern="vm.patterns.email" ng-model="vm.signupForm.email">
-        <span class="help-block" ng-show="signupForm.email.$invalid">may not be valid email</span>
-        <span class="help-block" ng-show="signupForm.email.$pristine">{{vm.errorStack.email}}</span>
-    </div>
+  
+  <div class="form-group col-lg-10 col-lg-offset-1" ng-class="{'has-error':vm.errorStack.name}">
+    <label for="name">Name</label>
+    <input type="text" name="name" class="form-control" ng-pattern="vm.patterns.name" ng-model="vm.signupForm.name">
+    <span class="help-block" ng-show="signupForm.name.$invalid">between 4 and 16 characters(a-z,0-9,_,-)</span>
+    <span class="help-block" ng-show="signupForm.name.$pristine">{{vm.errorStack.name}}</span>
+  </div>
 
-    <div class="form-group col-lg-10 col-lg-offset-1" ng-class="{'has-error':vm.errorStack.password}">
-        <label for="password">Password</label>
-        <input type="password" name="password" class="form-control" ng-pattern="vm.patterns.password" ng-model="vm.signupForm.password">
-        <span class="help-block" ng-show="signupForm.password.$invalid">between 4 and 16 characters(a-z,0-9,_,-) with at least one number and letter</span>
-        <span class="help-block" ng-show="signupForm.password.$pristine">{{vm.errorStack.password}}</span>
-    </div>
+  <div class="form-group col-lg-10 col-lg-offset-1" ng-class="{'has-error':vm.errorStack.email}">
+    <label for="email">Email</label>
+    <input type="email" class="form-control" name="email" ng-pattern="vm.patterns.email" ng-model="vm.signupForm.email">
+    <span class="help-block" ng-show="signupForm.email.$invalid">may not be valid email</span>
+    <span class="help-block" ng-show="signupForm.email.$pristine">{{vm.errorStack.email}}</span>
+  </div>
 
-    <div class="col-xs-6 col-xs-offset-3">
-        <a ui-sref="^.bindlol" class="btn btn-block btn-info">
-        Next Section <span class="glyphicon glyphicon-circle-arrow-right"></span>
-        </a>
-    </div>
+  <div class="form-group col-lg-10 col-lg-offset-1" ng-class="{'has-error':vm.errorStack.password}">
+    <label for="password">Password</label>
+    <input type="password" name="password" class="form-control" ng-pattern="vm.patterns.password" ng-model="vm.signupForm.password">
+    <span class="help-block" ng-show="signupForm.password.$invalid">between 4 and 16 characters(a-z,0-9,_,-) with at least one number and letter</span>
+    <span class="help-block" ng-show="signupForm.password.$pristine">{{vm.errorStack.password}}</span>
+  </div>
+
+  <div class="col-xs-6 col-xs-offset-3">
+    <a ui-sref="^.bindlol" class="btn btn-block btn-info">
+      Next Section <span class="glyphicon glyphicon-circle-arrow-right"></span>
+    </a>
+  </div>
 </div>

@@ -25,3 +25,47 @@ aws-slider {
 	    opacity:1;
 	}
 }
+
+
+.templateOnFocus{
+  transform: none;    
+  transform: perspective(500px) rotateY(0deg) translate3d(0px,0px,0px);    
+  margin: 0px 50px 0px 50px;
+  box-shadow: rgba(123, 242, 248,1) 0px 0px 6px 0px;
+}
+.templateOnFocus-add,.templateOnFocus-remove{
+  transition:0.5s linear all;
+}
+
+.templateOnFocus-add,
+.templateOnFocus-remove.templateOnFocus-remove-active{
+ transform: perspective(500px) rotateY(50deg) translate3d(50px,0px,0px);
+ margin:0px 0px 0px -50px;
+}
+.templateOnFocus-add.templateOnFocus-add-active,
+.templateOnFocus-remove{
+  transform: perspective(500px) rotateY(0deg) translate3d(0px,0px,0px);
+  margin:0px 50px 0px 50px; 
+}
+
+aws-template.ng-leave{
+  animation:1s fadeOutRightBig;
+}
+
+[ui-view].ng-enter aws-template,
+aws-template.ng-enter,aws-template.ng-move{
+  animation:1s awesomeBounceInLeft;     
+}
+@keyframes awesomeBounceInLeft {
+  0%, 60%, 75%, 90%, 100% {
+    transition-timing-function: cubic-bezier(1.000, -0.530, 0.405, 1.425);
+  }
+  0% {
+    transform: translate(-300px, 0);
+    opacity:0;
+  }
+  100% {
+    transform: perspective(500px) rotateY(50deg) translate(50px,0px);
+    opacity: 1;
+  }
+}

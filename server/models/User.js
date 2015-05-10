@@ -1,37 +1,37 @@
 'use strict';
-var mongoose=require('mongoose');
-var bcrypt   = require('bcrypt-nodejs');
+var mongoose = require('mongoose');
+var bcrypt = require('bcrypt-nodejs');
 
-var userSchema=mongoose.Schema({
-	local:{
-		name:{
-			type:String,
-			required:true,
-			unique:true
+var userSchema = mongoose.Schema({
+	local: {
+		name: {
+			type: String,
+			required: true,
+			unique: true
 		},
-		email:{
-			type:String,
-			required:true,
-			unique:true
+		email: {
+			type: String,
+			required: true,
+			unique: true
 		},
-		password:{
-			type:String,
-			required:true
+		password: {
+			type: String,
+			required: true
 
 		}
 	},
-	riot:{
-		lolid:{
+	riot: {
+		lolid: {
 			type: String,
 			required: true
 		},
-		lolacc:{
+		lolacc: {
 			type: String,
 			required: true
 		},
-		region:{
+		region: {
 			type: String,
-			required: true
+			required:  true
 		}
 	}
 });
@@ -45,5 +45,5 @@ userSchema.methods.validPassword = function(password) {
 };
 
 // create the model for users and expose it to our app
-var User=mongoose.model('User',userSchema);
+var User=mongoose.model('User', userSchema);
 module.exports = User;

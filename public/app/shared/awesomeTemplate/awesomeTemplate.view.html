@@ -1,3 +1,7 @@
-<a ui-sref="template({template_id:championTemplate._id})"><span class="fa fa-user"></span>{{championTemplate.name}}</a>
-<aws-riot type="champion-loading-pic" name="{{championTemplate.champion}}"></aws-riot>
-<i class="fa fa-times" ng-click="deleteFunction(championTemplate)">delete</i>
+<a ui-sref="template({template_id:template._id})">
+	<span class="fa fa-user"></span>{{template.name}}
+</a>
+
+<aws-riot type="champion-loading-pic" name="{{template.champion}}"></aws-riot>
+
+<i class="fa fa-times" ng-click="deleteFunction(template)">delete</i>

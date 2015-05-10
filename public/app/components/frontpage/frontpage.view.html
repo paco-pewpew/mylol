@@ -1,22 +1,23 @@
 <div class="aws-page-header alone">
-    <p>
-        templates slider
-    </p>
+  <p>
+    templates slider
+  </p>
 </div>
 
 <div id="templates-slider" class="row">
-        <aws-slider content="vm.templates"></aws-slider>
+  <aws-slider content="vm.templates"></aws-slider>
 </div>
 
 <div id="champ-form" class="row">
-    <div class="col-sm-8 col-sm-offset-2 text-center">
-        <form>
-            <div class="form-group">
-                <input type="text" class="form-control input-lg text-center"
-                placeholder="name of template" ng-model="vm.formData.name">
-            </div>
-            <button type="submit" class="btn imba-btn imba-btn-block" 
-            ng-click="vm.createChamp()">Add template</button>
-        </form>
-    </div>
+  <div class="col-sm-8 col-sm-offset-2 text-center">
+    <form>
+      <div class="form-group">
+        <input type="text" class="form-control input-lg text-center"
+        placeholder="name of template" ng-model="vm.formData.name">
+      </div>
+      <button type="submit" class="btn imba-btn imba-btn-block" ng-click="vm.createTemplate()">
+        Add template
+      </button>
+    </form>
+  </div>
 </div>

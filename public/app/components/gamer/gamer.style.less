@@ -1,149 +1,148 @@
 /*RECENT GAMES*/
 .has-win{
-    background: rgb(0,32,0);
+  background: rgb(0,32,0);
 }
 .has-loss{
-    background: rgb(32,0,0);
+  background: rgb(32,0,0);
 }
 #recent-games{
-    padding: 0px;
-    background-color:rgba(0,123,123,0.3);
-    border-radius:10px;
-    margin-top: 100px;     
+  padding: 0px;
+  background-color: rgba(0,123,123,0.3);
+  border-radius: 10px;
+  margin-top: 100px;     
 }
 #recent-games>div{
-    display: inline-block;
-    height: 100px;
-    width:10%;
-    /*border:3px ridge #212121;*/
+  display: inline-block;
+  height: 100px;
+  width: 10%;
 }
 #recent-games>div>p{
-    padding: 0px;
-    margin: 0px;
-    font-size:12px;
+  padding: 0px;
+  margin: 0px;
+  font-size: 12px;
 }
 #recent-games img{
-    width: 90%;
+  width: 90%;
 }
 #recent-games aws-riot{
-    width: 90%;
-    height: 60%;
-    margin-left: 5%;
-    margin-top: 5%;
+  width: 90%;
+  height: 60%;
+  margin-left: 5%;
+  margin-top: 5%;
 }
 
 #mostPlayedChampions{
-    background-color:rgba(192,192,192,0.3);
-    border-radius:10px;
-    #overallStats{
-        float: left;
-        margin-left: 20px;
-        p{
-            text-align: left;
-            font-size: 14px;
-        }
+  background-color: rgba(192,192,192,0.3);
+  border-radius: 10px;
+  #overallStats{
+    float: left;
+    margin-left: 20px;
+    p{
+      text-align: left;
+      font-size: 14px;
     }
-    #classifierPointer{
-        float:left;
-        height: 200px;
-        width: 30%;
-        i{
-            margin-top: 50%;
-        }
+  }
+  #classifierPointer{
+    float: left;
+    height: 200px;
+    width: 30%;
+    i{
+      margin-top: 50%;
     }
+  }
 }
-#mostPlayedChampions>h2,#recent-games>h2{
-    margin:0px;
-    background-color:rgba(42,42,42,0.5);
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
+#mostPlayedChampions>h2, #recent-games>h2{
+  margin: 0px;
+  background-color: rgba(42,42,42,0.5);
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }
 #mostPlayedChampions div[gradientbar]{
-    padding:0px;
-    height: 100px;
+  padding: 0px;
+  height: 100px;
 }
 .most-champion-picture{
-    padding:0px;
-    margin: 0px;
-    height: 100px;
-    background: black;
+  padding: 0px;
+  margin: 0px;
+  height: 100px;
+  background: black;
 }
 .most-champion-picture aws-riot{
-    height: 100%;
-    width: 100%;
+  height: 100%;
+  width: 100%;
 }
 
 
 
 .hot-picks-summoner{
-    background-color:rgba(14,14,20,0.5);
+  background-color:rgba(14,14,20,0.5);
 }
+
 #hotPicks{
-    .hot-pick{
-        height: 100px;
-        aws-riot[type="champion-loading-pic"]{
-            height: 100%;
-            width: 100px;
-            display: inline-block;
-        }
-        .hot-pick-data{
-            display: inline-block;
-            p{
-                font-size:14px;
-                text-align: left;
-                margin: 0px;
-                padding: 0px;
-            }
-        }
+  .hot-pick{
+    height: 100px;
+    aws-riot[type="champion-loading-pic"]{
+      height: 100%;
+      width: 100px;
+      display: inline-block;
     }
+    .hot-pick-data{
+      display: inline-block;
+      p{
+        font-size:14px;
+        text-align: left;
+        margin: 0px;
+        padding: 0px;
+      }
+    }
+  }
 }
 
 #classifier{
+  position: relative;
+  float: left;
+  z-index: 1;
+  #wheel{
+    display: inline-block;    
+    height: 200px;
+    width: 200px;
+    padding: 40px;
     position: relative;
-    float: left;
-    z-index: 1;
-    #wheel{
-        display: inline-block;    
-        height: 200px;
-        width: 200px;
-        padding: 40px;
-        position: relative;
-        background: url(../img/psGod/INNER.png),url(../img/psGod/OUTER.png);
-        background-size: contain,80%;
-        background-position: 0,20px;
-        background-repeat: no-repeat;
-        &.spinwheel{
-            background: url(../img/psGod/INNER.png);
-            background-size: contain;
-            background-position: 0;
-        }
-        button,p{
-            background: #222222;
-            border:3px ridge #c3c3c3;
-            border-radius: 50%;
-            height: 100%;
-            width:100%;
-        }
+    background: url(../img/psGod/INNER.png), url(../img/psGod/OUTER.png);
+    background-size: contain,80%;
+    background-position: 0,20px;
+    background-repeat: no-repeat;
+    &.spinwheel{
+      background: url(../img/psGod/INNER.png);
+      background-size: contain;
+      background-position: 0;
     }
+    button,p{
+      background: #222222;
+      border: 3px ridge #c3c3c3;
+      border-radius: 50%;
+      height: 100%;
+      width: 100%;
+    }
+  }
 }
 
 .spinwheel:before
 {
-    content: "";
-    position: absolute;
-    z-index: -1;
-    margin: 0px;
-    margin-top: -40px;
-    //margin-left: -40px;
-    margin-left: -100px;
-    padding: 0px;
-    height: 200px;
-    width: 200px;
-    background: url(../img/psGod/OUTER.png);
-    background-size: 80%;
-    background-position: 20px 20px;
-    background-repeat: no-repeat;
-    -webkit-animation:enlarge 1.7s infinite linear,rotation 1.7s infinite ease;
+  content: "";
+  position: absolute;
+  z-index: -1;
+  margin: 0px;
+  margin-top: -40px;
+  margin-left: -100px;
+  padding: 0px;
+  height: 200px;
+  width: 200px;
+  background: url(../img/psGod/OUTER.png);
+  background-size: 80%;
+  background-position: 20px 20px;
+  background-repeat: no-repeat;
+  animation:enlarge 1.7s infinite linear,rotation 1.7s infinite ease;
 }
 
 

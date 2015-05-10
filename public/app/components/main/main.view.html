@@ -1,34 +1,38 @@
 <div id="header">
-    <a id="logo" ui-sref="home"></a>
-    <ul id="menu">
-        <li>
-            <a ui-sref-active="active" ui-sref="home"><span class="menu-icon"></span>templates</a>
-        </li>
-        <li>
-            <a ui-sref-active="active" ui-sref="gamer"><span class="menu-icon"></span>gamer</a>
-        </li>
-    </ul>
+  <a id="logo" ui-sref="home"></a>
+  <ul id="menu">
+    <li>
+        <a ui-sref-active="active" ui-sref="home"><span class="menu-icon"></span>templates</a>
+    </li>
+    <li>
+        <a ui-sref-active="active" ui-sref="gamer"><span class="menu-icon"></span>gamer</a>
+    </li>
+</ul>
 </div>
 
 <div class="container-fluid">
-    <div id="sidebar">
-        <i class="fa fa-sign-out" ng-click="vm.logoutUser()"></i>
-        <a ui-sref="gamer">{{vm.boundSummoner.local}}</a>
-        
-        <aws-snippet summoner="{{vm.boundSummoner}}"></aws-snippet>
+  
+  <div id="sidebar">
+    <i class="fa fa-sign-out" ng-click="vm.logoutUser()"></i>
+    <a ui-sref="gamer">{{vm.boundSummoner.local}}</a>
 
-        <div class="league-info">
-            <img ng-src="assets/img/tierIcons/{{vm.boundSummoner.leagueInfo.tier}}_{{vm.boundSummoner.leagueInfo.entries[0].division}}.png">
-            <p>
-                {{vm.boundSummoner.leagueInfo.name}},{{vm.boundSummoner.leagueInfo.tier}} {{vm.boundSummoner.leagueInfo.entries[0].division}}
-            </p>
-        </div>
+    <aws-snippet summoner="{{vm.boundSummoner}}"></aws-snippet>
 
-        <div gradientbar horizontal="true" 
-        positive-value="{{vm.boundSummoner.leagueInfo.entries[0].wins}}" negative-value="{{vm.boundSummoner.leagueInfo.entries[0].losses}}" color-positive="rgba(91, 5, 5, 0.8)" color-negative="rgba(5, 91, 5, 0.8)">
-        </div>
+    <div class="league-info">
+      <img ng-src="assets/img/tierIcons/{{vm.boundSummoner.leagueInfo.tier}}_{{vm.boundSummoner.leagueInfo.entries[0].division}}.png">
+      <p>
+        {{vm.boundSummoner.leagueInfo.name}},{{vm.boundSummoner.leagueInfo.tier}} {{vm.boundSummoner.leagueInfo.entries[0].division}}
+      </p>
     </div>
-    <div ui-view="centralContainer" class="ui-view-container"></div>
-    <div ui-view="helper" class="ui-view-container"></div>
+
+    <div gradientbar horizontal="true" 
+    positive-value="{{vm.boundSummoner.leagueInfo.entries[0].wins}}" negative-value="{{vm.boundSummoner.leagueInfo.entries[0].losses}}" color-positive="rgba(91, 5, 5, 0.8)" color-negative="rgba(5, 91, 5, 0.8)">
+    </div>
     
+  </div>
+  
+  <div ui-view="centralContainer" class="ui-view-container"></div>
+  
+  <div ui-view="helper" class="ui-view-container"></div>
+
 </div>

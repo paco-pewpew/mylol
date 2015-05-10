@@ -1,6 +1,9 @@
-'use strict';
-var dbUrl='your-remote-db';
+(function() {
+  'use strict';
 
-module.exports={
-	url:dbUrl
-};
+	var dbUrl = 'link-to-mongoDB';
+
+	module.exports = {
+		url: dbUrl
+	};
+})();

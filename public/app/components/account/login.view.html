@@ -1,24 +1,28 @@
 <div class="row">
 	<div class="col-sm-6 col-sm-offset-3">
 		<div id="form-container">
+			
 			<div class="text-center aws-content-header">
 				<h2>Log in</h2>
 			</div>
 
-			<form id="signin-form" class="aws-content-body" ng-submit="vm.processLoginForm()" novalidate>
-				<div class="form-group col-lg-10 col-lg-offset-1" ng-class="{'has-error':vm.errorName}">
+			<form id="signin-form" class="aws-content-body" novalidate>
+				
+				<div class="form-group col-lg-10 col-lg-offset-1" ng-class="{'has-error':vm.errorStack.name}">
 					<label for="name">Name</label>
 					<input type="text" name="name" class="form-control" placeholder="username" ng-model="vm.loginForm.name" ng-minlength="3" ng-maxlength="12" required>
-					<span class="help-block">{{vm.errorName}}</span>
+					<span class="help-block">{{vm.errorStack.name}}</span>
 				</div>
-				<div class="form-group col-lg-10 col-lg-offset-1"  ng-class="{'has-error':errorPassword}">
+
+				<div class="form-group col-lg-10 col-lg-offset-1"  ng-class="{'has-error':vm.errorStack.password}">
 					<label for="password">Password</label>
 					<input type="password" name="password" class="form-control" placeholder="password" ng-model="vm.loginForm.password" required>
-					<span class="help-block">{{vm.errorPassword}}</span>
+					<span class="help-block">{{vm.errorStack.password}}</span>
 				</div>
-				<button type="submit" class="btn imba-btn imba-btn-block">
-			        <span class="glyphicon glyphicon-flash"></span> Login
-			    </button>
+
+				<button type="submit" class="btn imba-btn imba-btn-block" ng-click="vm.processLoginForm()">
+			    <span class="glyphicon glyphicon-flash"></span> Login
+			  </button>
 			</form>
 		</div>
 	</div>
